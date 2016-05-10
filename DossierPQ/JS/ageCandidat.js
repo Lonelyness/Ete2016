@@ -72,7 +72,7 @@ var bars = d3.select("svg").selectAll("rect")
 					})
 				.attr("y", margin)
 				.attr("fill", function(d,i){
-					return d3.hsl(200+i*7,1,.5);
+					return d3.hsl(200+20*Math.pow(-1,i),1,.5);
 				})
 				.attr("opacity", .3)
 				.attr("stroke", "black");
