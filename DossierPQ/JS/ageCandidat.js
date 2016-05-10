@@ -19,7 +19,8 @@ var tip = d3.tip()
 		var temp = " : ";
 		if (d.Elu==1)
 			temp = " élu : "	
-		return "Candidat" + temp + d.Candidats + "</br>" + d.Age + " ans.";
+		var text = "Candidat" + temp + d.Candidats + "</br>" + d.Age + " ans.";
+		return text + '<img src="../Photos/'+d.Candidats+'.jpg" style="width:100px;">';
 		});
 
 
