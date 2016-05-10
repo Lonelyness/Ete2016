@@ -10,28 +10,26 @@ svg.attr("width",largeurSVG) // largeur du graph
 			.attr("height", hauteurSVG);
 
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1zVvQWAuYnZbLtGs-yxANFTPUBUAquJ4Dek8OggY4bP4/pubhtml';
-
 			
-var line = d3.svg.line()
-    .x (function(d){return echelleLargeur(d.Année);})
-    .y (function(d){return echelleHauteur(d.Age);})
-	.interpolate("linear");
-
 var tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-10, 0])
 		.html(function(d,i) {
-		return "Age des chefs du Parti québécois";
+		return "Candidat : " + d.Candidats;
 		});
 
 
 function drawChart(data) {
-svg.append("path")
-	.attr("class","line")
-    .attr("d",line(data))
-    .attr("fill", "none")
-    .attr("stroke", "#3399FF")
-    .attr("stroke-width","1")
+	console.log(data);
+d3.select("svg").selectAll("circle")
+	.data(data)
+	.enter()
+	.append("circle")
+	.attr("class","circle")
+	.attr("cx", function(d,i){ console.log(d); return echelleLargeur(parseInt(d.Annee));})
+	.attr("cy", function(d,i){return echelleHauteur(d.Age);})
+    .attr("fill", "blue")
+    .attr("r","3")
 	.on('mouseover', tip.show)
 	.on('mouseout', tip.hide);
 };
@@ -51,7 +49,7 @@ renderSpreadsheetData();
 	
 var xAxis = d3.svg.axis()
 				.scale(echelleLargeur)
-				.ticks(8)
+				.ticks(0)
 				.orient("bottom");
 				
 var yAxis = d3.svg.axis()

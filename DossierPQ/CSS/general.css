@@ -10,7 +10,7 @@
 			font-family: sans-serif;
 			font-size: 12px;
 		}
-	.line:hover {
-			stroke: red ;
-			stroke-width : 5;
+	.circle:hover {
+			fill: red ;
+			r : 5;
 		}
