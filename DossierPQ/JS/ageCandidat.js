@@ -94,14 +94,39 @@ svg.append("path")
 				
 var xAxis = d3.svg.axis()
 				.scale(echelleLargeur)
-				.ticks(5)
+				.ticks(0)
 				.orient("bottom");
 				
 var yAxis = d3.svg.axis()
 			.scale(echelleHauteur)
 			.ticks(10, "s")
 			.orient("left");
-			  
+
+var etiquette = d3.select("svg").selectAll("text")
+			   .data(election)
+			   .enter()
+			   .append("text")
+			   .text(function(d) {
+				   return d ;
+			   })
+			   .attr("text-anchor", "middle")
+			   .attr("x", function(d) {
+				   if (d==2015)
+					   return echelleLargeur(d)-7;
+				   else if (d==2016)
+					   return echelleLargeur(d)+7
+					else return echelleLargeur(d);
+			   })
+			   .attr("y", function(d,i) {
+				   return (hauteurSVG - margin + 15);
+			   })
+			   .attr("font-family", "sans-serif")
+			   .attr("font-size", "11px")
+			   .attr("fill", "black");
+
+
+
+			
 svg.append("g")
 	.attr("class", "axis")
 	.attr("transform", "translate(0," + (hauteurSVG - margin) + ")")
