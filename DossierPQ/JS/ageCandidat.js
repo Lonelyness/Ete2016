@@ -47,7 +47,7 @@ d3.select("svg").selectAll("circle")
 	.on('mouseover', tip.show)
 	.on('mouseout', tip.hide);
 };
-
+ 
 function renderSpreadsheetData() {
     Tabletop.init( { key: public_spreadsheet_url,
                      callback: draw,
