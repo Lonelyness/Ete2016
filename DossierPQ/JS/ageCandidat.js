@@ -58,28 +58,23 @@ function draw(data, tabletop) {
 
 renderSpreadsheetData();
 
-var bars = d3.select("svg").selectAll("rect")
+var bars = d3.select("svg").selectAll("line")
 				.data(election)
 				.enter()
-				.append("rect")
-				.attr("class", "bar")
-				.attr("height", hauteurSVG-2*margin)
-				.attr("width", function(d,i){
-					if (i==8)
-						return 0;
-					return Math.abs(echelleLargeur(election[i])- echelleLargeur(election[i+1]));
-				})
-				.attr("x", function(d,i){
+				.append("line")
+				.attr("class", "separation")
+				.attr("y1", hauteurSVG-margin)
+				.attr("y2", margin)
+				.attr("x1", function(d,i){
 					return echelleLargeur(election[i]);
 					})
-				.attr("y", margin)
-				.attr("fill", function(d,i){
-					return d3.hsl(40+20*Math.pow(-1,i),1,.5);
-				})
-				.attr("opacity", .3)
+				.attr("x2", function(d,i){
+					return echelleLargeur(election[i]);
+					})
+				.attr("opacity", .7)
 				.attr("stroke", "black");
 
-var line = d3.svg.line()
+/*var line = d3.svg.line()
     .x (function(d){return echelleLargeur(d.x);})
     .y (function(d){return echelleHauteur(d.y);})
 	.interpolate("linear");				
@@ -89,7 +84,7 @@ svg.append("path")
     .attr("d",line(moyenne))
     .attr("fill", "none")
     .attr("stroke", "#3399FF")
-    .attr("stroke-width","1")
+    .attr("stroke-width","1");*/
 			
 				
 var xAxis = d3.svg.axis()
