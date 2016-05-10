@@ -8,7 +8,7 @@ var moyenne = [{x:1968,y:46},{x:1985,y:46},{x:1985,y:43},{x:1988,y:43},{x:1988,y
 
 var svg = d3.select("body")
 			.append("svg");
-svg.attr("width",largeurSVG) // largeur du graph
+svg.attr("width",largeurSVG) 
 			.attr("height", hauteurSVG);
 
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1zVvQWAuYnZbLtGs-yxANFTPUBUAquJ4Dek8OggY4bP4/pubhtml';
