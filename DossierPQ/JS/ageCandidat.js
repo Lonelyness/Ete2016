@@ -3,6 +3,7 @@ var hauteurSVG = 500;
 var margin = 50;
 var echelleLargeur = d3.scale.linear().domain([1968,2016]).range([margin,largeurSVG-margin]);
 var echelleHauteur = d3.scale.linear().domain([70,35]).range([margin,hauteurSVG-margin]);
+var election = [1968,1985,1988,1996,2001,2005,2007,2015,2016];
 
 var svg = d3.select("body")
 			.append("svg");
@@ -15,12 +16,14 @@ var tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-10, 0])
 		.html(function(d,i) {
-		return "Candidat : " + d.Candidats;
+		var temp = " : ";
+		if (d.Elu==1)
+			temp = " élu : "	
+		return "Candidat" + temp + d.Candidats + "</br>" + d.Age + " ans.";
 		});
 
 
 function drawChart(data) {
-	console.log(data);
 d3.select("svg").selectAll("circle")
 	.data(data)
 	.enter()
@@ -55,7 +58,7 @@ renderSpreadsheetData();
 	
 var xAxis = d3.svg.axis()
 				.scale(echelleLargeur)
-				.ticks(0)
+				.ticks(election)
 				.orient("bottom");
 				
 var yAxis = d3.svg.axis()
