@@ -29,7 +29,7 @@ d3.select("svg").selectAll("circle")
 	.enter()
 	.append("circle")
 	.attr("class","circle")
-	.attr("cx", function(d){return echelleLargeur(parseInt(d.Annee));})
+	.attr("cx", function(d){return echelleLargeur(d.Annee);})
 	.attr("cy", function(d){return echelleHauteur(d.Age);})
     .attr("fill", function(d){
 		if (d.Elu==1)
@@ -55,10 +55,32 @@ function draw(data, tabletop) {
 }
 
 renderSpreadsheetData();
-	
+
+var bars = d3.select("svg").selectAll("rect")
+				.data(election)
+				.enter()
+				.append("rect")
+				.attr("class", "bar")
+				.attr("height", hauteurSVG-2*margin)
+				.attr("width", function(d,i){
+					if (i==8)
+						return 0;
+					return Math.abs(echelleLargeur(election[i])- echelleLargeur(election[i+1]));
+				})
+				.attr("x", function(d,i){
+					return echelleLargeur(election[i]);
+					})
+				.attr("y", margin)
+				.attr("fill", function(d,i){
+					return d3.hsl(200+i*7,1,.5);
+				})
+				.attr("opacity", .3)
+				.attr("stroke", "black");
+
+
 var xAxis = d3.svg.axis()
 				.scale(echelleLargeur)
-				.ticks(election)
+				.ticks(5)
 				.orient("bottom");
 				
 var yAxis = d3.svg.axis()
