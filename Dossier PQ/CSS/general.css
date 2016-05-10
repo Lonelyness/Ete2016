@@ -1,0 +1,16 @@
+	body{margin:0px;}
+		.h,.v{stroke:black;stroke-dasharray:4 4;stroke-width:1;stroke-opacity:.5;}
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: black;
+			shape-rendering: crispEdges;
+		}
+		.axis text {
+			font-family: sans-serif;
+			font-size: 12px;
+		}
+	.line:hover {
+			stroke: red ;
+			stroke-width : 5;
+		}
