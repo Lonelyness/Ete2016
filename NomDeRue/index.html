@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+
+<meta charset="utf-8">
+<title>Tendance: Nom des Rues au Québec </title>
+<script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
+<script src="d3/tip.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<style>
+		body{margin:0px;}
+		.h,.v{stroke:black;stroke-dasharray:4 4;stroke-width:1;stroke-opacity:.5;}
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: black;
+			shape-rendering: crispEdges;
+		}
+		.axis text {
+			font-family: sans-serif;
+			font-size: 12px;
+		}
+		.bar:hover {
+			fill: red ;
+		}
+		
+		.bar.selected {
+			fill: red ;
+		}
+		.d3-tip {
+			line-height: 1;
+			  font-weight: bold;
+			  padding: 12px;
+			  background: rgba(0, 0, 0, 0.8);
+			  color: #fff;
+			  border-radius: 2px;
+			}
+						
+		.elt {
+			 position: relative;
+			 left:200px;
+			 margin:40px;
+			}
+</style>
+</head>
+<body>
+<div class="elt">
+				Votre Rue : <input type="text" name="fname" id="id1">
+	<button value="Valider" onclick="validation();">Valider</button>
+	<p> </p>	
+</div>
+<script type="text/javascript">
+
+			var pos = [0,0];
+			var tailleEcran = document.documentElement.clientWidth*0.9;
+			var hauteurSVG = 600; // hauteur du graph
+			var margin = 200; // marge horizontale
+			var marginH = 50; // marge verticale
+			var NomsImportants = ["Principale","Champlain","Félix-Leclerc","Jacques-Cartier","René-Lévesque","Cartier","Marie-Victorin","Émile-Nelligan,","Laporte","Marguerite-Bourgeoys","Bourassa","Jeanne-Mance"]
+			var nomDeRues = [];
+			var rangDesRues =[];
+			var occuDesRues = [];
+			var hauteurText = 50 // hauteur des noms Importants
+			var position = [];
+			var svg=d3.select("body").append("svg");
+			svg.attr("width",Math.min(tailleEcran,1400)) // largeur du graph
+				.attr("height", hauteurSVG);
+			
+			var rang = 0;
+			var occu = 0;
+			var tip;
+			var bars;
+			var echellePositionX;			
+				
+			//Indiquer le nom du fichier des données	
+			var csv = d3.csv("Final.csv", function(csv) {
+			
+			var barNumber = csv.length-1;
+			var echelleHauteur = d3.scale.linear().domain([0,400]).range([0,hauteurSVG-2*marginH]);
+			var echellePositionY = d3.scale.linear().domain([0,400]).range([hauteurSVG-marginH,marginH]);
+			echellePositionX = d3.scale.linear().domain([0,barNumber]).range([margin,svg.attr("width")-margin]);
+			
+			// Pour modifier la plage de couleur
+			var echelleCouleur = d3.scale.linear().domain([0,barNumber]).range([210,200]);
+			
+			// La boite qui apparait quand on passe la souris sur le graph ou quand on cherche une rue
+			tip = d3.tip()
+					  .attr('class', 'd3-tip')
+					  .offset([-10, 0])
+					  .html(function(d,i) {
+						return "<strong>Rue:</strong> <span style='color:red'>" + nomDeRues[i] + "</span> classée numéro <span style='color:red'>"+ rangDesRues[i] +"</span> (nommée "+ occuDesRues[i] +" fois)";
+					  });
+			
+			// Creation du graphique		  
+			bars = d3.select("svg").selectAll("rect")
+				.data(csv)
+				.enter()
+				.append("rect")
+				.attr("class", "bar")
+				.attr("height", function(d) {
+					if (d.Occurrences!=occu) {
+						rang = rang + 1;
+						occu = d.Occurrences;
+						}
+					nomDeRues.push(d.Rue);
+					rangDesRues.push(rang);
+					occuDesRues.push(occu);
+					return echelleHauteur(d.Occurrences);
+				})
+				.attr("width", function(d){
+					if (compBool(NomsImportants,d.Rue))
+						return 2;
+					else return (svg.attr("width")-2*margin)/barNumber;
+				})
+				.attr("x", function(d,i) {
+					return echellePositionX(i);
+				})
+				.attr("y", function(d) {
+					return hauteurSVG-echelleHauteur(d.Occurrences)-marginH;
+				})
+				.attr("fill", function(d,i){
+					if (compBool(NomsImportants,d.Rue))
+						return d3.hsl(0,0,0);
+					else return d3.hsl(echelleCouleur(i),1,.5);
+				})
+				.attr("opacity",function(d,i){
+					if (compBool(NomsImportants,d.Rue))
+						return 1;
+					else return 0.9;
+				})
+				.on('mouseover', tip.show)
+				.on('mouseout', tip.hide);
+				
+			//Text avec chevauchement à gerer a la main	
+			var text = d3.select("svg").selectAll("text")
+			   .data(csv)
+			   .enter()
+			   .append("text")
+			   .text(function(d,i) {
+			   		if (compBool(NomsImportants,d.Rue)) {
+						if (d.Rue=="Jacques-Cartier")
+							position.push([echellePositionX(i)+1,hauteurSVG-echelleHauteur(d.Occurrences)-marginH,echellePositionX(i) + 10,hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText - 30]);
+						else if (d.Rue=="Marie-Victorin")
+							position.push([echellePositionX(i)+1,hauteurSVG-echelleHauteur(d.Occurrences)-marginH,echellePositionX(i) + 10,hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText - 25]);
+						else if (d.Rue=="Laporte")
+							position.push([echellePositionX(i)+1,hauteurSVG-echelleHauteur(d.Occurrences)-marginH,echellePositionX(i) + 20,hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText - 10]);
+						else if (d.Rue=="Jeanne-Mance")
+							position.push([echellePositionX(i)+1,hauteurSVG-echelleHauteur(d.Occurrences)-marginH,echellePositionX(i) + 10,hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText + 5]);
+						else if (d.Rue=="René-Lévesque")
+							position.push([echellePositionX(i)+1,hauteurSVG-echelleHauteur(d.Occurrences)-marginH,echellePositionX(i) + 10,hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText + 10]);
+						else if (d.Rue=="Marguerite-Bourgeoys")
+							position.push([echellePositionX(i)+1,hauteurSVG-echelleHauteur(d.Occurrences)-marginH,echellePositionX(i) + 10,hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText + 20]);
+						else if (d.Rue=="Principale")
+							position.push([echellePositionX(i)+1,hauteurSVG-echelleHauteur(d.Occurrences)-marginH,echellePositionX(i) + 10,hauteurSVG-echelleHauteur(d.Occurrences)-marginH - 5]);
+						else position.push([echellePositionX(i)+1,hauteurSVG-echelleHauteur(d.Occurrences)-marginH,echellePositionX(i) + 10,hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText - 20]);
+					return d.Rue; }
+			   })
+			   .attr("text-anchor", "start")
+			   .attr("x", function(d, i) {
+						if (d.Rue=="Laporte")
+							return echellePositionX(i) + 20 ;
+						return echellePositionX(i) + 10;
+			   })
+			   .attr("y", function(d,i) {
+					if (d.Rue=="Jacques-Cartier")
+						return hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText - 30;
+					else if (d.Rue=="Marie-Victorin")
+						return hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText - 25;
+					else if (d.Rue=="Laporte")
+						return hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText - 10;
+					else if (d.Rue=="Jeanne-Mance")
+						return hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText + 5;
+					else if (d.Rue=="René-Lévesque")
+						return hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText + 10;
+					else if (d.Rue=="Marguerite-Bourgeoys")
+						return hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText + 20;
+					else if (d.Rue=="Principale")
+						return hauteurSVG-echelleHauteur(d.Occurrences)-marginH - 5;						
+			   		else return hauteurSVG-echelleHauteur(d.Occurrences)-marginH - hauteurText - 20;
+			   })
+			   .attr("font-family", "sans-serif")
+			   .attr("font-size", "11px")
+			   .attr("fill", "black");
+			
+			// Ajout des lignes en pointillé pour chacune des rues ajoutées manuellement
+			var ligne = d3.select("svg").selectAll("line")
+					.data(position)
+					.enter()
+					.append("line")
+					.attr("x1", function(d) { 
+					return d[0];
+					})
+					.attr("x2", function(d) {
+					return d[2];
+					})
+					.attr("y1", function(d) {
+					return d[1];					
+					})
+					.attr("y2", function(d) {
+					return d[3];					
+					})
+					.attr("stroke-dasharray","5, 3")
+					.attr("stroke","black");
+			
+			// Définition des axes
+			var xAxis = d3.svg.axis()
+				.scale(echellePositionX)
+				.ticks(8)
+				.orient("bottom");
+				
+			var yAxis = d3.svg.axis()
+			  .scale(echellePositionY)
+			  .ticks(5, "s")
+			  .orient("left");
+			  
+			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(0," + (hauteurSVG - marginH) + ")")
+				.call(xAxis);
+				
+			svg.append("g")
+				.attr("class", "axis")
+				.attr("transform", "translate(" + margin + ",0)")
+				.call(yAxis);
+			svg.call(tip);
+			
+			});
+
+			
+			var compBool = function(a, b) {
+				var i = a.length;
+				while (i--) {
+					if (a[i] == b) return true;
+				}
+				return false;
+			};
+			
+			var compIndex = function(a, b) {
+				var i = a.length;
+				while (i--) {
+					if (a[i] == b) return i;
+				}
+				return -1;
+			};
+
+			var validation = function(){
+				var textField = document.getElementById("id1");
+				var index = compIndex(nomDeRues,textField.value)
+				d3.select("svg").selectAll(".bar.selected").attr("class", "bar").call(tip.hide);
+				$("p").text("Votre rue n'a pas été trouvée");
+				if (index!=-1) { 
+					pos[1] = echellePositionX(index)-125;
+					pos[0] = parseFloat(bars[0][index].getAttribute("y"))+ 60;
+					d3.select("svg").selectAll(".bar").filter(function(d,i){return i==index}).attr("class","bar selected").call(tip.showPerso,index,nomDeRues[index]);
+					$("p").text("Votre rue a été trouvée");
+					}
+					
+			};
+			$(function() {
+				$( "#id1" ).autocomplete({
+				  source: nomDeRues
+				});
+			  });
+			  
+		</script>
+</body>
+</html>
