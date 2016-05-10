@@ -26,10 +26,16 @@ d3.select("svg").selectAll("circle")
 	.enter()
 	.append("circle")
 	.attr("class","circle")
-	.attr("cx", function(d,i){ console.log(d); return echelleLargeur(parseInt(d.Annee));})
-	.attr("cy", function(d,i){return echelleHauteur(d.Age);})
-    .attr("fill", "blue")
-    .attr("r","3")
+	.attr("cx", function(d){return echelleLargeur(parseInt(d.Annee));})
+	.attr("cy", function(d){return echelleHauteur(d.Age);})
+    .attr("fill", function(d){
+		if (d.Elu==1)
+			return "blue";
+		else return "black";})
+    .attr("r", function(d){
+		if (d.Elu==1)
+			return "4";
+		else return "3";})
 	.on('mouseover', tip.show)
 	.on('mouseout', tip.hide);
 };
