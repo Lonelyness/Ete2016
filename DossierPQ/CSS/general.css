@@ -1,4 +1,4 @@
-	body{margin:0px;}
+	body{margin-left:50px;}
 		.h,.v{stroke:black;stroke-dasharray:4 4;stroke-width:1;stroke-opacity:.5;}
 		.axis path,
 		.axis line {
@@ -22,4 +22,5 @@
 		background: rgba(0, 0, 0, 0.8);
 		color: #fff;
 		border-radius: 2px;
+		text-align : center;
 			}
