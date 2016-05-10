@@ -2,7 +2,7 @@
 var hauteurSVG = 500;
 var margin = 50;
 var echelleLargeur = d3.scale.linear().domain([1968,2016]).range([margin,largeurSVG-margin]);
-var echelleHauteur = d3.scale.linear().domain([70,35]).range([margin,hauteurSVG-margin]);
+var echelleHauteur = d3.scale.linear().domain([70,0]).range([margin,hauteurSVG-margin]);
 var election = [1968,1985,1988,1996,2001,2005,2007,2015,2016];
 var moyenne = [{x:1968,y:46},{x:1985,y:46},{x:1985,y:43},{x:1988,y:43},{x:1988,y:58},{x:1996,y:58},{x:1996,y:58},{x:2001,y:58},{x:2001,y:56},{x:2005,y:56},{x:2005,y:54},{x:2007,y:54},{x:2007,y:59},{x:2015,y:59},{x:2015,y:46},{x:2016,y:46},{x:2016,y:43}]
 
@@ -74,7 +74,7 @@ var bars = d3.select("svg").selectAll("rect")
 					})
 				.attr("y", margin)
 				.attr("fill", function(d,i){
-					return d3.hsl(200+20*Math.pow(-1,i),1,.5);
+					return d3.hsl(40+20*Math.pow(-1,i),1,.5);
 				})
 				.attr("opacity", .3)
 				.attr("stroke", "black");
