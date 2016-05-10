@@ -14,7 +14,11 @@
 			fill: red ;
 			r : 5;
 		}
-		
+	.line:hover {
+		 stroke: red;
+		 stroke-width:3;
+	}
+	
 	.d3-tip {
 		line-height: 1;
 		font-weight: bold;
