@@ -91,17 +91,18 @@ var bars = d3.select("svg").selectAll("line")
 					})
 				.attr("stroke", "black");
 
-/*var line = d3.svg.line()
-    .x (function(d){return echelleLargeur(d.x);})
+var line = d3.svg.line()
+    .x (function(d){return echelleLargeur(valeur(d.x));})
     .y (function(d){return echelleHauteur(d.y);})
-	.interpolate("linear");				
+	.interpolate("basis");				
 				
 svg.append("path")
 	.attr("class","line")
     .attr("d",line(moyenne))
     .attr("fill", "none")
-    .attr("stroke", "#3399FF")
-    .attr("stroke-width","1");*/
+    .attr("stroke", "grey")
+    .attr("stroke-width","1")
+	.attr("opacity",.5);
 			
 				
 var xAxis = d3.svg.axis()
