@@ -1,9 +1,19 @@
 ﻿var largeurSVG = 800;
 var hauteurSVG = 500;
 var margin = 50;
-var echelleLargeur = d3.scale.linear().domain([1968,2016]).range([margin,largeurSVG-margin]);
-var echelleHauteur = d3.scale.linear().domain([80,0]).range([margin,hauteurSVG-margin]);
 var election = [1968,1985,1988,1996,2001,2005,2007,2015,2016];
+var compIndex = function(a, b) {
+				var i = a.length;
+				while (i--) {
+					if (a[i] == b) return i;
+				}
+				return -1;
+			};
+var valeur = function(n) {
+	return compIndex(election,n);
+}
+var echelleLargeur = d3.scale.linear().domain([0,8]).range([margin,largeurSVG-margin]);
+var echelleHauteur = d3.scale.linear().domain([80,0]).range([margin,hauteurSVG-margin]);
 var moyenne = [{x:1968,y:46},{x:1985,y:46},{x:1985,y:43},{x:1988,y:43},{x:1988,y:58},{x:1996,y:58},{x:1996,y:58},{x:2001,y:58},{x:2001,y:56},{x:2005,y:56},{x:2005,y:54},{x:2007,y:54},{x:2007,y:59},{x:2015,y:59},{x:2015,y:46},{x:2016,y:46},{x:2016,y:43}]
 
 var svg = d3.select("body")
@@ -31,7 +41,7 @@ d3.select("svg").selectAll("circle")
 	.enter()
 	.append("circle")
 	.attr("class","circle")
-	.attr("cx", function(d){return echelleLargeur(d.Annee);})
+	.attr("cx", function(d){return echelleLargeur(valeur(d.Annee));})
 	.attr("cy", function(d){return echelleHauteur(d.Age);})
     .attr("fill", function(d){
 		if (d.Elu==1)
@@ -69,12 +79,16 @@ var bars = d3.select("svg").selectAll("line")
 				.attr("y1", hauteurSVG-margin)
 				.attr("y2", margin)
 				.attr("x1", function(d,i){
-					return echelleLargeur(election[i]);
+					return echelleLargeur(i);//election[i]);
 					})
 				.attr("x2", function(d,i){
-					return echelleLargeur(election[i]);
+					return echelleLargeur(i);//election[i]);
 					})
-				.attr("opacity", .7)
+				.attr("opacity", function(d,i){
+					if (d==1968)
+						return 0;
+					else return .2;
+					})
 				.attr("stroke", "black");
 
 /*var line = d3.svg.line()
@@ -110,10 +124,10 @@ var etiquette = d3.select("svg").selectAll("text")
 			   .attr("text-anchor", "middle")
 			   .attr("x", function(d) {
 				   if (d==2015)
-					   return echelleLargeur(d)-7;
+					   return echelleLargeur(valeur(d))-7;
 				   else if (d==2016)
-					   return echelleLargeur(d)+7
-					else return echelleLargeur(d);
+					   return echelleLargeur(valeur(d))+7
+					else return echelleLargeur(valeur(d));
 			   })
 			   .attr("y", function(d,i) {
 				   return (hauteurSVG - margin + 15);
