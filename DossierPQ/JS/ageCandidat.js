@@ -14,7 +14,8 @@ var valeur = function(n) {
 }
 var echelleLargeur = d3.scale.linear().domain([0,8]).range([margin,largeurSVG-margin]);
 var echelleHauteur = d3.scale.linear().domain([80,0]).range([margin,hauteurSVG-margin]);
-var moyenne = [{x:1968,y:46},{x:1985,y:46},{x:1985,y:43},{x:1988,y:43},{x:1988,y:58},{x:1996,y:58},{x:1996,y:58},{x:2001,y:58},{x:2001,y:56},{x:2005,y:56},{x:2005,y:54},{x:2007,y:54},{x:2007,y:59},{x:2015,y:59},{x:2015,y:46},{x:2016,y:46},{x:2016,y:43}]
+//var moyenne = [{x:1968,y:46},{x:1985,y:46},{x:1985,y:43},{x:1988,y:43},{x:1988,y:58},{x:1996,y:58},{x:1996,y:58},{x:2001,y:58},{x:2001,y:56},{x:2005,y:56},{x:2005,y:54},{x:2007,y:54},{x:2007,y:59},{x:2015,y:59},{x:2015,y:46},{x:2016,y:46},{x:2016,y:43}]
+var moyenne = [{x:1968,y:46},{x:1985,y:43},{x:1988,y:58},{x:1996,y:58},{x:2001,y:56},{x:2005,y:54},{x:2007,y:59},{x:2015,y:46},{x:2016,y:43}]
 
 var svg = d3.select("body")
 			.append("svg");
