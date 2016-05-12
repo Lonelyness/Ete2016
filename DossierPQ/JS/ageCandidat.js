@@ -220,7 +220,7 @@ svg.append("text")
 //Titre du graphique
 svg.append("text")
 	.attr("class","titre")
-	.text("Eléctions et Age au Parti Québécois")
+	.text("Elections et Age au Parti Québécois")
 	.attr("text-anchor", "middle")
 	.attr("x", margin + tailleGraph/2)
 	.attr("y", margin-20)
