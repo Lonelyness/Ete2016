@@ -1,4 +1,5 @@
-﻿var largeurSVG = 800;
+﻿var largeurSVG = 1000;
+var tailleGraph = 800;
 var hauteurSVG = 500;
 var margin = 50;
 var election = [1968,1985,1988,1996,2001,2005,2007,2015,2016];
@@ -12,7 +13,7 @@ var compIndex = function(a, b) {
 var valeur = function(n) {
 	return compIndex(election,n);
 }
-var echelleLargeur = d3.scale.linear().domain([0,8]).range([margin+20,largeurSVG-margin]);
+var echelleLargeur = d3.scale.linear().domain([0,8]).range([margin+20,tailleGraph-margin]);
 var echelleHauteur = d3.scale.linear().domain([70,30]).range([margin,hauteurSVG-margin]);
 //var moyenne = [{x:1968,y:46},{x:1985,y:46},{x:1985,y:43},{x:1988,y:43},{x:1988,y:58},{x:1996,y:58},{x:1996,y:58},{x:2001,y:58},{x:2001,y:56},{x:2005,y:56},{x:2005,y:54},{x:2007,y:54},{x:2007,y:59},{x:2015,y:59},{x:2015,y:46},{x:2016,y:46},{x:2016,y:43}]
 var moyenne = [{x:1968,y:46},{x:1985,y:43},{x:1988,y:58},{x:1996,y:58},{x:2001,y:56},{x:2005,y:54},{x:2007,y:59},{x:2015,y:46},{x:2016,y:43}]
@@ -100,8 +101,10 @@ svg.append("path")
     .attr("stroke", "grey")
     .attr("stroke-width","1")
 	.attr("opacity",.5);
-			
-				
+
+
+	
+//Axes				
 var xAxis = d3.svg.axis()
 				.scale(echelleLargeur)
 				.ticks(0)
@@ -135,7 +138,65 @@ var etiquette = d3.select("svg").selectAll("text")
 			   .attr("fill", "black");
 
 
+//Légende
 
+svg.append("circle")
+			.attr("cx", tailleGraph)
+			.attr("cy", 200)
+			.attr("fill", "white")
+			.attr("r", 4)
+			.attr("stroke", "black");
+svg.append("circle")
+			.attr("cx", tailleGraph)
+			.attr("cy", 220)
+			.attr("fill", "black")
+			.attr("r", 3);
+			
+svg.append("text")
+	.text("Candidat élu")
+	.attr("text-anchor", "start")
+	.attr("x", tailleGraph + 8)
+	.attr("y", 203)
+	.attr("font-family", "sans-serif")
+	.attr("font-size", "11px")
+	.attr("fill", "black");
+	
+svg.append("text")
+	.text("Candidat")
+	.attr("text-anchor", "start")
+	.attr("x", tailleGraph + 8)
+	.attr("y", 223)
+	.attr("font-family", "sans-serif")
+	.attr("font-size", "11px")
+	.attr("fill", "black");	
+
+svg.append("line")
+	.attr("x1", tailleGraph-4)
+	.attr("x2", tailleGraph+4)
+	.attr("y1", 240)
+	.attr("y2", 240)
+	.attr("opacity", .6)
+	.attr("stroke-width","1")
+	.attr("stroke", "grey");
+	
+svg.append("text")
+	.text("Age moyen des candidats")
+	.attr("text-anchor", "start")
+	.attr("x", tailleGraph + 8)
+	.attr("y", 243)
+	.attr("font-family", "sans-serif")
+	.attr("font-size", "11px")
+	.attr("fill", "black");
+
+svg.append("text")
+	.text("Age")
+	.attr("text-anchor", "middle")
+	.attr("x", margin-20)
+	.attr("y", margin-20)
+	.attr("font-family", "sans-serif")
+	.attr("font-size", "11px")
+	.attr("fill", "black");		
+				
 			
 svg.append("g")
 	.attr("class", "axis")
