@@ -1,39 +1,11 @@
-/*var largeurSVG = 800;
-var hauteurSVG = 500;
-var margin = 50;
-
-var svg = d3.select("body")
-			.append("svg");
-svg.attr("width",largeurSVG) // largeur du graph
-			.attr("height", hauteurSVG);
-
-var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1CQllJ4CJKgkIEjsk6q4lZYBo-DSmRWOOkWNBPAOBlaY/pubhtml';
-
-function drawChart(data) {
-	
-};
-
-function renderSpreadsheetData() {
-    Tabletop.init( { key: public_spreadsheet_url,
-                     callback: draw,
-                     simpleSheet: true } )
-}
-
-function draw(data, tabletop) {
-  // draw chart
-  drawChart(data);
-}
-*/
-
 var width = 960,
     height = 500,
     padding = 6, // separation between nodes
     maxRadius = 12;
 
-var n = 50, // total number of nodes
-    m = 4; // number of distinct clusters
-
-var color = d3.scale.category10()
+var m = 4;	
+	
+var color = d3.scale.category20b()
     .domain(d3.range(m));
 
 var x = d3.scale.quantize()
@@ -44,10 +16,28 @@ var y = d3.scale.quantize()
     .domain(d3.range(m))
     .range([200, 50, 50, 350]);
 
-var ordre = 0;	
-var nodes = d3.range(n).map(function() {
-  var i = Math.floor(ordre/(n/m));
-  ordre +=1;
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+	
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1CQllJ4CJKgkIEjsk6q4lZYBo-DSmRWOOkWNBPAOBlaY/pubhtml';
+
+var nodes ;
+
+//Création du Tooltip			
+var tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([-5, 0])
+		.html(function(d,i) {
+			return "test";
+		});
+
+
+
+function drawChart(data) {
+nodes = d3.range(data.length).map(function(i) {
+  var i = data[i].support;
+  console.log(i);
   return {
     radius: 10,
     color: color(i),
@@ -64,16 +54,15 @@ var force = d3.layout.force()
     .on("tick", tick)
     .start();
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
 var circle = svg.selectAll("circle")
     .data(nodes)
   .enter().append("circle")
+  .attr("class","cercle")
     .attr("r", function(d) { return d.radius; })
     .style("fill", function(d) { return d.color; })
-    .call(force.drag);
+    .call(force.drag)
+	.on('mouseover', tip.show)
+	.on('mouseout', tip.hide);
 
 function tick(e) {
   circle
@@ -81,7 +70,23 @@ function tick(e) {
       .each(collide(.5))
       .attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
+}	
+};
+
+function renderSpreadsheetData() {
+    Tabletop.init( { key: public_spreadsheet_url,
+                     callback: draw,
+                     simpleSheet: true } )
 }
+
+function draw(data, tabletop) {
+  // draw chart
+  drawChart(data);
+}
+
+renderSpreadsheetData();
+
+svg.call(tip);	
 
 // Move nodes toward cluster focus.
 function gravity(alpha) {

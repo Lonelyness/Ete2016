@@ -18,6 +18,10 @@
 		 stroke: red;
 		 stroke-width:3;
 	}
+	.cercle:hover {
+		 stroke: black;
+		 stroke-width:2;
+	}
 	
 	.d3-tip {
 		line-height: 1;
