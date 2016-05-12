@@ -25,61 +25,96 @@ function draw(data, tabletop) {
 }
 */
 
-var width = 1000,
-    height = 1000;
-	
-var nodes = [
-    {"name":"Myriel","group":1},
-    {"name":"Napoleon","group":1},
-    {"name":"Mlle.Baptistine","group":1},
-    {"name":"Mme.Magloire","group":1},
-    {"name":"CountessdeLo","group":1},
-    {"name":"Geborand","group":1},
-    {"name":"Champtercier","group":1},
-    {"name":"Cravatte","group":1},
-    {"name":"Count","group":1},
-    {"name":"OldMan","group":1},
-    {"name":"Labarre","group":2},
-    {"name":"Valjean","group":2},
-    {"name":"Marguerite","group":3},
-    {"name":"Mme.deR","group":2},
-    {"name":"Isabeau","group":2},
-    {"name":"Gervais","group":2},
-    {"name":"Tholomyes","group":3},
-    {"name":"Listolier","group":3},
-    {"name":"Fameuil","group":3}];
+var width = 960,
+    height = 500,
+    padding = 6, // separation between nodes
+    maxRadius = 12;
 
-var color = d3.scale.category20();
-	
+var n = 50, // total number of nodes
+    m = 4; // number of distinct clusters
+
+var color = d3.scale.category10()
+    .domain(d3.range(m));
+
+var x = d3.scale.quantize()
+    .domain(d3.range(m))
+    .range([200, 50, 350, 200]);
+
+var y = d3.scale.quantize()
+    .domain(d3.range(m))
+    .range([200, 50, 50, 350]);
+
+var ordre = 0;	
+var nodes = d3.range(n).map(function() {
+  var i = Math.floor(ordre/(n/m));
+  ordre +=1;
+  return {
+    radius: 10,
+    color: color(i),
+    cx: x(i),
+    cy: y(i)
+  };
+});
+
 var force = d3.layout.force()
-                .nodes(nodes)
-                .size([width, height])
-                .gravity(0)
-                .charge(0.2)
-                .start();
+    .nodes(nodes)
+    .size([width, height])
+    .gravity(0)
+    .charge(0)
+    .on("tick", tick)
+    .start();
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-  force
-      .nodes(nodes)
-      .start();
+var circle = svg.selectAll("circle")
+    .data(nodes)
+  .enter().append("circle")
+    .attr("r", function(d) { return d.radius; })
+    .style("fill", function(d) { return d.color; })
+    .call(force.drag);
 
-  var node = svg.selectAll(".node")
-      .data(nodes)
-    .enter().append("circle")
-      .attr("class", "node")
-      .attr("r", 5)
-      .style("fill", function(d) { return color(d.group); })
-      .call(force.drag);
+function tick(e) {
+  circle
+      .each(gravity(.2 * e.alpha))
+      .each(collide(.5))
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+}
 
-  node.append("title")
-      .text(function(d) { return d.name; });
+// Move nodes toward cluster focus.
+function gravity(alpha) {
+  return function(d) {
+    d.y += (d.cy - d.y) * alpha;
+    d.x += (d.cx - d.x) * alpha;
+  };
+}
 
-  force.on("tick", function() {
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-  });
-
-
+// Resolve collisions between nodes.
+function collide(alpha) {
+  var quadtree = d3.geom.quadtree(nodes);
+  return function(d) {
+    var r = d.radius + maxRadius + padding,
+        nx1 = d.x - r,
+        nx2 = d.x + r,
+        ny1 = d.y - r,
+        ny2 = d.y + r;
+    quadtree.visit(function(quad, x1, y1, x2, y2) {
+      if (quad.point && (quad.point !== d)) {
+        var x = d.x - quad.point.x,
+            y = d.y - quad.point.y,
+            l = Math.sqrt(x * x + y * y),
+            r = d.radius + quad.point.radius + (d.color !== quad.point.color) * padding;
+        if (l < r) {
+          l = (l - r) / l * alpha;
+          d.x -= x *= l;
+          d.y -= y *= l;
+          quad.point.x += x;
+          quad.point.y += y;
+        }
+      }
+      return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+    });
+  };
+}
