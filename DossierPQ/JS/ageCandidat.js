@@ -43,13 +43,13 @@ var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1zVvQWAuYnZ
 //Création du Tooltip			
 var tip = d3.tip()
 		.attr('class', 'd3-tip')
-		.offset([-10, 0])
+		.offset([-5, 0])
 		.html(function(d,i) {
 		var temp = " : ";
 		if (d.Elu==1)
 			temp = " élu : "	
 		var text = "Candidat" + temp + d.Candidats + "</br>" + d.Age + " ans";
-		return text + "</br>" + '<img src="../Photos/'+d.Candidats+'.jpg" style="width:100px;">';
+		return text + "</br>" + '<img src="../Photos/'+d.Candidats+'.jpg" style="width:60px;">';
 		});
 
 //Fonctions pour utiliser et afficher les données du google sheets
