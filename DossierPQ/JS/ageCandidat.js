@@ -195,7 +195,7 @@ svg.append("line")
 	.attr("x2", legendeX+4)
 	.attr("y1", legendeY+40)
 	.attr("y2", legendeY+40)
-	.attr("opacity", .6)
+	.attr("opacity", .8)
 	.attr("stroke-width","1")
 	.attr("stroke", "grey");
 	
