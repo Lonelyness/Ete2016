@@ -6,12 +6,12 @@ var width = document.documentElement.clientWidth*0.8,
 	centreY = - 100 + height/2
 	espace = 200,
 	m = 4,
-	legende = ["Indécis","Candidat 1","Candidat 2","Candidat 3"];
-	
-var color = d3.scale.quantize()
-    .domain(d3.range(2))
-	.range(["pink","blue"]);
+	legende = ["Indécis","Alexandre Cloutier","Martine Ouellet","Véronique Hivon"]
+	typeAffichage = false ;
 
+var color = d3.scale.category20()
+	.domain(d3.range(m));
+	
 var x = d3.scale.quantize()
     .domain(d3.range(m))
     .range([centreX, centreX-espace, centreX+espace, centreX]);
@@ -43,13 +43,15 @@ nodes = d3.range(data.length).map(function(i) {
   var group = data[i].support;
   var nomDep = data[i].depute;
   var sexe = data[i].sexe;
-  return {
+  
+	return {
 	nom : nomDep,
     radius: 10,
-    color: color(sexe),
+    color: color(group),
     cx: x(group),
     cy: y(group)
   };
+  
 });
 
 var force = d3.layout.force()
@@ -90,6 +92,21 @@ function draw(data, tabletop) {
   // draw chart
   drawChart(data);
 }
+
+// ** Update data section (Called from the onclick)
+/*function updateData() {
+typeAffichage = !typeAffichage;
+	if 	(typeAffichage==true) {
+		color = d3.scale.quantize()
+		.domain(d3.range(2))
+		.range(["pink","blue"]); }
+
+	if 	(typeAffichage==false) {
+		color = d3.scale.category20()
+		.domain(d3.range(m)); }
+svg = svg.transition();
+renderSpreadsheetData();
+};*/
 
 renderSpreadsheetData();
 
