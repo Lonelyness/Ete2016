@@ -28,21 +28,22 @@ var nodes ;
 var tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-5, 0])
-		.html(function(d,i) {
-			return "test";
+		.html(function(d) {
+			return d.nom;
 		});
 
 
 
 function drawChart(data) {
 nodes = d3.range(data.length).map(function(i) {
-  var i = data[i].support;
-  console.log(i);
+  var group = data[i].support;
+  var nomDep = data[i].depute;
   return {
+	nom : nomDep,
     radius: 10,
-    color: color(i),
-    cx: x(i),
-    cy: y(i)
+    color: color(group),
+    cx: x(group),
+    cy: y(group)
   };
 });
 
@@ -56,8 +57,9 @@ var force = d3.layout.force()
 
 var circle = svg.selectAll("circle")
     .data(nodes)
-  .enter().append("circle")
-  .attr("class","cercle")
+	.enter()
+	.append("circle")
+	.attr("class","cercle")
     .attr("r", function(d) { return d.radius; })
     .style("fill", function(d) { return d.color; })
     .call(force.drag)
