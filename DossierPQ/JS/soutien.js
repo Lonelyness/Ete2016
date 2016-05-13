@@ -1,20 +1,24 @@
-var width = 960,
-    height = 500,
+var width = document.documentElement.clientWidth*0.8,
+    height = 800,
     padding = 6, // separation between nodes
-    maxRadius = 12;
-
-var m = 4;	
+    maxRadius = 12,
+	centreX = - 100 + width/2,
+	centreY = - 100 + height/2
+	espace = 200,
+	m = 4,
+	legende = ["Indécis","Candidat 1","Candidat 2","Candidat 3"];
 	
-var color = d3.scale.category20b()
-    .domain(d3.range(m));
+var color = d3.scale.quantize()
+    .domain(d3.range(2))
+	.range(["pink","blue"]);
 
 var x = d3.scale.quantize()
     .domain(d3.range(m))
-    .range([200, 50, 350, 200]);
+    .range([centreX, centreX-espace, centreX+espace, centreX]);
 
 var y = d3.scale.quantize()
     .domain(d3.range(m))
-    .range([200, 50, 50, 350]);
+    .range([centreY, centreY-espace, centreY-espace, centreY+Math.sqrt(espace*espace+espace*espace)]);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -38,10 +42,11 @@ function drawChart(data) {
 nodes = d3.range(data.length).map(function(i) {
   var group = data[i].support;
   var nomDep = data[i].depute;
+  var sexe = data[i].sexe;
   return {
 	nom : nomDep,
     radius: 10,
-    color: color(group),
+    color: color(sexe),
     cx: x(group),
     cy: y(group)
   };
@@ -111,8 +116,8 @@ function collide(alpha) {
       if (quad.point && (quad.point !== d)) {
         var x = d.x - quad.point.x,
             y = d.y - quad.point.y,
-            l = Math.sqrt(x * x + y * y),
-            r = d.radius + quad.point.radius + (d.color !== quad.point.color) * padding;
+            l = Math.sqrt(x * x + y * y);
+            r = d.radius + quad.point.radius; //+ (d.color !== quad.point.color) * padding;
         if (l < r) {
           l = (l - r) / l * alpha;
           d.x -= x *= l;
@@ -125,3 +130,44 @@ function collide(alpha) {
     });
   };
 }
+
+//Titre des zones
+svg.append("text")
+	.attr("class","titre")
+	.text(legende[1])
+	.attr("text-anchor", "middle")
+	.attr("x", centreX-espace)
+	.attr("y", centreY-espace-75)
+	.attr("font-family", "sans-serif")
+	.attr("font-size", "18px")
+	.attr("fill", "black");	
+	
+svg.append("text")
+	.attr("class","titre")
+	.text(legende[2])
+	.attr("text-anchor", "middle")
+	.attr("x", centreX+espace)
+	.attr("y", centreY-espace-75)
+	.attr("font-family", "sans-serif")
+	.attr("font-size", "18px")
+	.attr("fill", "black");	
+	
+svg.append("text")
+	.attr("class","titre")
+	.text(legende[3])
+	.attr("text-anchor", "middle")
+	.attr("x", centreX)
+	.attr("y", centreY+Math.sqrt(espace*espace+espace*espace)-75)
+	.attr("font-family", "sans-serif")
+	.attr("font-size", "18px")
+	.attr("fill", "black");
+	
+svg.append("text")
+	.attr("class","titre")
+	.text(legende[0])
+	.attr("text-anchor", "middle")
+	.attr("x", centreX)
+	.attr("y", centreY-75)
+	.attr("font-family", "sans-serif")
+	.attr("font-size", "18px")
+	.attr("fill", "black");	
