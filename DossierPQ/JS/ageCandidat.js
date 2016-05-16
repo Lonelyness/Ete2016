@@ -11,7 +11,7 @@ if (largeurSVG<750*0.9)
 //Dates des élections pour les séparations
 var election = [1968,1985,1988,1996,2001,2005,2007,2015,2016];
 //MOyenne d'age des candidats à chaque éléction
-var moyenne = [{x:1968,y:46},{x:1985,y:43},{x:1988,y:58},{x:1996,y:58},{x:2001,y:56},{x:2005,y:54},{x:2007,y:59},{x:2015,y:46},{x:2016,y:43}]
+var moyenne = [{x:1968,y:46},{x:1985,y:43},{x:1988,y:58},{x:1996,y:58},{x:2001,y:56},{x:2005,y:54},{x:2007,y:59},{x:2015,y:46},{x:2016,y:48}]
 
 // Fonction pour retrouver un élément dans un tableau
 var compIndex = function(a, b) {
