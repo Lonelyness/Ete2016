@@ -4,13 +4,17 @@ var width = document.documentElement.clientWidth*0.8,
     maxRadius = 12,
 	centreX = - 100 + width/2,
 	centreY = - 100 + height/2
-	espace = 200,
+	espace = 150,
 	m = 4,
-	legende = ["Indécis","Alexandre Cloutier","Martine Ouellet","Véronique Hivon"]
-	typeAffichage = false ;
+	legende = ["Indécis","Alexandre Cloutier","Véronique Hivon","Jean-François Lisée"];
+	
+var force;	
 
 var color = d3.scale.category20()
 	.domain(d3.range(m));
+
+var colorbis = d3.scale.category10()
+	.domain(d3.range(3));
 	
 var x = d3.scale.quantize()
     .domain(d3.range(m))
@@ -43,18 +47,22 @@ nodes = d3.range(data.length).map(function(i) {
   var group = data[i].support;
   var nomDep = data[i].depute;
   var sexe = data[i].sexe;
-  
+  var type = data[i].type;
+
 	return {
 	nom : nomDep,
+	sexe : sexe,
+	type : type,
     radius: 10,
-    color: color(group),
+    colorS: color(group),
+	colorT: colorbis(type),
     cx: x(group),
     cy: y(group)
   };
   
 });
 
-var force = d3.layout.force()
+force = d3.layout.force()
     .nodes(nodes)
     .size([width, height])
     .gravity(0)
@@ -68,7 +76,7 @@ var circle = svg.selectAll("circle")
 	.append("circle")
 	.attr("class","cercle")
     .attr("r", function(d) { return d.radius; })
-    .style("fill", function(d) { return d.color; })
+    .style("fill", function(d) { return d.colorS; })
     .call(force.drag)
 	.on('mouseover', tip.show)
 	.on('mouseout', tip.hide);
@@ -94,19 +102,19 @@ function draw(data, tabletop) {
 }
 
 // ** Update data section (Called from the onclick)
-/*function updateData() {
-typeAffichage = !typeAffichage;
-	if 	(typeAffichage==true) {
-		color = d3.scale.quantize()
-		.domain(d3.range(2))
-		.range(["pink","blue"]); }
+function updateDataSexe() {
+	d3.select("svg").selectAll(".cercle").filter(function(d,i){return d.sexe==1}).style("fill","blue");
+	d3.select("svg").selectAll(".cercle").filter(function(d,i){return d.sexe==2}).style("fill","pink");
+};
 
-	if 	(typeAffichage==false) {
-		color = d3.scale.category20()
-		.domain(d3.range(m)); }
-svg = svg.transition();
-renderSpreadsheetData();
-};*/
+function updateDataType() {
+	d3.select("svg").selectAll(".cercle").style("fill",function(d){return d.colorT});
+};
+
+function updateDataSoutien() {
+	d3.select("svg").selectAll(".cercle").style("fill",function(d){return d.colorS});
+};
+
 
 renderSpreadsheetData();
 
