@@ -103,7 +103,26 @@ function draw(data, tabletop) {
 }
 
 // ** Update data section (Called from the onclick)
+$("#checkboxSexe").on('change',function() {
+	alert("change");
+	document.getElementById("checkboxType").checked = false;
+	document.getElementById("checkboxSoutien").checked = false;
+	
+	d3.select("svg").selectAll(".cercle").filter(function(d,i){return d.sexe==1}).style("fill","blue");
+	d3.select("svg").selectAll(".cercle").filter(function(d,i){return d.sexe==2}).style("fill","pink");
+	svg.select(".legendOrdinal")
+		.remove();
+		
+	svg.append("g")
+		.attr("class", "legendOrdinal2")
+		.attr("transform", "translate("+(width-200)+","+height/2+")");
+	svg.select(".legendOrdinal2")
+		.call(legendOrdinal2);
+	});
+
 function updateDataSexe() {
+	document.getElementById("checkboxType").checked = false;
+	document.getElementById("checkboxSoutien").checked = false;
 	d3.select("svg").selectAll(".cercle").filter(function(d,i){return d.sexe==1}).style("fill","blue");
 	d3.select("svg").selectAll(".cercle").filter(function(d,i){return d.sexe==2}).style("fill","pink");
 	svg.select(".legendOrdinal")
@@ -117,6 +136,8 @@ function updateDataSexe() {
 };
 
 function updateDataType() {
+	document.getElementById("checkboxSexe").checked = false;
+	document.getElementById("checkboxSoutien").checked = false;
 	d3.select("svg").selectAll(".cercle").style("fill",function(d){return d.colorT});
 	svg.select(".legendOrdinal2")
 		.remove();
@@ -128,6 +149,8 @@ function updateDataType() {
 };
 
 function updateDataSoutien() {
+	document.getElementById("checkboxType").checked = false;
+	document.getElementById("checkboxSexe").checked = false;
 	d3.select("svg").selectAll(".cercle").style("fill",function(d){return d.colorS});
 	svg.select(".legendOrdinal")
 		.remove();
