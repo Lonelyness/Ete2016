@@ -12,9 +12,10 @@ var force;
 
 var color = d3.scale.category20()
 	.domain(d3.range(m));
-
-var colorbis = d3.scale.category10()
-	.domain(d3.range(3));
+	
+var colorbis = d3.scale.ordinal()
+  .domain([1, 2, 3])
+  .range([ "rgb(153, 107, 195)", "rgb(56, 106, 197)", "rgb(93, 199, 76)"]);
 	
 var x = d3.scale.quantize()
     .domain(d3.range(m))
@@ -105,14 +106,33 @@ function draw(data, tabletop) {
 function updateDataSexe() {
 	d3.select("svg").selectAll(".cercle").filter(function(d,i){return d.sexe==1}).style("fill","blue");
 	d3.select("svg").selectAll(".cercle").filter(function(d,i){return d.sexe==2}).style("fill","pink");
+	svg.select(".legendOrdinal")
+		.remove();
+		
+	svg.append("g")
+		.attr("class", "legendOrdinal2")
+		.attr("transform", "translate("+(width-200)+","+height/2+")");
+	svg.select(".legendOrdinal2")
+		.call(legendOrdinal2);
 };
 
 function updateDataType() {
 	d3.select("svg").selectAll(".cercle").style("fill",function(d){return d.colorT});
+	svg.select(".legendOrdinal2")
+		.remove();
+	svg.append("g")
+		.attr("class", "legendOrdinal")
+		.attr("transform", "translate("+(width-200)+","+height/2+")");
+	svg.select(".legendOrdinal")
+		.call(legendOrdinal);
 };
 
 function updateDataSoutien() {
 	d3.select("svg").selectAll(".cercle").style("fill",function(d){return d.colorS});
+	svg.select(".legendOrdinal")
+		.remove();
+	svg.select(".legendOrdinal2")
+		.remove();
 };
 
 
@@ -155,6 +175,37 @@ function collide(alpha) {
     });
   };
 }
+
+//Légende
+//Légende Type
+var ordinal = d3.scale.ordinal()
+  .domain(["Député", "Ex-député", "Autre"])
+  .range([ "rgb(153, 107, 195)", "rgb(56, 106, 197)", "rgb(93, 199, 76)"]);
+
+svg.append("g")
+  .attr("class", "legendOrdinal")
+  .attr("transform", "translate("+(width-200)+","+height/2+")");
+
+var legendOrdinal = d3.legend.color()
+  .shape("path", d3.svg.symbol().type("circle").size(150)())
+  .shapePadding(10)
+  .scale(ordinal);
+  
+  
+//Légende Genre
+var ordinal2 = d3.scale.ordinal()
+  .domain(["Homme", "Femme"])
+  .range([ "blue", "pink",]);
+
+svg.append("g")
+  .attr("class", "legendOrdinal2")
+  .attr("transform", "translate("+(width-200)+","+height/2+")");
+
+var legendOrdinal2 = d3.legend.color()
+  .shape("path", d3.svg.symbol().type("circle").size(150)())
+  .shapePadding(10)
+  .scale(ordinal2);
+
 
 //Titre des zones
 svg.append("text")
