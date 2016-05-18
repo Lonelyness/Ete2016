@@ -12,9 +12,8 @@ function drawChart(data) {
 		.attr('id',function(d) {
 			return d.id;
 		})
-		.style('height', "80px")
 		.html(function(d) {
-			return '<p class="flotte"><img src="' + d.image + '" style="width:60px;" > </p><p> <br /> <b>' + d.Nom + '</b> <br /> <i>' + d.Fonction + '</i><br />'+ d.Explication +'</p>' ;
+			return '<p class="flotte"><img src="' + d.image + '" style="width:80px;" > </p><p> <b>' + d.Nom + '</b> <br /> <i>' + d.Fonction + '</i><br />'+ d.Explication +'</p>' ;
 		})
 };
 

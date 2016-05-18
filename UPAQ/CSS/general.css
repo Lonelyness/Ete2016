@@ -2,3 +2,9 @@
 	float:left;
 	margin-right:10px;
 	}
+div {
+	border: 2px dotted #c2d5eb;
+	margin : 10px 10px 10px 10px;
+	background-color: #deecf4;
+	border-radius: 10px;
+}	
