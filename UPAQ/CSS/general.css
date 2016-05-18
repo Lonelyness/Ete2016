@@ -7,4 +7,10 @@ div {
 	margin : 10px 10px 10px 10px;
 	background-color: #deecf4;
 	border-radius: 10px;
+	min-height:110px
 }	
+
+body {
+	font-family: franklin;
+	font-size: 14px;
+		}
