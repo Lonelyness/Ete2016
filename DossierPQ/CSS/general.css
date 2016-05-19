@@ -1,4 +1,4 @@
-	body{margin-left:50px;}
+	body{margin-left:20px;}
 		.h,.v{stroke:black;stroke-dasharray:4 4;stroke-width:1;stroke-opacity:.5;}
 		.axis path,
 		.axis line {
@@ -7,9 +7,16 @@
 			shape-rendering: crispEdges;
 		}
 		.axis text {
-			font-family: sans-serif;
+			font-family: franklin;
 			font-size: 11px;
 		}
+		
+	.titre {
+		font-family: Roboto;
+		font-size: 18px;
+		text-align: center;
+	}
+	
 	.circle:hover {
 			fill: red ;
 			r : 5;

@@ -3,10 +3,15 @@ var largeurSVG = document.documentElement.clientWidth*0.9; //Taille de la fenetr
 var tailleGraph = largeurSVG; // Taille de la zone de graphique
 var hauteurSVG = 500; // Hauteur de la fenetre
 var margin = 50; // Marge pour les axes
+var marginL = 25;
+var tailleTitre="18px"
 //Taille pour les légendes
 var tailleLeg = "11px";
-if (largeurSVG<750*0.9)
-	tailleLeg = "8px";
+var largeurLeg = 90;
+if (largeurSVG<750*0.9) {
+	tailleLeg = "8px"
+	largeurLeg = 65;
+	tailleTitre = "14px"}
 						
 //Dates des élections pour les séparations
 var election = [1968,1985,1988,1996,2001,2005,2007,2015,2016];
@@ -27,7 +32,7 @@ var valeur = function(n) {
 }
 
 // Echelles pour le graphe
-var echelleLargeur = d3.scale.linear().domain([0,8]).range([margin+20,tailleGraph-margin]);
+var echelleLargeur = d3.scale.linear().domain([0,8]).range([marginL+20,tailleGraph-marginL]);
 var echelleHauteur = d3.scale.linear().domain([70,30]).range([margin,hauteurSVG-margin]);
 
 //Création de la SVG
@@ -49,7 +54,13 @@ var tip = d3.tip()
 		if (d.Elu==1)
 			temp = " élu : "	
 		var text = "Candidat" + temp + d.Candidats + "</br>" + d.Age + " ans";
-		return text + "</br>" + '<img src="../Photos/'+d.Candidats+'.jpg" style="width:60px;">';
+		var photo = "</br>" + '<img src="'+ d.Photo + '" style="width:60px;">';
+		if (d.Photo == "")
+			photo = "";
+		var note = "</br>" + d.Note;
+		if (d.note == "")
+			note = "";
+		return text + photo + note ;
 		});
 
 //Fonctions pour utiliser et afficher les données du google sheets
@@ -126,15 +137,10 @@ var bars = d3.select("svg").selectAll("line")
 				.attr("opacity", .1)
 				.attr("stroke", "black");
 
-//Axes				
-var xAxis = d3.svg.axis()
-				.scale(echelleLargeur)
-				.ticks(0)
-				.orient("bottom");
-				
+//Axes								
 var yAxis = d3.svg.axis()
 			.scale(echelleHauteur)
-			.ticks(10, "s")
+			.ticks(5, "s")
 			.orient("left");
 			
 // Etiquettes à la main pour l'axe du bas
@@ -147,23 +153,29 @@ var etiquette = d3.select("svg").selectAll("text")
 			   })
 			   .attr("text-anchor", "middle")
 			   .attr("x", function(d) {
-				   if (d==2015)
-					   return echelleLargeur(valeur(d))-7;
-				   else if (d==2016)
-					   return echelleLargeur(valeur(d))+7
-					else return echelleLargeur(valeur(d));
+					return echelleLargeur(valeur(d));
 			   })
 			   .attr("y", function(d,i) {
 				   return (hauteurSVG - margin + 15);
 			   })
-			   .attr("font-family", "sans-serif")
+			   .attr("font-family", "Roboto")
 			   .attr("font-size", "11px")
 			   .attr("fill", "black");
 
 
 //Légende
-var legendeY = 100;
+var legendeY = 50;
 var legendeX = largeurSVG*0.8;
+//Contour
+svg.append("rect")
+	.attr('x', legendeX -10 )
+	.attr('y', legendeY - 10 )
+	.attr('height', 60)
+	.attr('width', largeurLeg)
+	.attr('fill', "#c8c8ca")
+	.attr('opacity', 0.8);
+
+//Text
 svg.append("circle")
 			.attr("cx", legendeX)
 			.attr("cy", legendeY)
@@ -181,7 +193,7 @@ svg.append("text")
 	.attr("text-anchor", "start")
 	.attr("x", legendeX + 8)
 	.attr("y", legendeY+3)
-	.attr("font-family", "sans-serif")
+	.attr("font-family", "Roboto")
 	.attr("font-size", tailleLeg)
 	.attr("fill", "black");
 	
@@ -190,7 +202,7 @@ svg.append("text")
 	.attr("text-anchor", "start")
 	.attr("x", legendeX + 8)
 	.attr("y", legendeY+23)
-	.attr("font-family", "sans-serif")
+	.attr("font-family", "Roboto")
 	.attr("font-size", tailleLeg)
 	.attr("fill", "black");	
 
@@ -204,43 +216,39 @@ svg.append("line")
 	.attr("stroke", "grey");
 	
 svg.append("text")
-	.text("Age moyen des candidats")
+	.text("Âge moyen")
 	.attr("text-anchor", "start")
 	.attr("x", legendeX + 8)
 	.attr("y", legendeY+43)
-	.attr("font-family", "sans-serif")
+	.attr("font-family", "Roboto")
 	.attr("font-size", tailleLeg)
 	.attr("fill", "black");
 
 svg.append("text")
-	.text("Age")
+	.text("Âge")
 	.attr("text-anchor", "middle")
-	.attr("x", margin-20)
+	.attr("x", marginL-10)
 	.attr("y", margin-20)
-	.attr("font-family", "sans-serif")
+	.attr("font-family", "Roboto")
 	.attr("font-size", "11px")
 	.attr("fill", "black");
 	
-//Titre du graphique
+/*//Titre du graphique
 svg.append("text")
 	.attr("class","titre")
-	.text("Elections et Age au Parti Québécois")
+	.text("Quel est l’âge des candidats à la chefferie du Parti québécois ?")
 	.attr("text-anchor", "middle")
-	.attr("x", margin + tailleGraph/2)
+	.attr("x", marginL + tailleGraph/2)
 	.attr("y", margin-20)
-	.attr("font-family", "sans-serif")
-	.attr("font-size", "18px")
-	.attr("fill", "black");	
+	.attr("font-family", "Roboto")
+	.attr("font-size", tailleTitre)
+	.attr("fill", "black");	*/
 				
 //Mise en place des Axes et du tooltip			
-svg.append("g")
-	.attr("class", "axis")
-	.attr("transform", "translate(0," + (hauteurSVG - margin) + ")")
-	.call(xAxis);
 				
 svg.append("g")
 	.attr("class", "axis")
-	.attr("transform", "translate(" + margin + ",0)")
+	.attr("transform", "translate(" + marginL + ",0)")
 	.call(yAxis);
 		
 svg.call(tip);	
