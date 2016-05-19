@@ -9,36 +9,47 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC95qiflxZ2XVSOypJpjAmZttSWZHEFx0A&language=fr"
 type="text/javascript">
 </script>
+<script src="../JS/jquery.min.js" charset="utf-8"></script>
 <style>
   body { margin:0; padding:0; }
   #map { position:absolute; top:0; bottom:0; width:100%; }
 </style>
 </head>
 <body>
-<div id='map'></div>
+<div id='map'> </div>
 <script>
-/*L.mapbox.accessToken = 'pk.eyJ1IjoiYXVkZWxhZGVzbWVyczY3IiwiYSI6ImNpb2FoMmV0NjAza3d2NGtxbjZ3MzQ3eXIifQ.hPhQrDZDF-SbfyMD9Wzy4w';
-var map = L.mapbox.map('map', 'mapbox.streets')
-    .setView([	45.504629, -73.55686], 11);*/
+L.mapbox.accessToken = 'pk.eyJ1IjoiYXVkZWxhZGVzbWVyczY3IiwiYSI6ImNpb2FoMmV0NjAza3d2NGtxbjZ3MzQ3eXIifQ.hPhQrDZDF-SbfyMD9Wzy4w';
+var map = L.mapbox.map('map', 'mapbox.outdoors')
+    .setView([	45.504629, -73.55686], 11);
 	
-var init = function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: {lat: -25.363882, lng: 131.044922 }
-  });
-
   map.addListener('click', function(e) {
     placeMarkerAndPanTo(e.latLng, map);
   });
-}
-
-function placeMarkerAndPanTo(latLng, map) {
+ function placeMarkerAndPanTo(latLng, map) {
   var marker = new google.maps.Marker({
     position: latLng,
     map: map
   });
   map.panTo(latLng);
 }
+/*var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 11,
+    center: {lat: 45.504629, lng: -73.55686 }
+  });
+
+  map.addListener('click', function(e) {
+    placeMarkerAndPanTo(e.latLng, map);
+  });
+
+
+function placeMarkerAndPanTo(latLng, map) {
+  var marker = new google.maps.Marker({
+    position: latLng,
+    map: map
+  });
+  console.log(latLng);
+  map.panTo(latLng);
+}*/
 </script>
 </body>
 </html>

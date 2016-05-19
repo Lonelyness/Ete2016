@@ -165,11 +165,11 @@ var etiquette = d3.select("svg").selectAll("text")
 
 //Légende
 var legendeY = 50;
-var legendeX = largeurSVG*0.8;
+var legendeX = echelleLargeur(8)-largeurLeg+10;
 //Contour
 svg.append("rect")
-	.attr('x', legendeX -10 )
-	.attr('y', legendeY - 10 )
+	.attr('x', legendeX -10)
+	.attr('y', legendeY - 10)
 	.attr('height', 60)
 	.attr('width', largeurLeg)
 	.attr('fill', "#c8c8ca")
