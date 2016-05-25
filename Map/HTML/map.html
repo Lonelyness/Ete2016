@@ -18,20 +18,38 @@ type="text/javascript">
 <body>
 <div id='map'> </div>
 <script>
+  var marker=1;
+
 L.mapbox.accessToken = 'pk.eyJ1IjoiYXVkZWxhZGVzbWVyczY3IiwiYSI6ImNpb2FoMmV0NjAza3d2NGtxbjZ3MzQ3eXIifQ.hPhQrDZDF-SbfyMD9Wzy4w';
-var map = L.mapbox.map('map', 'mapbox.outdoors')
-    .setView([	45.504629, -73.55686], 11);
+var map = L.mapbox.map('map', 'mapbox.dc-markers')
+    .setView([45.504629, -73.55686], 11);
 	
-  map.addListener('click', function(e) {
-    placeMarkerAndPanTo(e.latLng, map);
+ map.on('click', function(e) {
+    placeMarkerAndPanTo(e.latlng, map);
   });
- function placeMarkerAndPanTo(latLng, map) {
-  var marker = new google.maps.Marker({
-    position: latLng,
-    map: map
-  });
-  map.panTo(latLng);
+  
+ function placeMarkerAndPanTo(latlng, map) {
+ if (marker==1) {
+ marker = L.marker([latlng.lat, latlng.lng], {
+    icon: L.mapbox.marker.icon({
+        'marker-size': 'large',
+        'marker-symbol': 'bus',
+        'marker-color': '#fa0'
+    })
+}).addTo(map);
 }
+else {
+    marker.setLatLng(latlng);
+		}
+
+
+}
+
+map.featureLayer.on('click', function(e) {
+        map.panTo(e.layer.getLatLng());
+    });
+
+
 /*var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
     center: {lat: 45.504629, lng: -73.55686 }

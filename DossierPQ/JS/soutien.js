@@ -1,6 +1,6 @@
 var width = document.documentElement.clientWidth*0.8,
     height = 800,
-    padding = 6, // separation between nodes
+    padding = 2, // separation between nodes
     maxRadius = 12,
 	centreX = - 100 + width/2,
 	centreY = - 100 + height/2
@@ -54,6 +54,7 @@ nodes = d3.range(data.length).map(function(i) {
 	nom : nomDep,
 	sexe : sexe,
 	type : type,
+	group : group,
     radius: 10,
     colorS: color(group),
 	colorT: colorbis(type),
@@ -185,7 +186,7 @@ function collide(alpha) {
         var x = d.x - quad.point.x,
             y = d.y - quad.point.y,
             l = Math.sqrt(x * x + y * y);
-            r = d.radius + quad.point.radius; //+ (d.color !== quad.point.color) * padding;
+            r = d.radius + quad.point.radius + (d.group !== quad.point.group) * padding;
         if (l < r) {
           l = (l - r) / l * alpha;
           d.x -= x *= l;
