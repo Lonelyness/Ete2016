@@ -12,62 +12,68 @@ type="text/javascript">
 <script src="../JS/jquery.min.js" charset="utf-8"></script>
 <style>
   body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
+  #map { position:absolute; top:30px; bottom:0; width:100%;}
+  #choix { position:absolute; top:5px; bottom:0; left:30px; height:30px;}
 </style>
 </head>
 <body>
 <div id='map'> </div>
-<script>
-  var marker=1;
+<div id='choix'> 
+Donnez une adresse :
+<input type="text" id="adresse"> 
 
+   Placer un marqueur :
+<input type="checkbox" id="marker">
+
+   Placer une zone :
+<input type="checkbox" id="aire">
+
+<button onclick='rendu()'> Valider </button>
+
+</div>
+<script>
+
+var marker=1;
+var valeur=0;
+  
 L.mapbox.accessToken = 'pk.eyJ1IjoiYXVkZWxhZGVzbWVyczY3IiwiYSI6ImNpb2FoMmV0NjAza3d2NGtxbjZ3MzQ3eXIifQ.hPhQrDZDF-SbfyMD9Wzy4w';
-var map = L.mapbox.map('map', 'mapbox.dc-markers')
+
+var map = L.mapbox.map('map', 'mapbox.light')
     .setView([45.504629, -73.55686], 11);
 	
  map.on('click', function(e) {
+	if (document.getElementById('marker').checked==true)
     placeMarkerAndPanTo(e.latlng, map);
+	if (document.getElementById('aire').checked==true)
+    placeAire(e, map);
   });
-  
+ 
+ function placeMarkerAndPanTo(latlng, map) {
+
+};
+
+
+ 
  function placeMarkerAndPanTo(latlng, map) {
  if (marker==1) {
  marker = L.marker([latlng.lat, latlng.lng], {
     icon: L.mapbox.marker.icon({
-        'marker-size': 'large',
-        'marker-symbol': 'bus',
-        'marker-color': '#fa0'
+        'marker-color': '#2E2EFE'
     })
 }).addTo(map);
+valeur = latlng;
 }
 else {
     marker.setLatLng(latlng);
 		}
+};
+
+var rendu = function() {
+	alert(valeur)
+
+};
 
 
-}
-
-map.featureLayer.on('click', function(e) {
-        map.panTo(e.layer.getLatLng());
-    });
-
-
-/*var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 11,
-    center: {lat: 45.504629, lng: -73.55686 }
-  });
-
-  map.addListener('click', function(e) {
-    placeMarkerAndPanTo(e.latLng, map);
-  });
-
-
-function placeMarkerAndPanTo(latLng, map) {
-  var marker = new google.maps.Marker({
-    position: latLng,
-    map: map
-  });
-  console.log(latLng);
-  map.panTo(latLng);
-}*/
 </script>
 </body>
 </html>
