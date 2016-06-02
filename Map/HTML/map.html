@@ -11,7 +11,7 @@ type="text/javascript">
 <script src="../JS/jquery.min.js" charset="utf-8"></script>
 <style>
   body { margin:0; padding:0; }
-  #map { position:absolute; top:30px; bottom:0; width:100%;}
+  #map { position:absolute; top:50px; bottom:0; width:100%;}
   #choix { position:absolute; top:5px; bottom:0; left:30px; height:30px;}
 </style>
 </head>
@@ -28,34 +28,71 @@ Donnez une adresse :
        id = "btnSearch"
        value = "Valider"
        onclick = "searchAdress();"/>
+<br>	      
    Placer un marqueur :
-<input type="checkbox" id="marker">
+<input type="radio" name="choix" id="marker">
 
    Placer une zone :
-<input type="checkbox" id="aire">
+<input type="radio" name="choix" id="aire">
+<input type = "button"
+       id = "btnclear"
+       value = "Effacer"
+       onclick = "clearMap();"/>
 </div>
+
 <script>
+//Code brouillon
+
 
 var marker=1;
+var poly=1;
 var valeur=0;
-  
+var polygon = [];
+ 
+//Pour garder ma clé mapbox 
 //L.mapbox.accessToken = 'pk.eyJ1IjoiYXVkZWxhZGVzbWVyczY3IiwiYSI6ImNpb2FoMmV0NjAza3d2NGtxbjZ3MzQ3eXIifQ.hPhQrDZDF-SbfyMD9Wzy4w';
 
+//Création de la map Leaflet
 var map = L.map('map')
     .setView([45.504629, -73.55686], 11);
-	
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+//Indication de comment l'afficher	
+L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
+	type: 'map',
+	ext: 'jpg',
+	attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	subdomains: '1234'
+    //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
-	
+
+//Event au click sur la map
  map.on('click', function(e) {
 	if (document.getElementById('marker').checked==true)
-	alert(e.latlng)
     placeMarkerAndPanTo(e.latlng.lat,e.latlng.lng , map);
 	if (document.getElementById('aire').checked==true)
-    placeAire(e, map);
+    placeAire(e.latlng, map);
   });
-  
+ 
+ //Fonction de clear 
+ function clearMap() {
+ 	if (poly != 1) {
+		map.removeLayer(poly);
+		polygon = [];
+		poly=1;
+		}
+	if (marker != 1) {
+		map.removeLayer(marker);
+		marker = 1;}
+ 
+ }
+ 
+//Placer aire sur la map
+function placeAire(latlng, map){
+	if (poly != 1)
+		map.removeLayer(poly);
+	polygon.push([latlng.lat, latlng.lng]);
+	poly = L.polygon(polygon).addTo(map);
+};
+ //Placer marqueur sur la map
  function placeMarkerAndPanTo(lat , lng, map) {
  if (marker==1) {
  marker = L.marker([lat, lng]).addTo(map);
@@ -67,17 +104,35 @@ else {
 		}
 };
 
+//Recherche de l'adresse
 var searchAdress = function(){
 	var adresse = document.getElementById('adresse').value;
 	var xml = httpGet('https://maps.googleapis.com/maps/api/geocode/json?address='+adresse+'&key=AIzaSyC95qiflxZ2XVSOypJpjAmZttSWZHEFx0A');
+	console.log(xml);
+	//Récupération du centre pour le marqueur
 	var endroit = xml.indexOf('"location"');
 	var temp = xml.indexOf(':',endroit+13)+1;
 	var temp2 = xml.indexOf(',',endroit);
 	var lat = xml.substring(temp,temp2);
 	var lng = xml.substring(xml.indexOf(':',temp2)+1,xml.indexOf('}',temp2+1));
-	placeMarkerAndPanTo(lat, lng, map)
+	placeMarkerAndPanTo(lat, lng, map);
+	//Récupération des contours
+	endroit = xml.indexOf('"northeast"');
+	temp = xml.indexOf(':',endroit+13)+1;
+	temp2 = xml.indexOf(',',endroit);
+	lat = xml.substring(temp,temp2);
+	lng = xml.substring(xml.indexOf(':',temp2)+1,xml.indexOf('}',temp2+1));
+	endroit = xml.indexOf('"southwest"');
+	temp = xml.indexOf(':',endroit+13)+1;
+	temp2 = xml.indexOf(',',endroit);
+	var lat2 = xml.substring(temp,temp2);
+	var lng2 = xml.substring(xml.indexOf(':',temp2)+1,xml.indexOf('}',temp2+1));
+	var southWest = L.latLng(lat, lng),
+    northEast = L.latLng(lat2, lng2),
+    bounds = L.latLngBounds(southWest, northEast);
+	map.fitBounds(bounds);
 }
-
+//Fonction de récupération 
 function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
