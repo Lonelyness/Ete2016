@@ -4,16 +4,10 @@
 <meta charset=utf-8 />
 <title>A simple map</title>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" />
+<link rel="stylesheet" href="../CSS/general.css" />
 <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC95qiflxZ2XVSOypJpjAmZttSWZHEFx0A&language=fr"
-type="text/javascript">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC95qiflxZ2XVSOypJpjAmZttSWZHEFx0A&language=fr" type="text/javascript"></script>
 <script src="../JS/jquery.min.js" charset="utf-8"></script>
-<style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:50px; bottom:0; width:100%;}
-  #choix { position:absolute; top:5px; bottom:0; left:30px; height:30px;}
-</style>
 </head>
 <body>
 <div id='map'> </div>
@@ -24,132 +18,44 @@ Donnez une adresse :
        onkeydown = "if (event.keyCode == 13)
                         document.getElementById('btnSearch').click()"/>
 
-<input type = "button"
+<input type="button"
+       class="button"
        id = "btnSearch"
        value = "Y aller"
        onclick = "searchAdress();"/>
-<input type = "button"
+	   
+<input type="button"
+       class="button"
        id = "btnPlace"
        value = "Le marquer"
        onclick = "markAdress();"/>
 <br>	      
    Placer un marqueur :
-<input type="radio" name="choix" id="marker">
-
+<input type="radio" name="choix" id="marker" checked="true">
    Placer une zone :
 <input type="radio" name="choix" id="aire">
-<input type = "button"
+   Placer une ligne :
+<input type="radio" name="choix" id="ligne">
+<br>
+   Carré :
+<input type="radio" name="affichage" id="carre" checked="true">
+   Colonne : 
+<input type="radio" name="affichage" id="colonne" >
+   Ligne :
+<input type="radio" name="affichage" id="ligne" >
+<br>
+<input type="button"
+	   class="button"
        id = "btnclear"
        value = "Recommencer"
        onclick = "clearMap();"/>
+<input type="button"
+	   class="button"
+       id = "btnval"
+       value = "Valider"
+       onclick = ""/>
 </div>
 
-<script>
-//Code brouillon
-var poly=1;
-var valeur=0;
-var polygon = [];
- 
-//Pour garder ma clé mapbox 
-//L.mapbox.accessToken = 'pk.eyJ1IjoiYXVkZWxhZGVzbWVyczY3IiwiYSI6ImNpb2FoMmV0NjAza3d2NGtxbjZ3MzQ3eXIifQ.hPhQrDZDF-SbfyMD9Wzy4w';
-
-//Création de la map Leaflet
-var map = L.map('map')
-    .setView([45.504629, -73.55686], 11);
-//Indication de comment l'afficher	
-L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
-	type: 'map',
-	ext: 'jpg',
-	attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-	subdomains: '1234'
-    //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-//Event au click sur la map
- map.on('click', function(e) {
-	if (document.getElementById('marker').checked==true)
-    placeMarkerAndPanTo(e.latlng.lat,e.latlng.lng , map);
-	if (document.getElementById('aire').checked==true)
-    placeAire(e.latlng, map);
-  });
- 
- //Fonction de clear 
- function clearMap() {
-    $.each(map._layers, function (ml) {
-        if (ml!=35) {
-            map.removeLayer(map._layers[ml]);
-        }
-    })
-}
- 
- 
-//Placer aire sur la map
-function placeAire(latlng, map){
-	if (poly != 1)
-		map.removeLayer(poly);
-	polygon.push([latlng.lat, latlng.lng]);
-	poly = L.polygon(polygon).addTo(map);
-};
- //Placer marqueur sur la map
- function placeMarkerAndPanTo(lat , lng, map) {
-	marker = L.marker([lat, lng]).addTo(map)
-			.bindPopup("<input type='button' value='Supprimer' class='marker-delete-button'/>");
-	marker.on("popupopen", onPopupOpen);
-	map.panTo(L.latLng(lat,lng));
-};
-
-function onPopupOpen() {
-    var tempMarker = this;
-    // To remove marker on click of delete button in the popup of marker
-    $(".marker-delete-button:visible").click(function () {
-        map.removeLayer(tempMarker);
-    });
-}
-
-var markAdress = function(){ 
-  var latlng = recherche();
-  placeMarkerAndPanTo(latlng[0], latlng[1], map);
-}
-var searchAdress = function(){ 
-  recherche();
-}
-
-
-//Recherche de l'adresse et parseur
-var recherche = function(){
-	var adresse = document.getElementById('adresse').value;
-	var xml = httpGet('https://maps.googleapis.com/maps/api/geocode/json?address='+adresse+'&key=AIzaSyC95qiflxZ2XVSOypJpjAmZttSWZHEFx0A');
-	//Récupération du centre pour le marqueur
-	var endroit = xml.indexOf('"location"');
-	var temp = xml.indexOf(':',endroit+13)+1;
-	var temp2 = xml.indexOf(',',endroit);
-	var lat = xml.substring(temp,temp2);
-	var lng = xml.substring(xml.indexOf(':',temp2)+1,xml.indexOf('}',temp2+1));
-	//Récupération des contours
-	endroit = xml.indexOf('"northeast"');
-	temp = xml.indexOf(':',endroit+13)+1;
-	temp2 = xml.indexOf(',',endroit);
-	lat1 = xml.substring(temp,temp2);
-	lng1 = xml.substring(xml.indexOf(':',temp2)+1,xml.indexOf('}',temp2+1));
-	endroit = xml.indexOf('"southwest"');
-	temp = xml.indexOf(':',endroit+13)+1;
-	temp2 = xml.indexOf(',',endroit);
-	var lat2 = xml.substring(temp,temp2);
-	var lng2 = xml.substring(xml.indexOf(':',temp2)+1,xml.indexOf('}',temp2+1));
-	var southWest = L.latLng(lat1, lng1),
-    northEast = L.latLng(lat2, lng2),
-    bounds = L.latLngBounds(southWest, northEast);
-	map.fitBounds(bounds);
-	return [lat, lng];
-}
-//Fonction de récupération 
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
-</script>
+<script src="../JS/map.js" charset="utf-8"></script>
 </body>
 </html>

@@ -1,35 +1,18 @@
-	body{margin-left:50px;}
-		.h,.v{stroke:black;stroke-dasharray:4 4;stroke-width:1;stroke-opacity:.5;}
-		.axis path,
-		.axis line {
-			fill: none;
-			stroke: white;
-			shape-rendering: crispEdges;
-		}
-		.axis text {
-			font-family: sans-serif;
-			font-size: 11px;
-		}
-	.circle:hover {
-			fill: red ;
-			r : 5;
-		}
-	.line:hover {
-		 stroke: red;
-		 stroke-width:3;
-	}
-	.cercle:hover {
-		 stroke: black;
-		 stroke-width:2;
-	}
-	
-	.d3-tip {
-		line-height: 1;
-		font-weight: bold;
-		padding: 5px;
-		font-size: 12px;
-		background: rgba(0, 0, 0, 0.8);
-		color: #fff;
-		border-radius: 2px;
-		text-align : center;
-			}
+ body { margin:0; padding:0; }
+  #map { position:absolute; top:100px; bottom:0; width:100%;}
+  #choix { position:absolute; top:5px; bottom:0; left:30px; right:10px; height:30px; width:90%;}
+  #btnval {float:right;}
+  #btnclear {float:right;}
+  
+  .button {
+	border:none;
+	padding:6px 6px 6px 6px;
+	border-radius:8px;
+	background:#1C1E7C;
+	font:bold 12px Arial;
+	color:#fff;
+  }
+ .button:active {
+  transform: translateY(2px);
+ }
+  
