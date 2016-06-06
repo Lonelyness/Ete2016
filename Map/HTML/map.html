@@ -26,8 +26,12 @@ Donnez une adresse :
 
 <input type = "button"
        id = "btnSearch"
-       value = "Valider"
+       value = "Y aller"
        onclick = "searchAdress();"/>
+<input type = "button"
+       id = "btnPlace"
+       value = "Le marquer"
+       onclick = "markAdress();"/>
 <br>	      
    Placer un marqueur :
 <input type="radio" name="choix" id="marker">
@@ -36,15 +40,12 @@ Donnez une adresse :
 <input type="radio" name="choix" id="aire">
 <input type = "button"
        id = "btnclear"
-       value = "Effacer"
+       value = "Recommencer"
        onclick = "clearMap();"/>
 </div>
 
 <script>
 //Code brouillon
-
-
-var marker=1;
 var poly=1;
 var valeur=0;
 var polygon = [];
@@ -74,16 +75,13 @@ L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
  
  //Fonction de clear 
  function clearMap() {
- 	if (poly != 1) {
-		map.removeLayer(poly);
-		polygon = [];
-		poly=1;
-		}
-	if (marker != 1) {
-		map.removeLayer(marker);
-		marker = 1;}
+    $.each(map._layers, function (ml) {
+        if (ml!=35) {
+            map.removeLayer(map._layers[ml]);
+        }
+    })
+}
  
- }
  
 //Placer aire sur la map
 function placeAire(latlng, map){
@@ -94,43 +92,55 @@ function placeAire(latlng, map){
 };
  //Placer marqueur sur la map
  function placeMarkerAndPanTo(lat , lng, map) {
- if (marker==1) {
- marker = L.marker([lat, lng]).addTo(map);
-map.panTo(L.latLng(lat,lng));
-}
-else {
-    marker.setLatLng(L.latLng(lat,lng));
+	marker = L.marker([lat, lng]).addTo(map)
+			.bindPopup("<input type='button' value='Supprimer' class='marker-delete-button'/>");
+	marker.on("popupopen", onPopupOpen);
 	map.panTo(L.latLng(lat,lng));
-		}
 };
 
-//Recherche de l'adresse
-var searchAdress = function(){
+function onPopupOpen() {
+    var tempMarker = this;
+    // To remove marker on click of delete button in the popup of marker
+    $(".marker-delete-button:visible").click(function () {
+        map.removeLayer(tempMarker);
+    });
+}
+
+var markAdress = function(){ 
+  var latlng = recherche();
+  placeMarkerAndPanTo(latlng[0], latlng[1], map);
+}
+var searchAdress = function(){ 
+  recherche();
+}
+
+
+//Recherche de l'adresse et parseur
+var recherche = function(){
 	var adresse = document.getElementById('adresse').value;
 	var xml = httpGet('https://maps.googleapis.com/maps/api/geocode/json?address='+adresse+'&key=AIzaSyC95qiflxZ2XVSOypJpjAmZttSWZHEFx0A');
-	console.log(xml);
 	//Récupération du centre pour le marqueur
 	var endroit = xml.indexOf('"location"');
 	var temp = xml.indexOf(':',endroit+13)+1;
 	var temp2 = xml.indexOf(',',endroit);
 	var lat = xml.substring(temp,temp2);
 	var lng = xml.substring(xml.indexOf(':',temp2)+1,xml.indexOf('}',temp2+1));
-	placeMarkerAndPanTo(lat, lng, map);
 	//Récupération des contours
 	endroit = xml.indexOf('"northeast"');
 	temp = xml.indexOf(':',endroit+13)+1;
 	temp2 = xml.indexOf(',',endroit);
-	lat = xml.substring(temp,temp2);
-	lng = xml.substring(xml.indexOf(':',temp2)+1,xml.indexOf('}',temp2+1));
+	lat1 = xml.substring(temp,temp2);
+	lng1 = xml.substring(xml.indexOf(':',temp2)+1,xml.indexOf('}',temp2+1));
 	endroit = xml.indexOf('"southwest"');
 	temp = xml.indexOf(':',endroit+13)+1;
 	temp2 = xml.indexOf(',',endroit);
 	var lat2 = xml.substring(temp,temp2);
 	var lng2 = xml.substring(xml.indexOf(':',temp2)+1,xml.indexOf('}',temp2+1));
-	var southWest = L.latLng(lat, lng),
+	var southWest = L.latLng(lat1, lng1),
     northEast = L.latLng(lat2, lng2),
     bounds = L.latLngBounds(southWest, northEast);
 	map.fitBounds(bounds);
+	return [lat, lng];
 }
 //Fonction de récupération 
 function httpGet(theUrl)
