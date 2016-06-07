@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+		<script src="../JS/Tabletop.js" charset="utf-8"></script>
+		<script src="http://d3js.org/queue.v1.min.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="../JS/tip.js" charset="utf-8"></script>
+		
+</head>		
+<body>
+
+<p align="center">
+  <svg></svg>
+</div>
+<!-- When import this way, the data is available as global variable "gridmapLayoutUsa" -->
+<script src="../JS/etats.js"></script>
+<script>
+var width = document.documentElement.clientWidth*0.8,
+    height = 800,
+    padding = 2, // separation between nodes
+    maxRadius = 12 ;
+
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1lMb_c6dGcmpsluqg1DR1Cic5b5b9gs344rlqDOuD6ZA/pubhtml'	
+	
+	
+// Define color scale
+var color = d3.scale.linear()
+    .domain([-0.5, 0.5])
+    .range(["yellow", "blue"]);
+var xRange = d3.scale.linear()
+  .domain([0, 15])
+  .range([30,width-30]);  
+var yRange = d3.scale.linear()
+  .domain([0, 15])
+  .range([30,height-30]); 
+var radRange = d3.scale.linear()
+  .domain([0, 550])
+  .range([15,50]); 
+
+var svg = d3.select('svg')
+    .attr("width", width)
+    .attr("height", height);
+	
+var dataLoc = gridmapLayoutUsa;
+
+var recherche = function(name) {
+var index=-1;
+	for (i = 0; i < dataLoc.length; i++) { 
+		if (dataLoc[i].name==name) 
+			index=i;
+}
+if (index==-1) 
+	console.log(name);
+return index;
+}
+
+var tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([-5, 0])
+		.html(function(d) {
+			return d.name;
+		});
+
+
+function drawChart(data) {
+var nodes = d3.range(data.length).map(function(i) {
+  var name = data[i].État_EN;
+  var x = dataLoc[recherche(name)].x;
+  var y = dataLoc[recherche(name)].y;
+  var rad = data[i].Nombre_de_délégués_par_État;
+  var col = (data[i].Total_délégués_Clinton - data[i].Total_délégués_Sanders)/(data[i].Total_délégués_Clinton + data[i].Total_délégués_Sanders);
+	return {
+	name: name,
+	radius: radRange(rad),
+    x: xRange(x),
+    y: yRange(y),
+	x0: xRange(x),
+    y0: yRange(y),
+	color : color(col)
+  };
+});
+	
+var force = d3.layout.force()
+    .nodes(nodes)
+	.size([width, height])
+    .gravity(0)
+    .charge(0)
+    .on("tick", tick)
+    .start();	
+	
+var circle = svg.selectAll("rect")
+  .data(nodes)
+  .enter()
+  .append('rect')
+  .attr("width", function(d) { return d.radius; })
+  .attr("height", function(d) { return d.radius; })
+  .style("fill", function(d) { return d.color; })
+  .attr('transform', function(d){return 'translate('+d.x+','+d.y+')';})
+  .on('mouseover', tip.show)
+  .on('mouseout', tip.hide)
+  .call(force.drag);
+  
+   function tick(e) {
+  circle
+      .each(gravity(.4 * e.alpha))
+      .each(collide(.5))
+      .attr("x", function(d) { return d.x ; })
+      .attr("y", function(d) { return d.y ; });
+};
+  function gravity(alpha) {
+  return function(d) {
+    d.y += (d.y0 - d.y) * alpha;
+    d.x += (d.x0 - d.x) * alpha;
+  };
+}
+
+function collide(k) {
+  var quadtree = d3.geom.quadtree(nodes);
+  return function(d) {
+    var nr = d.radius + padding,
+        nx1 = d.x - nr,
+        nx2 = d.x + nr,
+        ny1 = d.y - nr,
+        ny2 = d.y + nr;
+    quadtree.visit(function(quad, x1, y1, x2, y2) {
+      if (quad.point && (quad.point !== d)) {
+        var x = d.x - quad.point.x,
+            y = d.y - quad.point.y,
+            lx = Math.abs(x),
+            ly = Math.abs(y),
+            r = nr + quad.point.radius;
+        if (lx < r && ly < r) {
+           if (lx > ly) {
+				lx = (lx - r) * (x < 0 ? -k : k);
+				d.x -= lx;
+				quad.point.x += lx;
+			} 
+			else {
+             ly = (ly - r) * (y < 0 ? -k : k);
+             d.y -= ly;
+             quad.point.y += ly;
+			}
+		}
+	  }
+      return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+		});
+	};	
+};
+
+};
+  
+ function renderSpreadsheetData() {
+    Tabletop.init( { key: public_spreadsheet_url,
+                     callback: draw,
+                     simpleSheet: true } )
+}
+
+	function draw(data, tabletop) {
+  // draw chart
+  drawChart(data);
+	}
+  
+renderSpreadsheetData();
+svg.call(tip);	
+
+</script>

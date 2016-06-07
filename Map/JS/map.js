@@ -108,7 +108,6 @@ function placeLigne(latlng, map){
 
 function onPopupOpen() {
     var tempMarker = this;
-	console.log(this);
     // To remove marker on click of delete button in the popup of marker
     $(".marker-delete-button:visible").click(function () {
         map.removeLayer(tempMarker);
