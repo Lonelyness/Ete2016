@@ -10,40 +10,43 @@
 <script src="../JS/jquery.min.js" charset="utf-8"></script>
 </head>
 <body>
-<div id='map'> </div>
-<div id='choix'> 
+<div id='choix'>
+<ul style="list-style: none;">
+<li>
 Donnez une adresse :
 <input type = "text"
        id = "adresse" 
        onkeydown = "if (event.keyCode == 13)
                         document.getElementById('btnSearch').click()"/>
-
 <input type="button"
        class="button"
        id = "btnSearch"
        value = "Y aller"
        onclick = "searchAdress();"/>
-	   
 <input type="button"
        class="button"
        id = "btnPlace"
        value = "Le marquer"
-       onclick = "markAdress();"/>
-<br>	      
+       onclick = "markAdress();"/></li>
+<li>
+   Naviguer :
+<input type="radio" name="choix" id="navig" checked="true">     
    Placer un marqueur :
-<input type="radio" name="choix" id="marker" checked="true">
+<input type="radio" name="choix" id="marker">
    Placer une zone :
 <input type="radio" name="choix" id="aire">
    Placer une ligne :
 <input type="radio" name="choix" id="ligne">
-<br>
+</li>
+<li>
    Carré :
-<input type="radio" name="affichage" id="carre" checked="true">
+<input type="radio" name="affichage" id="carre" checked="true" onclick = "dimMap();">
    Colonne : 
-<input type="radio" name="affichage" id="colonne" >
+<input type="radio" name="affichage" id="colonne" onclick = "dimMap();">
    Ligne :
-<input type="radio" name="affichage" id="ligne" >
-<br>
+<input type="radio" name="affichage" id="long" onclick = "dimMap();" >
+</li>
+<li style="text-align: left;">
 <input type="button"
 	   class="button"
        id = "btnclear"
@@ -54,8 +57,10 @@ Donnez une adresse :
        id = "btnval"
        value = "Valider"
        onclick = ""/>
+</li>
+</ul>	   
 </div>
-
+<div id='map'> </div>
 <script src="../JS/map.js" charset="utf-8"></script>
 </body>
 </html>

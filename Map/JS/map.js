@@ -7,13 +7,20 @@ var ligneTab = [];
  
 //Pour garder ma clé mapbox 
 //L.mapbox.accessToken = 'pk.eyJ1IjoiYXVkZWxhZGVzbWVyczY3IiwiYSI6ImNpb2FoMmV0NjAza3d2NGtxbjZ3MzQ3eXIifQ.hPhQrDZDF-SbfyMD9Wzy4w';
+var w = window.innerWidth;
+var h = window.innerHeight;
+
+var m = Math.min(w, h-110)*0.95;
+document.getElementById('map').style.width = m+"px";
+document.getElementById('map').style.height = m+"px";
+document.getElementById('choix').style.width = m+"px";
 
 //Création de la map Leaflet
 var map = L.map('map')
     .setView([45.504629, -73.55686], 11);
 //Indication de comment l'afficher	
 L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', {
-	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, Icon by <a href="http://simpleicon.com/">Simple Icon</a> &mdash; <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	//attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, Icon by <a href="http://simpleicon.com/">Simple Icon</a> &mdash; <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 	subdomains: 'abcd',
 	minZoom: 0,
 	maxZoom: 20,
@@ -42,6 +49,22 @@ L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', 
         }
     })
 }
+
+ function dimMap(){
+	if (document.getElementById('carre').checked==true) {
+		document.getElementById('map').style.width = m+"px";
+		document.getElementById('map').style.height = m+"px";
+	}	
+	if (document.getElementById('colonne').checked==true) {
+		document.getElementById('map').style.width = 300 +"px";
+		document.getElementById('map').style.height = m+"px";	
+		
+	}	
+	if (document.getElementById('long').checked==true) {
+		document.getElementById('map').style.width = m+"px";
+		document.getElementById('map').style.height = 300+"px";	
+	}
+ };
  
 var myIcon = L.icon({
     iconUrl: '../map-marker.svg',
