@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
+		<script src="../JS/jquery.min.js" charset="utf-8"></script>
 		<script src="../JS/Tabletop.js" charset="utf-8"></script>
-		<script src="http://d3js.org/queue.v1.min.js"></script>
-		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="../JS/d3.min.js" charset="utf-8"></script>
 		<script src="../JS/tip.js" charset="utf-8"></script>
 		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="../CSS/general.css" />
@@ -14,18 +14,19 @@
 <p align="center">
   <svg></svg>
 </div>
-<!-- When import this way, the data is available as global variable "gridmapLayoutUsa" -->
+<!-- Pour l'emplacement des Etats : When import this way, the data is available as global variable "gridmapLayoutUsa" -->
 <script src="../JS/etats.js"></script>
 <script>
+//variables
 var width = 700,
     height = 625,
-    padding = 0, // separation between nodes
+    padding = 0, 
     maxRadius = 12 ;
-
+//lien de la google sheet
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1lMb_c6dGcmpsluqg1DR1Cic5b5b9gs344rlqDOuD6ZA/pubhtml'	
 	
 	
-// Define color scale
+// Echelle couleur
 var color = function(x) {
 	if (x<30)
 		return '#006d2c';
@@ -42,12 +43,15 @@ var color = function(x) {
 	else
 		return '#045a8d';		
 }
+// Echelle X
 var xRange = d3.scale.linear()
   .domain([0, 30])
-  .range([40,800-40]);  
+  .range([40,800-40]);
+// Echelle Y
 var yRange = d3.scale.linear()
   .domain([0, 30])
-  .range([40,800-40]); 
+  .range([40,800-40]);
+// Echelle taille carré  
 var radRange = function(x) {
 	if (x<40) {
 		return 10;
@@ -60,6 +64,8 @@ var radRange = function(x) {
 		return temp(x); }
 } 
 
+
+//Création d'une view box
 var svg = d3.select('svg')
 	.attr("viewBox", [
        0,
@@ -67,9 +73,11 @@ var svg = d3.select('svg')
        width,
        height
      ].join(" ")); 
-	 
+
+//Données emplacements	 
 var dataLoc = gridmapLayoutUsa;
 
+//Fonction pour trouver l'emplacement en fonction du nom
 var recherche = function(name) {
 var index=-1;
 	for (i = 0; i < dataLoc.length; i++) { 
@@ -78,16 +86,24 @@ var index=-1;
 }
 return index;
 }
-
+//Tip tool fixe - endroit a définir dans la librairie tip.js dans la fonction show
 var tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-10, 0])
 		.html(function(d) {
-			return "<p class='titre'>&nbsp;"+d.nameFR+"</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nombre de délégués Clinton : "+d.clinton+"<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nombre de délégués Sanders : "+d.sanders+"<br>&nbsp;";
+			if (d.clinton>1&&d.sanders>1)
+				return "<p class='titre'>&nbsp;&nbsp;"+d.nameFR+"</p>&nbsp;Clinton : "+d.clinton+" délégués <br> &nbsp;Sanders : "+d.sanders+" délégués<br>&nbsp;";
+			else if (d.clinton<=1)
+				return "<p class='titre'>&nbsp;&nbsp;"+d.nameFR+"</p>&nbsp;Clinton : "+d.clinton+" délégué <br> &nbsp;Sanders : "+d.sanders+" délégués<br>&nbsp;";
+			else
+			return "<p class='titre'>&nbsp;&nbsp;"+d.nameFR+"</p>&nbsp;Clinton : "+d.clinton+" délégués <br> &nbsp;Sanders : "+d.sanders+" délégué<br>&nbsp;";
+			
 		});
 
 
+// Construction de la carte en carré
 function drawChart(data) {
+//Affectation des données aux noeuds
 var nodes = d3.range(data.length).map(function(i) {
   var name = data[i].État_EN;
   var nameFR = data[i].État_FR;
@@ -112,7 +128,7 @@ var nodes = d3.range(data.length).map(function(i) {
 	color : color(col)
   };
 });
-	
+//Force - Collision non fonctionelle
 var force = d3.layout.force()
     .nodes(nodes)
 	.size([width, height])
@@ -120,7 +136,8 @@ var force = d3.layout.force()
     .charge(0)
     .on("tick", tick)
     .start();	
-	
+
+//Création d'un groupe pour les carrés et leur texte	
 var groupp = svg.append("g");
 
 var group = groupp.selectAll('g')
@@ -151,7 +168,7 @@ var text = group.append('text')
   .on('mouseout', tip.hide);
   
 
-  
+  //Fonctione de déplacement
  function tick(e) {
   rectangle
       .each(gravity(.5 * e.alpha))
@@ -164,13 +181,15 @@ var text = group.append('text')
       .attr("x", function(d) { return d.x - d.radius ; })
       .attr("y", function(d) { return d.y - d.radius ; });
 };
+
+//Fonction de gravité
   function gravity(alpha) {
   return function(d) {
     d.y += (d.y0 - d.y) * alpha;
     d.x += (d.x0 - d.x) * alpha;
   };
 }
-
+//Fonction de collision a revoir
 function collide(k) {
   var quadtree = d3.geom.quadtree(nodes);
   return function(node) {
@@ -210,34 +229,36 @@ function collide(k) {
 	};	
 };
 };
-  
+ //Appel à la Google sheet 
  function renderSpreadsheetData() {
     Tabletop.init( { key: public_spreadsheet_url,
                      callback: draw,
                      simpleSheet: true } )
 }
-
-	function draw(data, tabletop) {
+function draw(data, tabletop) {
   // draw chart
   drawChart(data);
-	}
-  
+	} 
 renderSpreadsheetData();
+
+//Mise en place du tiptool
 svg.call(tip);
 
 
 //Légende
-
+//Array pour les couleurs
 var leg = [{v:0,c:'#045a8d'},{v:30,c:'#2b8cbe'},{v:40,c:'#74a9cf'},{v:45,c:'#999999'},{v:55,c:'#66c2a4'},{v:60,c:'#2ca25f'},{v:70,c:'#006d2c'},{v:100,c:'#006d2c'}];
 
 var groupp = svg.append("g");
+
+// Variables d'emplacement : 
 var marginT = 50;
 var margin=525;
 var hauteur=450;
 var hauteur2=hauteur+100;
 var decalage=600;
 var facteur = 1.5;
-
+//Legende 1 couleurs
 groupp.selectAll("rect")
 		.data(leg)
 		.enter()
@@ -290,7 +311,7 @@ groupp.append('text')
 		.style("fill","#4c4c4c")
 		.attr("text-anchor", "middle");			
 
-		
+//Legende 2 taille carré		
 var legC = [40,200,475];
 
 groupp = svg.append("g");
@@ -325,7 +346,9 @@ groupp.append("text")
 		.style("fill","#4c4c4c")
 		.attr("text-anchor", "middle")
 		.text("Délégués par Etat");
+
 		
+//Titre du graphique		
 groupp.append("text")
 		.attr("x",marginT)
 		.attr("y",40)

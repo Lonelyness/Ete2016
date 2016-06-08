@@ -2,14 +2,13 @@
    line-height: 1;
    font-weight: normal;
    font-family: Roboto;
-   padding: 5px;
    background-color: rgba(255,255,255,.9);
    color: black;
    border-radius: 4px;
    font-size: 11px;
    margin-left: 20px;
    margin-top: 20px;
-   width:250px;
+   width:125px;
    border: 1px solid #ccc;
 }
 
@@ -49,6 +48,6 @@
 	
 	.titre {
 		 font-family: Roboto;
-		 font-size: 15px;
+		 font-size: 14px;
 		 font-weight : 800;
 	}
