@@ -1,0 +1,54 @@
+	.d3-tip { 
+   line-height: 1;
+   font-weight: normal;
+   font-family: Roboto;
+   padding: 5px;
+   background-color: rgba(255,255,255,.9);
+   color: black;
+   border-radius: 4px;
+   font-size: 11px;
+   margin-left: 20px;
+   margin-top: 20px;
+   width:250px;
+   border: 1px solid #ccc;
+}
+
+	.nomEtat {
+		font-family: Roboto;
+		font-size: 12px;
+		font-weight : 200;
+		-webkit-touch-callout: none; /* iOS Safari */
+		-webkit-user-select: none;   /* Chrome/Safari/Opera */
+		-khtml-user-select: none;    /* Konqueror */
+		-moz-user-select: none;      /* Firefox */
+		-ms-user-select: none;       /* Internet Explorer/Edge */
+		user-select: none; 
+		cursor:default;
+	}
+	
+	.legende {
+		font-family: Roboto;
+		font-size: 14px;
+		font-weight : 500;
+	}
+	.legendeC{
+		font-family: Roboto;
+		font-size: 10px;
+		font-weight : 500;
+	}
+	
+	.titreCarte {
+		font-family: Roboto;
+		font-size: 20px;
+		font-weight : 300;
+	}
+
+	svg {
+		background-color:#F8F9F9;
+	}
+	
+	.titre {
+		 font-family: Roboto;
+		 font-size: 15px;
+		 font-weight : 800;
+	}
