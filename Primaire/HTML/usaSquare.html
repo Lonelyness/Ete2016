@@ -17,25 +17,28 @@
 <script>
 var width = document.documentElement.clientWidth*0.8,
     height = 800,
-    padding = 2, // separation between nodes
+    padding = 0, // separation between nodes
     maxRadius = 12 ;
 
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1lMb_c6dGcmpsluqg1DR1Cic5b5b9gs344rlqDOuD6ZA/pubhtml'	
 	
 	
 // Define color scale
-var color = d3.scale.linear()
-    .domain([-0.5, 0.5])
-    .range(["yellow", "blue"]);
+var colorB = d3.scale.pow(2)
+    .domain([0, 0.2])
+    .range(["#A4E6EC", "#141BFD"]);
+var colorG = d3.scale.pow(2)
+    .domain([0, 0.2])
+    .range(["#8CF98C", "#0B950B"]);
 var xRange = d3.scale.linear()
-  .domain([0, 15])
-  .range([30,width-30]);  
+  .domain([0, 30])
+  .range([40,width-40]);  
 var yRange = d3.scale.linear()
-  .domain([0, 15])
-  .range([30,height-30]); 
+  .domain([0, 30])
+  .range([40,height-40]); 
 var radRange = d3.scale.linear()
   .domain([0, 550])
-  .range([15,50]); 
+  .range([10,40]); 
 
 var svg = d3.select('svg')
     .attr("width", width)
@@ -65,18 +68,22 @@ var tip = d3.tip()
 function drawChart(data) {
 var nodes = d3.range(data.length).map(function(i) {
   var name = data[i].État_EN;
-  var x = dataLoc[recherche(name)].x;
-  var y = dataLoc[recherche(name)].y;
+  var xt = dataLoc[recherche(name)].x;
+  var yt = dataLoc[recherche(name)].y;
   var rad = data[i].Nombre_de_délégués_par_État;
   var col = (data[i].Total_délégués_Clinton - data[i].Total_délégués_Sanders)/(data[i].Total_délégués_Clinton + data[i].Total_délégués_Sanders);
+  console.log(col);
+  if  (col>0)
+	col = colorB(col);
+	else col = colorG(col);
 	return {
 	name: name,
 	radius: radRange(rad),
-    x: xRange(x),
-    y: yRange(y),
-	x0: xRange(x),
-    y0: yRange(y),
-	color : color(col)
+    x: xRange(xt),
+    y: yRange(yt),
+	x0: xRange(xt),
+    y0: yRange(yt),
+	color : col
   };
 });
 	
@@ -88,24 +95,23 @@ var force = d3.layout.force()
     .on("tick", tick)
     .start();	
 	
-var circle = svg.selectAll("rect")
+var rectangle = svg.selectAll("rect")
   .data(nodes)
   .enter()
   .append('rect')
-  .attr("width", function(d) { return d.radius; })
-  .attr("height", function(d) { return d.radius; })
+  .attr("width", function(d) { return d.radius*2; })
+  .attr("height", function(d) { return d.radius*2; })
   .style("fill", function(d) { return d.color; })
-  .attr('transform', function(d){return 'translate('+d.x+','+d.y+')';})
+  .attr('transform', function(d){return 'translate('+d.x0+','+d.y0+')';})
   .on('mouseover', tip.show)
-  .on('mouseout', tip.hide)
-  .call(force.drag);
+  .on('mouseout', tip.hide);
   
    function tick(e) {
-  circle
-      .each(gravity(.4 * e.alpha))
+  rectangle
+      .each(gravity(.5 * e.alpha))
       .each(collide(.5))
-      .attr("x", function(d) { return d.x ; })
-      .attr("y", function(d) { return d.y ; });
+      .attr("x", function(d) { return d.x - d.radius ; })
+      .attr("y", function(d) { return d.y - d.radius ; });
 };
   function gravity(alpha) {
   return function(d) {
