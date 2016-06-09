@@ -5,10 +5,10 @@
    background-color: rgba(255,255,255,.9);
    color: black;
    border-radius: 4px;
-   font-size: 11px;
+   font-size: 12px;
    margin-left: 20px;
    margin-top: 20px;
-   width:125px;
+   width:150px;
    border: 1px solid #ccc;
 }
 
@@ -27,23 +27,23 @@
 	
 	.legende {
 		font-family: Roboto;
-		font-size: 14px;
-		font-weight : 500;
+		font-size: 12px;
+		font-weight : 400;
 	}
 	.legendeC{
 		font-family: Roboto;
 		font-size: 10px;
-		font-weight : 500;
+		font-weight : 400;
 	}
 	
 	.titreCarte {
-		font-family: Roboto;
-		font-size: 20px;
+		font-family: Georgia-bold;
+		font-size: 22px;
 		font-weight : 300;
 	}
 
 	svg {
-		background-color:#F8F9F9;
+		background-color:#fff;
 	}
 	
 	.titre {

@@ -41,8 +41,8 @@ d3.tip = function() {
     while(i--) nodel.classed(directions[i], false)
     coords = direction_callbacks.get(dir).apply(this)
     nodel.classed(dir, true).style({
-      top: (70*($('svg').width())/700 +  poffset[0]) + 'px',
-      left: (100*($('svg').width())/625 + poffset[1]) + 'px'
+      top: (60*($('svg').width())/700 +  poffset[0]) + 'px',
+      left: (160*($('svg').width())/625 + poffset[1]) + 'px'
     })
 
     return tip
