@@ -4,6 +4,8 @@ var ligne=1;
 var valeur=0;
 var polygon = [];
 var ligneTab = [];
+var elements = [];
+var encours=false;
  
 //Pour garder ma clé mapbox 
 //L.mapbox.accessToken = 'pk.eyJ1IjoiYXVkZWxhZGVzbWVyczY3IiwiYSI6ImNpb2FoMmV0NjAza3d2NGtxbjZ3MzQ3eXIifQ.hPhQrDZDF-SbfyMD9Wzy4w';
@@ -20,7 +22,7 @@ var map = L.map('map')
     .setView([45.504629, -73.55686], 11);
 //Indication de comment l'afficher	
 L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', {
-	//attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, Icon by <a href="http://simpleicon.com/">Simple Icon</a> &mdash; <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, Icon by <a href="http://simpleicon.com/">Simple Icon</a> &mdash; <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 	subdomains: 'abcd',
 	minZoom: 0,
 	maxZoom: 20,
@@ -50,19 +52,29 @@ L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', 
     })
 }
 
+ function fin() {
+	polygon = [];
+	ligneTab = [];
+	poly=1;
+	ligne=1;
+}
+
  function dimMap(){
 	if (document.getElementById('carre').checked==true) {
 		document.getElementById('map').style.width = m+"px";
 		document.getElementById('map').style.height = m+"px";
+		map.invalidateSize()
 	}	
 	if (document.getElementById('colonne').checked==true) {
 		document.getElementById('map').style.width = 300 +"px";
-		document.getElementById('map').style.height = m+"px";	
+		document.getElementById('map').style.height = m+"px";
+		map.invalidateSize()		
 		
 	}	
 	if (document.getElementById('long').checked==true) {
 		document.getElementById('map').style.width = m+"px";
-		document.getElementById('map').style.height = 300+"px";	
+		document.getElementById('map').style.height = 300+"px";
+		map.invalidateSize()
 	}
  };
  
@@ -73,35 +85,60 @@ var myIcon = L.icon({
 	
 var myIconTemp = L.icon({
     iconUrl: '../map-marker-sun.svg',
-    iconSize: [11, 11]
+    iconSize: [5, 5]
     });
  
  
 //Placer aire sur la map
 function placeAire(latlng, map){
-	console.log(polygon[0]);
-	console.log([latlng.lat, latlng.lng]);
 	if ([latlng.lat, latlng.lng]==polygon[0])
 		polygon = [];
 	else {
-	if (poly != 1)
+	if (poly != 1) {
 		map.removeLayer(poly);
-	L.marker([latlng.lat, latlng.lng], {icon: myIconTemp, draggable:true}).addTo(map);
+		marker.closePopup();
+	}
 	polygon.push([latlng.lat, latlng.lng]);
-	poly = L.polygon(polygon, {color: '#1C1E7C', fillColor: '#1C1E7C'}).addTo(map); }
+	poly = L.polygon(polygon, {color: '#1C1E7C', fillColor: '#1C1E7C'}).addTo(map);
+	poly.bindPopup("<input type='button' value='Supprimer' class='button delete-button'/>");
+	poly.on("popupopen", onPopupOpen);
+	marker = L.marker([latlng.lat, latlng.lng], {icon: myIconTemp, draggable:true}).addTo(map)
+		.bindPopup(function() {
+			var temp="<input type='button' value='Retirer' class='button retirerAire'/>";
+			if (poly != 1) 
+				temp += "<br><input type='button' value='Fin' class='button fin'/>";
+		return temp; });
+	marker.on("popupopen", onPopupOpen);
+	//marker.on("dragstart", onDragStart);
+	//marker.on("drag", onDrag);
+	marker.openPopup();
+ }
 };
 //Placer ligne sur la map
 function placeLigne(latlng, map){
-	if (ligne != 1)
+	if (ligne != 1) {
 		map.removeLayer(ligne);
-	L.marker([latlng.lat, latlng.lng], {icon: myIconTemp, draggable:true}).addTo(map);
+		marker.closePopup();
+	}
 	ligneTab.push([latlng.lat, latlng.lng]);
 	ligne = L.polyline(ligneTab, {color: '#1C1E7C'}).addTo(map);
+	ligne.bindPopup("<input type='button' value='Supprimer' class='button delete-button'/>");
+	ligne.on("popupopen", onPopupOpen);
+	marker = L.marker([latlng.lat, latlng.lng], {icon: myIconTemp, draggable:true}).addTo(map)
+		.bindPopup(function() {
+			var temp="<input type='button' value='Retirer' class='button retirerLigne'/>";
+			if (ligne != 1) 
+				temp += "<br><input type='button' value='Fin' class='button fin'/>";
+		return temp; });
+	marker.on("popupopen", onPopupOpen);
+	//marker.on("dragstart", onDragStart);
+	//marker.on("drag", onDrag);
+	marker.openPopup();
 };
  //Placer marqueur sur la map
  function placeMarkerAndPanTo(lat , lng, map) {
 	marker = L.marker([lat, lng],{icon: myIcon, draggable:true}).addTo(map)
-				.bindPopup("<input type='button' value='Supprimer' class='button marker-delete-button'/>");
+				.bindPopup("<input type='button' value='Supprimer' class='button delete-button'/>");
 	marker.on("popupopen", onPopupOpen);
 	map.panTo(L.latLng(lat,lng));
 };
@@ -109,8 +146,21 @@ function placeLigne(latlng, map){
 function onPopupOpen() {
     var tempMarker = this;
     // To remove marker on click of delete button in the popup of marker
-    $(".marker-delete-button:visible").click(function () {
+    $(".delete-button:visible").click(function () {
         map.removeLayer(tempMarker);
+    });
+	$(".retirerLigne:visible").click(function () {
+        map.removeLayer(tempMarker);
+		
+    });
+	$(".retirerAire:visible").click(function () {
+        map.removeLayer(tempMarker);
+    });
+	
+	$(".fin:visible").click(function () {
+        fin();
+		tempMarker.closePopup();
+		document.getElementById('navig').checked=true;
     });
 }
 //Fonctions de recherche d'adresse
@@ -134,7 +184,10 @@ var searchAdress = function(){
 //Recherche de l'adresse et parseur
 var recherche = function(){
 	var adresse = document.getElementById('adresse').value;
+	if (adresse=="")
+		adresse="Montréal";
 	var xml = httpGet('https://maps.googleapis.com/maps/api/geocode/json?address='+adresse+'&key=AIzaSyC95qiflxZ2XVSOypJpjAmZttSWZHEFx0A');
+	console.log(xml);
 	//Récupération du centre pour le marqueur
 	var endroit = xml.indexOf('"location"');
 	var temp = xml.indexOf(':',endroit+13)+1;
