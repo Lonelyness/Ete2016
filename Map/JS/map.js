@@ -5,7 +5,10 @@ var valeur=0;
 var polygon = [];
 var ligneTab = [];
 var elements = [];
+var markers = [];
 var encours=false;
+var drag =false;
+var coordonnees;
  
 //Pour garder ma clé mapbox 
 //L.mapbox.accessToken = 'pk.eyJ1IjoiYXVkZWxhZGVzbWVyczY3IiwiYSI6ImNpb2FoMmV0NjAza3d2NGtxbjZ3MzQ3eXIifQ.hPhQrDZDF-SbfyMD9Wzy4w';
@@ -31,13 +34,14 @@ L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', 
 
 //Event au click sur la map
  map.on('click', function(e) {
+if (!drag) {	 
 	if (document.getElementById('marker').checked==true)
     placeMarkerAndPanTo(e.latlng.lat,e.latlng.lng , map);
 	if (document.getElementById('aire').checked==true)
     placeAire(e.latlng, map);
 	if (document.getElementById('ligne').checked==true)
     placeLigne(e.latlng, map);
-  });
+}});
  
  //Fonction de clear 
  function clearMap() {
@@ -45,6 +49,7 @@ L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', 
 	ligneTab = [];
 	poly=1;
 	ligne=1;
+	elements = [];
     $.each(map._layers, function (ml) {
         if (ml!=35) {
             map.removeLayer(map._layers[ml]);
@@ -52,10 +57,14 @@ L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', 
     })
 }
 
- function fin() {
+ function finPolygon() {
+	elements.push(poly);
 	polygon = [];
-	ligneTab = [];
 	poly=1;
+}
+ function finLigne() {
+	elements.push(ligne); 
+	ligneTab = [];
 	ligne=1;
 }
 
@@ -85,56 +94,128 @@ var myIcon = L.icon({
 	
 var myIconTemp = L.icon({
     iconUrl: '../map-marker-sun.svg',
-    iconSize: [5, 5]
+    iconSize: [7, 7]
     });
  
  
 //Placer aire sur la map
 function placeAire(latlng, map){
-	if ([latlng.lat, latlng.lng]==polygon[0])
-		polygon = [];
-	else {
+	if (ligne!= 1) 
+		finLigne();
 	if (poly != 1) {
 		map.removeLayer(poly);
 		marker.closePopup();
 	}
-	polygon.push([latlng.lat, latlng.lng]);
+	polygon.push(L.latLng(latlng.lat, latlng.lng));
 	poly = L.polygon(polygon, {color: '#1C1E7C', fillColor: '#1C1E7C'}).addTo(map);
-	poly.bindPopup("<input type='button' value='Supprimer' class='button delete-button'/>");
+	poly.bindPopup("<input type='button' value='Supprimer' class='button delete-buttonPolygon'/>");
 	poly.on("popupopen", onPopupOpen);
 	marker = L.marker([latlng.lat, latlng.lng], {icon: myIconTemp, draggable:true}).addTo(map)
 		.bindPopup(function() {
 			var temp="<input type='button' value='Retirer' class='button retirerAire'/>";
 			if (poly != 1) 
-				temp += "<br><input type='button' value='Fin' class='button fin'/>";
+				temp += "<br><input type='button' value='Fin' class='button finPolygon'/>";
 		return temp; });
 	marker.on("popupopen", onPopupOpen);
-	//marker.on("dragstart", onDragStart);
-	//marker.on("drag", onDrag);
+	marker.on("dragstart", onDragStart);
+	marker.on("dragend", onDragEnd);
+	marker.on("drag", onDrag);
 	marker.openPopup();
- }
+	markers.push(marker);
 };
 //Placer ligne sur la map
 function placeLigne(latlng, map){
+	if (poly!=1) 
+		finPolygon();
 	if (ligne != 1) {
 		map.removeLayer(ligne);
 		marker.closePopup();
 	}
-	ligneTab.push([latlng.lat, latlng.lng]);
+	ligneTab.push(L.latLng(latlng.lat, latlng.lng));
 	ligne = L.polyline(ligneTab, {color: '#1C1E7C'}).addTo(map);
-	ligne.bindPopup("<input type='button' value='Supprimer' class='button delete-button'/>");
+	ligne.bindPopup("<input type='button' value='Supprimer' class='button delete-buttonLigne'/>");
 	ligne.on("popupopen", onPopupOpen);
 	marker = L.marker([latlng.lat, latlng.lng], {icon: myIconTemp, draggable:true}).addTo(map)
 		.bindPopup(function() {
 			var temp="<input type='button' value='Retirer' class='button retirerLigne'/>";
 			if (ligne != 1) 
-				temp += "<br><input type='button' value='Fin' class='button fin'/>";
+				temp += "<br><input type='button' value='Fin' class='button finLigne'/>";
 		return temp; });
 	marker.on("popupopen", onPopupOpen);
-	//marker.on("dragstart", onDragStart);
-	//marker.on("drag", onDrag);
+	marker.on("dragstart", onDragStart);
+	marker.on("dragend", onDragEnd);
+	marker.on("drag", onDrag);
 	marker.openPopup();
+	markers.push(marker);
 };
+
+//Pour mémoriser la position intitiale du marqueur et démmarer le drag
+function onDragStart() {
+	drag = true;
+	var tempMarker = this;
+	coordonnees = tempMarker.getLatLng();
+}
+//Pour 
+function onDragEnd() {
+	var tempMarker = this;
+	deplacement(tempMarker);
+	setTimeout(function() {drag = false;}, 100);
+}
+// Si possible glisser la figure pendant le drag
+function onDrag() {
+	var tempMarker = this;
+	//deplacement(tempMarker);
+}
+//
+function deplacement(tempMarker) {
+	var element;
+	var coor;
+	var indexi=-1;
+	var indexj=-1;
+	var b = false;
+	var ajout = false;
+	if (poly!=1) {
+		elements.push(poly);
+		ajout = true;}
+	if (ligne!=1) {
+		elements.push(ligne);
+		ajout = true;}
+	// Chercher dans quelle figure est le marqueur en fonction de ces coordonnées initiales
+	for (i=0 ; i < elements.length ; i++) {
+		element = elements[i];
+		coor = element.getLatLngs();
+		if (coor.length<=1) {
+			coor = coor[0];
+		}
+		for (j=0 ; j < coor.length ; j++) {
+			if ((coor[j].lat==coordonnees.lat)&&(coor[j].lng==coordonnees.lng)) {
+				indexi = i;
+				indexj = j;
+				b=true;
+				break;
+			}
+			if (b) break;
+		}
+	}
+	// Effacer la figure
+	element = elements[indexi];
+	coor = element.getLatLngs();
+	if (coor.length<=1) {
+		coor = coor[0];
+		coor[indexj] = tempMarker.getLatLng();
+		elements[indexi].setLatLngs(coor);
+		elements[indexi].redraw();
+	}
+	else {
+		coor[indexj] = tempMarker.getLatLng();
+		elements[indexi].setLatLngs(coor);
+		elements[indexi].redraw();
+	}
+	if (ajout) {
+		elements.pop();
+	}
+	
+}
  //Placer marqueur sur la map
  function placeMarkerAndPanTo(lat , lng, map) {
 	marker = L.marker([lat, lng],{icon: myIcon, draggable:true}).addTo(map)
@@ -144,22 +225,54 @@ function placeLigne(latlng, map){
 };
 
 function onPopupOpen() {
-    var tempMarker = this;
+    var temp = this;
     // To remove marker on click of delete button in the popup of marker
     $(".delete-button:visible").click(function () {
-        map.removeLayer(tempMarker);
+        map.removeLayer(temp);
+    });
+	$(".delete-buttonLigne:visible").click(function () {
+		tab = temp.getLatLngs();
+		for (i=0 ; i < tab.length ; i++) {
+			element = tab[i];
+			for (j=0 ; j < markers.length ; j++) {
+				mark = markers[j].getLatLng();
+				if ((mark.lat==element.lat)&&(mark.lng==element.lng)) {
+					map.removeLayer(markers[j]);
+				}	
+			}
+		}
+		map.removeLayer(temp);
+    });
+	$(".delete-buttonPolygon:visible").click(function () {
+		tab = temp.getLatLngs()[0];
+		for (i=0 ; i < tab.length ; i++) {
+			element = tab[i];
+			for (j=0 ; j < markers.length ; j++) {
+				mark = markers[j].getLatLng();
+				if ((mark.lat==element.lat)&&(mark.lng==element.lng)) {
+					map.removeLayer(markers[j]);
+				}	
+			}
+		}	
+        map.removeLayer(temp);
     });
 	$(".retirerLigne:visible").click(function () {
-        map.removeLayer(tempMarker);
 		
-    });
+		map.removeLayer(temp);
+	});
 	$(".retirerAire:visible").click(function () {
-        map.removeLayer(tempMarker);
+        
+		map.removeLayer(temp);
     });
 	
-	$(".fin:visible").click(function () {
-        fin();
-		tempMarker.closePopup();
+	$(".finPolygon:visible").click(function () {
+        finPolygon();
+		temp.closePopup();
+		document.getElementById('navig').checked=true;
+    });
+	$(".finLigne:visible").click(function () {
+        finLigne();
+		temp.closePopup();
 		document.getElementById('navig').checked=true;
     });
 }
@@ -187,7 +300,6 @@ var recherche = function(){
 	if (adresse=="")
 		adresse="Montréal";
 	var xml = httpGet('https://maps.googleapis.com/maps/api/geocode/json?address='+adresse+'&key=AIzaSyC95qiflxZ2XVSOypJpjAmZttSWZHEFx0A');
-	console.log(xml);
 	//Récupération du centre pour le marqueur
 	var endroit = xml.indexOf('"location"');
 	var temp = xml.indexOf(':',endroit+13)+1;
