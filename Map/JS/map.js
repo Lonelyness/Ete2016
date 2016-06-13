@@ -174,12 +174,15 @@ function deplacement(tempMarker) {
 	var indexj=-1;
 	var b = false;
 	var ajout = false;
+	var ajoutT= 0;
 	if (poly!=1) {
 		elements.push(poly);
-		ajout = true;}
+		ajout = true;
+		ajoutT=0;}
 	if (ligne!=1) {
 		elements.push(ligne);
-		ajout = true;}
+		ajout = true;
+		ajoutT=1;}
 	// Chercher dans quelle figure est le marqueur en fonction de ces coordonnées initiales
 	for (i=0 ; i < elements.length ; i++) {
 		element = elements[i];
@@ -213,6 +216,12 @@ function deplacement(tempMarker) {
 	}
 	if (ajout) {
 		elements.pop();
+			if (ajoutT==0) {
+				polygon[indexj] = tempMarker.getLatLng();
+			}
+			else {
+				ligneTab[indexj] = tempMarker.getLatLng();
+			}
 	}
 	
 }
