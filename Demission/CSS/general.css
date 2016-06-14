@@ -1,0 +1,72 @@
+.buttonholder {
+	text-align:center;
+}
+
+svg {
+	margin-top:10px;
+	
+}
+
+.botn {
+  border-radius: 3px;
+  font-family: Roboto;
+  font-weight: 300;
+  color: #333333;
+  font-size: 14px;
+  background: #ffffff;
+  padding: 5px 7px 5px 7px;
+  border: dotted #adadad 1px;
+  outline-style:none;
+}
+
+.btn:hover {
+  background: #f7f7f7;
+}
+
+.politicien {
+	font-family: Roboto;
+	font-weight: 300;
+	font-size: 13px;
+}
+
+.pourcent {
+	font-family: Roboto;
+	font-weight: 300;
+	font-size: 14px;
+}
+
+.titre {
+	font-weight: 900;
+   font-family: Roboto;
+   font-style: bold;
+	font-size: 20px;
+	text-align:center;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.d3-tip { 
+   line-height: 1;
+   font-weight: 300;
+   font-family: Roboto;
+   font-style: light;
+   background-color: rgba(255,255,255,1);
+   color: black;
+   border-radius: 4px;
+   font-size: 12px;
+   padding: 10px 20px 10px 20px;
+   border: 1px solid #ccc;
+   line-height: 150%
+}
+
+.nom {
+	font-weight: 700;
+   font-family: Roboto;
+   font-size: 16px;
+	
+}
+
+.legende {
+	font-weight: 300;
+   font-family: Roboto;
+}
