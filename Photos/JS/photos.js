@@ -7,7 +7,7 @@ if (width<=800) {
 	
 document.getElementById('lienfb').href="https://www.facebook.com/sharer/sharer.php?u=" + window.location.href ;
 
-document.getElementById('lienfb').onclick="window.open('https://www.facebook.com/sharer/sharer.php?u="+ window.location.href+"','Partage Facebook','width=600,height=400')";
+function popupfb() { window.open('https://www.facebook.com/sharer/sharer.php?u="+ window.location.href+"','Partage Facebook','width=600,height=400');}
 
 //Récupération des candidats par année avec leur age sur un google sheet			
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1tiCIvMgUxYddYsYNcXRMo2eW_orVxdoTcRrV7G7zSRg/pubhtml';
