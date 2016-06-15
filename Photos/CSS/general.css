@@ -1,0 +1,44 @@
+.fixe {
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100%;
+	background-color:black;
+	display: inline;
+}
+
+.ul-navbar {
+	display: inline;
+}
+
+li {
+    display: inline;
+}
+
+.facebook {
+	margin: 0 2% 0 78%;
+}
+.retour {
+	font-family:Roboto;
+	text-align: right;
+	background-color:black;
+	color:white;
+}
+
+
+.divPhoto {
+	font-family:Roboto;
+	text-align: center;
+}
+
+p {
+	text-align: justify;
+	margin: 0 14% 0 14%;
+}
+
+a {
+	color:white;	
+}
+a:hover {
+	color:white;
+}

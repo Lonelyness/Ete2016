@@ -41,7 +41,7 @@ var colorpartis = d3.scale.ordinal()
     .range(["#0055a5","#d91f2d","#00b4f1","#01aef0","#0088c2","#87cefa","#9999ff","#923746"]);
 		
 x = d3.scale.linear()
-	.domain([0,115])
+	.domain([0,120])
 	.range([2,width-2*margin-decal]);
 
 y = d3.scale.ordinal()
