@@ -14,6 +14,19 @@ var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1tiCIvMgUxY
 
 function drawChart(data) {
 	
+	var infos = data[0];
+	var titre = infos.titre;
+	var sous_titre = infos.sous_titre;
+	var descrip = infos.description_page;
+	var auteur = infos.auteur;
+	var date = infos.date_publication;
+	var nb = data.length;
+	
+	d3.select("body").append('div')
+		.attr("class","haut")
+		.html("<div class='entete1'><span class='titre'>" + titre + "</span><br><span class=soustitre>"+sous_titre+"</span></div><div class='entete2'><span class=description>" + descrip + "</span></div><div class='entete3'><span class=nbPhotos>" + nb +" Photos </span> // <span class=auteur> Par " + auteur + " - <span class=date>" + date +"</span></div>");
+	
+	
 	var group = d3.select("body").append("g");
 	
 	group.selectAll('div')
@@ -24,9 +37,10 @@ function drawChart(data) {
 			return d.id;
 		})
 		.html(function(d) {
-			return '<div class="divPhoto"><img src="' + d.lien + '" style="width:'+ taillePhoto + '%; " > <p>' + d.description + '<i> ' + d.artiste + '</i>' ;
+			return '<div class="divPhoto"><img src="' + d.lien + '" style="width:'+ taillePhoto + '%; " > <div class="sousPhoto"> <span class="idPhoto"> #' + d.id +'</span> - ' + d.description + ' // <span class="artiste">' + d.artiste + ' (' + d.agence +') </span> </div>';
 		})
-		.style("margin-top", "28px" );
+		.style("padding-top", "28px" )
+		.style("padding-bottom", "15px" );;
 		
 	d3.select("body").append("div")
 		.attr("class","retour")
@@ -58,7 +72,7 @@ function detectTouche(e){
             key_code = e.keyCode;
         }
    }
-	console.log(key_code);
+
    if(key_code == "37")
    {
 	   window.location.href="#2";
