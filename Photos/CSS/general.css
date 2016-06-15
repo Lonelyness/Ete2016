@@ -24,6 +24,7 @@ body {
 	width: 100%;
 	background-color:black;
 	display: inline;
+	padding: 5px 0 5px 0;
 }
 
 .ul-navbar {
@@ -35,7 +36,7 @@ li {
 }
 
 .facebook {
-	margin: 0 2% 0 78%;
+	margin: 0 2% 0 calc(90% - 200px);
 }
 .retour {
 	font-family:Roboto;
@@ -53,7 +54,6 @@ li {
 
 .sousPhoto{
 	text-align: justify;
-	margin: 0 14% 0 14%;
 }
 
 a {
@@ -74,9 +74,7 @@ a:hover {
 }
 
 .titre  {
-	font-variant: small-caps;
-	font-size:50px;
-	
+	font-size:40px;	
 }
 
 .nbPhotos {
@@ -84,6 +82,7 @@ a:hover {
 }
 
 .entete1{
+	padding-top:30px;
 	padding-bottom:20px;
 }
 .entete2{

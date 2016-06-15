@@ -1,16 +1,21 @@
 ﻿var width = window.innerWidth;
 
 var taillePhoto = 72;
+var espacetext = 14;
 if (width<=800) {
-	taillePhoto=100;}
+	taillePhoto=100;
+	espacetext = 0;}
 
 	
 document.getElementById('lienfb').href="https://www.facebook.com/sharer/sharer.php?u=" + window.location.href ;
+$('head').append( '<meta property="og:url" content="'+ window.location.href+'">' );
 
-function popupfb() { window.open('https://www.facebook.com/sharer/sharer.php?u="+ window.location.href+"','Partage Facebook','width=600,height=400');}
-
+//function popupfb() { window.open('https://www.facebook.com/sharer/sharer.php?u="+ window.location.href+"','Partage Facebook','width=600,height=400');}
 //Récupération des candidats par année avec leur age sur un google sheet			
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1tiCIvMgUxYddYsYNcXRMo2eW_orVxdoTcRrV7G7zSRg/pubhtml';
+
+
+
 
 function drawChart(data) {
 	
@@ -21,6 +26,11 @@ function drawChart(data) {
 	var auteur = infos.auteur;
 	var date = infos.date_publication;
 	var nb = data.length;
+	
+	$('head').append( '<meta property="og:title" content="'+titre+'" />' );
+	$('head').append( '<meta property="og:description"   content="'+descrip+'" />');
+	$('head').append( '<meta property="og:image"   content="'+infos.lien+'" />');
+	
 	
 	d3.select("body").append('div')
 		.attr("class","haut")
@@ -37,7 +47,7 @@ function drawChart(data) {
 			return d.id;
 		})
 		.html(function(d) {
-			return '<div class="divPhoto"><img src="' + d.lien + '" style="width:'+ taillePhoto + '%; " > <div class="sousPhoto"> <span class="idPhoto"> #' + d.id +'</span> - ' + d.description + ' // <span class="artiste">' + d.artiste + ' (' + d.agence +') </span> </div>';
+			return '<div class="divPhoto"><img src="' + d.lien + '" style="width:'+ taillePhoto + '%;" > <div class="sousPhoto" style="margin: 0 '+ espacetext +'% 0 '+ espacetext +'%;"> <span class="idPhoto"> #' + d.id +'</span> - ' + d.description + ' // <span class="artiste">' + d.artiste + ' (' + d.agence +') </span> </div>';
 		})
 		.style("padding-top", "28px" )
 		.style("padding-bottom", "15px" );;
