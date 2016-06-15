@@ -1,7 +1,9 @@
 body {
 	font-family:Roboto;
 	font-weight:300;
+	height:100%;
 }
+
 
 #top {
 	position:absolute;
@@ -34,10 +36,14 @@ body {
 li {
     display: inline;
 }
-
-.facebook {
-	margin: 0 2% 0 calc(90% - 200px);
+.twitter {
+	float: right;
+	margin-right:10px;
 }
+.facebook {
+	float: right;
+}
+
 .retour {
 	font-family:Roboto;
 	text-align: right;

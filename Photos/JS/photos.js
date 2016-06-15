@@ -6,6 +6,14 @@ if (width<=height) {
 	taillePhoto=100;
 	espacetext = 0;}
 
+var divs = document.getElementsByTagName('img');
+for(var i=0; i<divs.length; i++){
+    if(divs[i].className == "imageD"){
+		console.log(divs[i].style.height);
+		
+    divs[i].style.height= height*0.05+'px';}
+}
+
 	
 document.getElementById('lienfb').href="https://www.facebook.com/sharer/sharer.php?u=" + window.location.href ;
 $('head').append( '<meta property="og:url" content="'+ window.location.href+'">' );
@@ -34,7 +42,8 @@ function drawChart(data) {
 	
 	d3.select("body").append('div')
 		.attr("class","haut")
-		.html("<div class='entete1'><span class='titre'>" + titre + "</span><br><span class=soustitre>"+sous_titre+"</span></div><div class='entete2'><span class=description>" + descrip + "</span></div><div class='entete3'><span class=nbPhotos>" + nb +" Photos </span> // <span class=auteur> Par " + auteur + " - <span class=date>" + date +"</span></div>");
+		.html("<div class='entete1'><span class='titre'>" + titre + "</span><br><span class=soustitre>"+sous_titre+"</span></div><div class='entete2'><span class=description>" + descrip + "</span></div><div class='entete3'><span class=nbPhotos>" + nb +" Photos </span> // <span class=auteur> Par " + auteur + " - <span class=date>" + date +"</span></div>")
+		.style("padding-top", height*0.02+'px');
 	
 	
 	var group = d3.select("body").append("g");
@@ -49,7 +58,7 @@ function drawChart(data) {
 		.html(function(d) {
 			return '<div class="divPhoto"><img src="' + d.lien + '" style="width:'+ taillePhoto + '%;" > <div class="sousPhoto" style="margin: 0 '+ espacetext +'% 0 '+ espacetext +'%;"> <span class="idPhoto"> #' + d.id +'</span> - ' + d.description + ' // <span class="artiste">' + d.artiste + ' (' + d.agence +') </span> </div>';
 		})
-		.style("padding-top", "28px" )
+		.style("padding-top", height*0.02+'px' )
 		.style("padding-bottom", "15px" );;
 		
 	d3.select("body").append("div")
