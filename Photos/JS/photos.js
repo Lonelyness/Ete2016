@@ -1,8 +1,8 @@
 ﻿var width = window.innerWidth;
-
+var height = window.innerHeight;
 var taillePhoto = 72;
 var espacetext = 14;
-if (width<=800) {
+if (width<=height) {
 	taillePhoto=100;
 	espacetext = 0;}
 
