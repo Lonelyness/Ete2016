@@ -37,3 +37,10 @@ text {
 .nomtrav {
 	font-size:12px
 }
+
+.titre {
+	text-align:center;
+	font-family: Roboto;
+	font-size:25px;
+	font-weight: 600;
+	}
