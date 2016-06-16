@@ -49,7 +49,7 @@ function drawChart(data) {
 	
 	
 	window.parent.document.title = titre;
-	document.getElementById('lienfb').href="javascript:openfb( 'https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"title="+titre+"&description="+descrip+"&redirect_uri=http://ledevoir.com&picture="+infos.lien+"' )";
+	document.getElementById('lienfb').href="javascript:openfb( 'https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"&description="+descrip+"&redirect_uri=http://ledevoir.com&picture="+infos.lien+"' )";
 	document.getElementById('lientw').href="javascript:openfb( 'https://twitter.com/intent/tweet?url="+ window.location.href+"&text=@ledevoir "+titre+" "+sous_titre+"&related=@ledevoir&counturl="+ window.location.href+"' )"
 
 	
