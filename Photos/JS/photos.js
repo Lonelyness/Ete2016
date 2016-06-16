@@ -53,7 +53,7 @@ function drawChart(data) {
 	
 	d3.select("body").append('div')
 		.attr("class","haut")
-		.html("<div class='entete1'><span class='titre'>" + titre + "</span><br><span class=soustitre>"+sous_titre+"</span></div><div class='entete2'><span class=description>" + descrip + "</span></div><div class='entete3'><span class=nbPhotos>" + nb +" Photos </span> // <span class=auteur> Par " + auteur + " - <span class=date>" + date +"</span></div>")
+		.html("<div class='entete1'><span class='titre'>" + titre + "</span><br><span class=soustitre>"+sous_titre+"</span></div><div class='entete2'><span class=description>" + descrip + "</span></div><div class='entete3'><span class=nbPhotos>" + nb +" Photos </span> // <span class=auteur> Par " + auteur + " - <span class=date>" + date +"</span></div> <hr>")
 		.style("padding-top", height*0.05+'px')
 		.style("margin","0 "+ espacetext*2 +"% 0 " + espacetext+"%");
 	

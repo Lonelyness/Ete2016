@@ -99,10 +99,20 @@ bar.append("text")
     .attr("dy", ".35em")
     .text(function(d, i) { return d.députés; });
 	
- //index.sort(function(a, b) { console.log(new Date(data[a].demission)); return (new Date(data[a].demission)) <= (new Date(data[b].demission)); });
+ index.sort(function(a, b) { return - parseFloat(data[a].demission_num) + parseFloat(data[b].demission_num); });
  index2.sort(function(a, b) { return parseFloat(data[a].pourcentage) - parseFloat(data[b].pourcentage); });
- index3.sort(function(a, b) { return indexpartis(data[a].partis) - indexpartis(data[b].partis); }) 
- 
+ index3.sort(function(a, b) { 
+		var partiA= indexpartis(data[a].partis);
+		var partiB= indexpartis(data[b].partis);
+				  if(partiA==partiB) {
+						return (- parseFloat(data[a].demission_num) + parseFloat(data[b].demission_num));
+					}
+				  else {return partiA - partiB;}
+		}
+	);
+
+
+
  svg.call(tip);
  
  var legende = svg.append('g')
@@ -120,7 +130,7 @@ bar.append("text")
     .attr("y", 0)
 	.attr("width", ta)
 	.attr("height",20)
-	.style("fill", function(d) { console.log(d.partis);return colorpartis(d);} )
+	.style("fill", function(d) {return colorpartis(d);} )
 	.style("stroke-width",0.3)
 	.style("stroke","#fff");
  
