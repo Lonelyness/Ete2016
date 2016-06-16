@@ -35,8 +35,6 @@ function drawChart(data) {
 	var titre = infos.titre;
 	var sous_titre = infos.sous_titre;
 	var descrip = infos.description_page;
-	descrip = descrip.replace(/'/g,"&#39");
-	descrip = descrip.replace(/<br>/g, " ");
 	var auteur = infos.auteur;
 	var date = infos.date_publication;
 	var nb = data.length;
@@ -48,7 +46,7 @@ function drawChart(data) {
 	
 	
 	window.parent.document.title = titre;
-	document.getElementById('lienfb').href="javascript:openfb( 'https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"&title="+titre+"&description="+descrip+"&redirect_uri=http://ledevoir.com&picture="+infos.lien+"' )";
+	document.getElementById('lienfb').href="javascript:openfb( 'https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"&title="+titre+"&description="+sous_titre+"&redirect_uri=http://ledevoir.com&picture="+infos.lien+"' )";
 	document.getElementById('lientw').href="javascript:openfb( 'https://twitter.com/intent/tweet?url="+ window.location.href+"&text=@ledevoir "+titre+" "+sous_titre+"&related=@ledevoir&counturl="+ window.location.href+"' )"
 
 	
