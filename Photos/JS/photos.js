@@ -24,13 +24,6 @@ for(var i=0; i<divs.length; i++){
 	divs[i].style.height= height*0.021+'px';}
 }
 
-	
-document.getElementById('lienfb').href="https://www.facebook.com/sharer/sharer.php?u=" + window.location.href ;
-$('head').append( '<meta property="og:url" content="'+ window.location.href+'">' );
-//function popupfb() { window.open('https://www.facebook.com/sharer/sharer.php?u="+ window.location.href+"','Partage Facebook','width=600,height=400');}
-
-
-
 //Récupération des photos			
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1tiCIvMgUxYddYsYNcXRMo2eW_orVxdoTcRrV7G7zSRg/pubhtml';
 
@@ -47,9 +40,12 @@ function drawChart(data) {
 	var date = infos.date_publication;
 	var nb = data.length;
 	
+	$('head').append( '<meta property="og:url" content="'+ window.location.href+'">' );
 	$('head').append( '<meta property="og:title" content="'+titre+'" />' );
 	$('head').append( '<meta property="og:description"   content="'+descrip+'" />');
 	$('head').append( '<meta property="og:image"   content="'+infos.lien+'" />');
+	
+	document.getElementById('lienfb').href="https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"&description="+descrip+"&redirect_uri=http://ledevoir.com&image="+infos.lien
 	
 	
 	d3.select("body").append('div')
