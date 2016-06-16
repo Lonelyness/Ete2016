@@ -35,8 +35,8 @@ function drawChart(data) {
 	var titre = infos.titre;
 	var sous_titre = infos.sous_titre;
 	var descrip = infos.description_page;
-	descrip = descrip.replace(/'/g,"&#39;");
-	console.log(descrip);
+	descrip = descrip.replace(/'/g,"&#39");
+	descrip = descrip.replace(/<br>/g, " ");
 	var auteur = infos.auteur;
 	var date = infos.date_publication;
 	var nb = data.length;
