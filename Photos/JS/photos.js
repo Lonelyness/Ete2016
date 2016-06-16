@@ -8,9 +8,6 @@ if (width<=height) {
 	
 var compteur = 0;	
 
-	
-	
-
 var divs = document.getElementsByTagName('img');
 for(var i=0; i<divs.length; i++){
     if(divs[i].className == "imageD"){	
@@ -38,6 +35,8 @@ function drawChart(data) {
 	var titre = infos.titre;
 	var sous_titre = infos.sous_titre;
 	var descrip = infos.description_page;
+	descrip = descrip.replace(/'/g,"&#39;");
+	console.log(descrip);
 	var auteur = infos.auteur;
 	var date = infos.date_publication;
 	var nb = data.length;
