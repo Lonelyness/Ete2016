@@ -5,21 +5,33 @@ var espacetext = 14;
 if (width<=height) {
 	taillePhoto=100;
 	espacetext = 0;}
+	
+var compteur = 0;	
+
+	
+	
 
 var divs = document.getElementsByTagName('img');
 for(var i=0; i<divs.length; i++){
-    if(divs[i].className == "imageD"){
-		console.log(divs[i].style.height);
-		
-    divs[i].style.height= height*0.05+'px';}
+    if(divs[i].className == "imageD"){	
+    divs[i].style.height = height*0.04+'px';
+	divs[i].style.paddingTop = height*0.01 +'px';
+	divs[i].style.paddingBottom = height*0.01+'px';
+	}
+	if(divs[i].className == "imageT"){
+	divs[i].style.height= height*0.025+'px';}
+	if(divs[i].className == "imageF"){
+	divs[i].style.height= height*0.021+'px';}
 }
 
 	
 document.getElementById('lienfb').href="https://www.facebook.com/sharer/sharer.php?u=" + window.location.href ;
 $('head').append( '<meta property="og:url" content="'+ window.location.href+'">' );
-
 //function popupfb() { window.open('https://www.facebook.com/sharer/sharer.php?u="+ window.location.href+"','Partage Facebook','width=600,height=400');}
-//Récupération des candidats par année avec leur age sur un google sheet			
+
+
+
+//Récupération des photos			
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1tiCIvMgUxYddYsYNcXRMo2eW_orVxdoTcRrV7G7zSRg/pubhtml';
 
 
@@ -43,8 +55,8 @@ function drawChart(data) {
 	d3.select("body").append('div')
 		.attr("class","haut")
 		.html("<div class='entete1'><span class='titre'>" + titre + "</span><br><span class=soustitre>"+sous_titre+"</span></div><div class='entete2'><span class=description>" + descrip + "</span></div><div class='entete3'><span class=nbPhotos>" + nb +" Photos </span> // <span class=auteur> Par " + auteur + " - <span class=date>" + date +"</span></div>")
-		.style("padding-top", height*0.02+'px');
-	
+		.style("padding-top", height*0.05+'px')
+		.style("margin","0 "+ espacetext*2 +"% 0 " + espacetext+"%");
 	
 	var group = d3.select("body").append("g");
 	
@@ -63,7 +75,7 @@ function drawChart(data) {
 		
 	d3.select("body").append("div")
 		.attr("class","retour")
-		.html('<a href="#top"> Retourner en haut de la page </a>');
+		.html('<a href="#top"> Haut de page </a>');
 	
 }
 
@@ -92,13 +104,17 @@ function detectTouche(e){
         }
    }
 
-   if(key_code == "37")
+   if(key_code == "39")
    {
-	   window.location.href="#2";
+	   compteur +=1;
+	   window.location.href="#" + compteur;
 	}   
-   else if(key_code == "39")
+   else if(key_code == "37")
    {
-	   window.location.href="#4";
+	   if (compteur !=0) {
+	   compteur -=1;
+	   window.location.href="#" + compteur;
+	   }
 	}   
 }
 
