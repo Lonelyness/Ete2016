@@ -47,8 +47,8 @@ function drawChart(data) {
 	$('head').append( '<meta property="og:description"   content="'+descrip+'" />');
 	$('head').append( '<meta property="og:image"   content="'+infos.lien+'" />');
 	
-	document.getElementById('lienfb').href="javascript:openfb(https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"&description="+descrip+"&redirect_uri=http://ledevoir.com&picture="+infos.lien+")";
-	document.getElementById('lienfb').href="javascript:openfb(https://twitter.com/intent/tweet?url="+ window.location.href+"&text="+descrip+"&related=@ledevoir&counturl="+ window.location.href+")"
+	document.getElementById('lienfb').href="javascript:openfb( 'https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"&description="+descrip+"&redirect_uri=http://ledevoir.com&picture="+infos.lien+"' )";
+	document.getElementById('lienfb').href="javascript:openfb( 'https://twitter.com/intent/tweet?url="+ window.location.href+"&text="+descrip+"&related=@ledevoir&counturl="+ window.location.href+"' )"
 	window.parent.document.title = titre;
 	
 	
