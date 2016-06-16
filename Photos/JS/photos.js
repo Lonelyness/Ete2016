@@ -45,7 +45,7 @@ function drawChart(data) {
 	$('head').append( '<meta property="og:description"   content="'+descrip+'" />');
 	$('head').append( '<meta property="og:image"   content="'+infos.lien+'" />');
 	
-	document.getElementById('lienfb').href="https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"&description="+descrip+"&redirect_uri=http://ledevoir.com&image="+infos.lien
+	document.getElementById('lienfb').href="https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"&description="+descrip+"&redirect_uri=http://ledevoir.com&picture="+infos.lien
 	
 	
 	d3.select("body").append('div')
