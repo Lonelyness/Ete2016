@@ -1,5 +1,5 @@
-﻿var width = window.innerWidth;
-var height = Math.max(700,window.innerHeight*0.9);
+﻿var width = 620;
+var height;
 var margin = 0;
 var decal = width*0.4;
 var espace = 8;
@@ -11,12 +11,23 @@ var index;
 var index2;
 var index3;
 var leg = 50;
-var svg = d3.select("body").append("svg")
-    .attr("width", width);
+var svg ;
 
 //lien de la google sheet
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1UFEeX9HgdAup965WHMdXssUkxA-BlIySv3git3iDwfs/pubhtml'	
 function drawChart(data) {
+	
+var taille = 22;
+var nb = data.length;
+var height = nb * taille;	
+	
+var svg = d3.select("body").append("svg")
+    .attr("viewBox", [
+       0,
+       0,
+       width,
+       height
+     ].join(" ")); 
 
 var partis = ["PQ","PLQ","CAQ","ADQ","UN","BP","PC","PNP"];
 
@@ -27,9 +38,7 @@ var indexpartis= function(t) {
 	return indexi;
 }
 
-var taille = 22;
-var nb = data.length;
-var height = nb * taille;
+
 
 index = d3.range(nb);
 index2 = d3.range(nb);
@@ -63,8 +72,6 @@ var tip = d3.tip()
 			note = d.note;
 		return "<span class='nom'>" + nom +"</span><br>"+partis+"<br>"+duree+" jours / "+pourcent+" du mandat<br>"+legis+" législature <br><i>"+ note +"</i>";
 		});
-	
-svg.attr("height", height);
 	
 
 bar = svg.selectAll(".bar")
@@ -124,7 +131,7 @@ bar.append("text")
 	.data(partis)
 	.enter()
 	.append("rect")
-	.attr("x", function(d,i) { console.log(i);
+	.attr("x", function(d,i) { 
 		return i*ta;
 	})
     .attr("y", 0)

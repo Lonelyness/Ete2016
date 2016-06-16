@@ -16,7 +16,6 @@ svg {
   background: #ffffff;
   padding: 5px 7px 5px 7px;
   border: dotted #adadad 1px;
-  outline-style:none;
 }
 
 .btn:hover {
@@ -69,4 +68,14 @@ svg {
 .legende {
 	font-weight: 300;
    font-family: Roboto;
+}
+
+
+@media (max-width: 500px) {
+	.politicien {
+	font-family: Roboto;
+	font-weight: 500;
+	font-size: 15px;
+}
+	
 }
