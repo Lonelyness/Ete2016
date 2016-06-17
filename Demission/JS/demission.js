@@ -1,7 +1,7 @@
 ﻿var width = Math.min(620,window.innerWidth);
 var height;
 var margin = 10;
-var decal = width*0.35;
+var decal = width*0.40;
 var espace = 8;
 var sort = false;
 var bar;
@@ -21,12 +21,12 @@ if (width < 550) {
 function racc(str) {	
 	var res = str.split(" ");
 	var ini = res[0].split("-");
-	var init = ini[0][0]
+	var init = ini[0][0]+'.'
 	if (ini.length>=2) {
-		init = init +'-'+ini[1][0];
+		init = init +'-'+ini[1][0]+'.';
 		}
 	if (res.length>=3) {
-		init = init +' '+res[1][0];
+		init = init +' '+res[1][0]+'.';
 		}
 	return  init+' '+ res[res.length-1];
 }

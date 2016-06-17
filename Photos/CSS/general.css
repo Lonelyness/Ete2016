@@ -19,7 +19,6 @@ body {
 
 .haut {
 	font-family:Roboto;
-	padding-top
 }
 
 .fixe {
@@ -83,11 +82,12 @@ a:hover {
 }
 
 .soustitre {
-	font-weight:400;	
+	font-weight:400;
+	font-size:42px;		
 }
 
 .titre  {
-	font-size:42px;	
+	font-size:25px;	
 }
 
 .nbPhotos {
@@ -97,6 +97,7 @@ a:hover {
 .entete1{
 	padding-top:30px;
 	padding-bottom:20px;
+	line-height:170%;
 }
 .entete2{
 	padding-bottom:30px;
@@ -107,6 +108,10 @@ a:hover {
 
 @media handheld {
  .titre  {
+	font-size:35px;	
+}
+
+ .soustitre  {
 	font-size:60px;	
 }
 }

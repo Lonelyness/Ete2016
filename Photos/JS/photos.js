@@ -27,7 +27,7 @@ for(var i=0; i<divs.length; i++){
 	if(divs[i].className == "imageT"){
 	divs[i].style.height= height*0.025+'px';}
 	if(divs[i].className == "imageF"){
-	divs[i].style.height= height*0.021+'px';}
+	divs[i].style.height= height*0.025+'px';}
 }
 
 //Pour ouvrir la pop up de partage facebook ou twitter
@@ -59,7 +59,7 @@ function drawChart(data) {
 	//Création de la description en haut de page
 	d3.select("body").append('div')
 		.attr("class","haut")
-		.html("<div class='entete1'><span class='titre'>" + titre + "</span><br><span class=soustitre>"+sous_titre+"</span> // <span class=nbPhotos>" + nb +" Photos </span></div><div class='entete2'><span class=description>" + descrip + "</span></div><div class='entete3'><span class=auteur> Par " + auteur + " - <span class=date>" + date +"</span></div>")
+		.html("<div class='entete1'><span class='titre'>" + titre + "</span><br><span class=soustitre>"+sous_titre+"</span><br><span class=date>" + date +"</span> // <span class=nbPhotos>" + nb +" Photos </span></div><div class='entete2'><span class=description>" + descrip + "</span></div><div class='entete3'><span class=auteur> - Par " + auteur + " - </div>")
 		.style("padding-top", height*0.05+'px')
 		.style("margin","0 "+ espacetext*2 +"% 0 " + espacetext+"%");
 	//Création du hr
