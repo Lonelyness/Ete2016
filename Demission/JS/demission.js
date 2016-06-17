@@ -71,7 +71,7 @@ x = d3.scale.linear()
 
 y = d3.scale.ordinal()
     .domain(index)
-    .rangeBands([leg, height], .1);
+    .rangeBands([taille*9, height], .1);
 
 //Création du Tooltip			
 var tip = d3.tip()
@@ -145,35 +145,35 @@ bar.append("text")
  var legende = svg.append('g')
 		.attr("transform", "translate(" + width*0.1 +"," + 10 + ")");
  
- var ta = width*0.8/partis.length;
+ var ta = width*0.05;
  
  legende.selectAll("rect")
 	.data(partis)
 	.enter()
 	.append("rect")
-	.attr("x", function(d,i) { 
-		return i*ta;
+	.attr("y", function(d,i) { 
+		return i*taille;
 	})
-    .attr("y", 0)
-	.attr("width", ta)
-	.attr("height",20)
+    .attr("x", 0)
+	.attr("width", x(15))
+	.attr("height",taille-espace)
 	.style("fill", function(d) {return colorpartis(d);} )
 	.style("stroke-width",0.3)
 	.style("stroke","#fff");
  
  
   legende.selectAll("text")
-	.data(partis)
+	.data(partisComplets)
 	.enter()
 	.append("text")
 	.attr("class", "legende")
-	.attr("x", function(d,i) { 
-		return i*ta + ta/2;
+	.attr("y", function(d,i) { 
+		return i*taille+taille/2;
 	})
-    .attr("y", 15)
+    .attr("x", x(25))
 	.text(function(d) { return d;} )
-	.style("fill","#fff")
-	.attr("text-anchor", "middle");
+	.style("fill","#000")
+	.attr("text-anchor", "start");
 }
 		
 var updateDataChrono = function() {
