@@ -1,7 +1,7 @@
-﻿var width = Math.min(620,window.innerWidth);
+﻿var width = Math.min(600,window.innerWidth-50);
 var height;
-var margin = 10;
-var decal = width*0.40;
+var margin = 0;
+var decal = width*0.45;
 var espace = 8;
 var sort = false;
 var bar;
@@ -66,7 +66,7 @@ var colorpartis = d3.scale.ordinal()
     .range(["#0055a5","#d91f2d","#00b4f1","#01aef0","#0088c2","#87cefa","#9999ff","#923746"]);
 		
 x = d3.scale.linear()
-	.domain([0,120])
+	.domain([0,125])
 	.range([2,width-2*margin-decal]);
 
 y = d3.scale.ordinal()
@@ -143,10 +143,10 @@ bar.append("text")
  svg.call(tip);
  
  var svg = d3.select(".legend").append("svg")
-    .attr("width",300)
-	.attr("height",200);
+    .attr("width",230)
+	.attr("height",190);
  var legende = svg.append('g')
-		.attr("transform", "translate(" + width*0.1 +"," + 10 + ")");
+		.attr("transform", "translate(" + 10 +"," + 10 + ")");
  
  var ta = width*0.05;
  

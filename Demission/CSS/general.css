@@ -85,7 +85,13 @@ svg {
 	.politicien {
 	font-family: Roboto;
 	font-weight: 500;
-	font-size: 15px;
+	font-size: 12px;
+}
+
+	.legende {
+	font-family: Roboto;
+	font-weight: 500;
+	font-size: 13px;
 }
 	
 }
