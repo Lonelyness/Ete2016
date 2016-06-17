@@ -41,7 +41,7 @@ var height = nb * taille;
 	
 var svg = d3.select("body").append("svg")
     .attr("width",width)
-	.attr("height",height);
+	.attr("height",height+180);
 
 var partis = ["PQ","PLQ","CAQ","ADQ","UN","BP","PC","PNP"];
 
