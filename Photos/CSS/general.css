@@ -79,7 +79,10 @@ a:hover {
 }
 
 .artiste  {
+	font-weight:400;	
+}
 
+.soustitre {
 	font-weight:400;	
 }
 
@@ -88,7 +91,7 @@ a:hover {
 }
 
 .nbPhotos {
-	font-weight:500;
+	font-weight:300;
 }
 
 .entete1{
