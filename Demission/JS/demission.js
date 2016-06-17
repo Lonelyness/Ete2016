@@ -1,7 +1,7 @@
-﻿var width = 620;
+﻿var width = Math.min(620,window.innerWidth);
 var height;
-var margin = 0;
-var decal = width*0.4;
+var margin = 10;
+var decal = width*0.35;
 var espace = 8;
 var sort = false;
 var bar;
@@ -13,6 +13,17 @@ var index3;
 var leg = 50;
 var svg ;
 
+var rac = false;
+if (width < 570) {
+		rac = true ;
+	}
+	
+function racc(str) {	
+	var res = str.split(" ");
+	var ini = res[0][0];
+	return ini +' '+ res[res.length-1];
+}
+
 //lien de la google sheet
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1UFEeX9HgdAup965WHMdXssUkxA-BlIySv3git3iDwfs/pubhtml'	
 function drawChart(data) {
@@ -22,12 +33,8 @@ var nb = data.length;
 var height = nb * taille;	
 	
 var svg = d3.select("body").append("svg")
-    .attr("viewBox", [
-       0,
-       0,
-       width,
-       height
-     ].join(" ")); 
+    .attr("width",width)
+	.attr("height",height);
 
 var partis = ["PQ","PLQ","CAQ","ADQ","UN","BP","PC","PNP"];
 
@@ -104,7 +111,11 @@ bar.append("text")
     .attr("x", margin + decal - 10)
     .attr("y", (taille-espace) / 2)
     .attr("dy", ".35em")
-    .text(function(d, i) { return d.députés; });
+    .text(function(d, i) { 
+			if (rac) {
+				return racc(d.députés);
+				}
+			return d.députés; });
 	
  index.sort(function(a, b) { return - parseFloat(data[a].demission_num) + parseFloat(data[b].demission_num); });
  index2.sort(function(a, b) { return parseFloat(data[a].pourcentage) - parseFloat(data[b].pourcentage); });
@@ -147,7 +158,7 @@ bar.append("text")
 	.enter()
 	.append("text")
 	.attr("class", "legende")
-	.attr("x", function(d,i) { console.log(i);
+	.attr("x", function(d,i) { 
 		return i*ta + ta/2;
 	})
     .attr("y", 15)

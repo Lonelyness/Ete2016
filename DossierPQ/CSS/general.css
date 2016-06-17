@@ -1,4 +1,4 @@
-	body{margin-left:20px;}
+	body{margin-left:20px;margin-top:30px}
 		.h,.v{stroke:black;stroke-dasharray:4 4;stroke-width:1;stroke-opacity:.5;}
 		.axis path,
 		.axis line {
@@ -39,4 +39,5 @@
 		color: #fff;
 		border-radius: 2px;
 		text-align : center;
+		height:100px;
 			}

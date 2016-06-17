@@ -1,5 +1,6 @@
 .buttonholder {
 	text-align:center;
+	max-width:620px;
 }
 
 svg {
@@ -36,8 +37,8 @@ svg {
 
 .titre {
 	font-weight: 900;
-   font-family: Roboto;
-   font-style: bold;
+	max-width:620px;
+	font-family: Roboto;
 	font-size: 20px;
 	text-align:center;
 	margin-top:10px;
@@ -71,7 +72,7 @@ svg {
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 570px) {
 	.politicien {
 	font-family: Roboto;
 	font-weight: 500;
