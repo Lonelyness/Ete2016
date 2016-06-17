@@ -71,7 +71,7 @@ x = d3.scale.linear()
 
 y = d3.scale.ordinal()
     .domain(index)
-    .rangeBands([taille*9, height], .1);
+    .rangeBands([0, height], .1);
 
 //Création du Tooltip			
 var tip = d3.tip()
@@ -142,6 +142,9 @@ bar.append("text")
 
  svg.call(tip);
  
+ var svg = d3.select(".legend").append("svg")
+    .attr("width",300)
+	.attr("height",200);
  var legende = svg.append('g')
 		.attr("transform", "translate(" + width*0.1 +"," + 10 + ")");
  
@@ -155,7 +158,7 @@ bar.append("text")
 		return i*taille;
 	})
     .attr("x", 0)
-	.attr("width", x(15))
+	.attr("width", 20)
 	.attr("height",taille-espace)
 	.style("fill", function(d) {return colorpartis(d);} )
 	.style("stroke-width",0.3)
@@ -170,7 +173,7 @@ bar.append("text")
 	.attr("y", function(d,i) { 
 		return i*taille+taille/2;
 	})
-    .attr("x", x(25))
+    .attr("x", 25)
 	.text(function(d) { return d;} )
 	.style("fill","#000")
 	.attr("text-anchor", "start");
