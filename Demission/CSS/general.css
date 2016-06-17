@@ -72,7 +72,7 @@ svg {
 }
 
 
-@media (max-width: 570px) {
+@media (max-width: 550px) {
 	.politicien {
 	font-family: Roboto;
 	font-weight: 500;

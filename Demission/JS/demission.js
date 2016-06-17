@@ -14,14 +14,21 @@ var leg = 50;
 var svg ;
 
 var rac = false;
-if (width < 570) {
+if (width < 550) {
 		rac = true ;
 	}
 	
 function racc(str) {	
 	var res = str.split(" ");
-	var ini = res[0][0];
-	return ini +' '+ res[res.length-1];
+	var ini = res[0].split("-");
+	var init = ini[0][0]
+	if (ini.length>=2) {
+		init = init +'-'+ini[1][0];
+		}
+	if (res.length>=3) {
+		init = init +' '+res[1][0];
+		}
+	return  init+' '+ res[res.length-1];
 }
 
 //lien de la google sheet
@@ -37,6 +44,8 @@ var svg = d3.select("body").append("svg")
 	.attr("height",height);
 
 var partis = ["PQ","PLQ","CAQ","ADQ","UN","BP","PC","PNP"];
+
+var partisComplets = ["Parti québécois","Parti libéral du Québec","Coalition Avenir Québec","Action Démocratique du Québec","Union Nationale","Bloc populaire","Parti conservateur","Parti national populaire"];
 
 var indexpartis= function(t) {
 	for (i=0;i<partis.length;i++) {
