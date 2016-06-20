@@ -9,13 +9,22 @@ var markers = [];
 var encours=false;
 var drag =false;
 var coordonnees;
+var actMap=0;
+
+function actionMap(id) {
+	var temp=id;
+	
+	if (temp=="navig") {actMap=0;}
+	if (temp=="marker") {actMap=1;}
+	if (temp=="aire") {actMap=2;}
+	if (temp=="ligne") {actMap=3;}
+}
  
 //Pour garder ma clé mapbox 
 //L.mapbox.accessToken = 'pk.eyJ1IjoiYXVkZWxhZGVzbWVyczY3IiwiYSI6ImNpb2FoMmV0NjAza3d2NGtxbjZ3MzQ3eXIifQ.hPhQrDZDF-SbfyMD9Wzy4w';
 var w = window.innerWidth;
 var h = window.innerHeight;
-
-var m = Math.min(w, h-110)*0.95;
+var m = Math.min(w, h-200)*0.95;
 document.getElementById('map').style.width = m+"px";
 document.getElementById('map').style.height = m+"px";
 document.getElementById('choix').style.width = m+"px";
@@ -35,11 +44,11 @@ L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', 
 //Event au click sur la map
  map.on('click', function(e) {
 if (!drag) {	 
-	if (document.getElementById('marker').checked==true)
+	if (actMap==1)
     placeMarkerAndPanTo(e.latlng.lat,e.latlng.lng , map);
-	if (document.getElementById('aire').checked==true)
+	if (actMap==2)
     placeAire(e.latlng, map);
-	if (document.getElementById('ligne').checked==true)
+	if (actMap==3)
     placeLigne(e.latlng, map);
 }});
  
@@ -68,19 +77,19 @@ if (!drag) {
 	ligne=1;
 }
 
- function dimMap(){
-	if (document.getElementById('carre').checked==true) {
+ function dimMap(id){
+	if (id=="carre") {
 		document.getElementById('map').style.width = m+"px";
 		document.getElementById('map').style.height = m+"px";
 		map.invalidateSize()
 	}	
-	if (document.getElementById('colonne').checked==true) {
+	if (id=="colonne") {
 		document.getElementById('map').style.width = 300 +"px";
 		document.getElementById('map').style.height = m+"px";
 		map.invalidateSize()		
 		
 	}	
-	if (document.getElementById('long').checked==true) {
+	if (id=="large") {
 		document.getElementById('map').style.width = m+"px";
 		document.getElementById('map').style.height = 300+"px";
 		map.invalidateSize()
@@ -88,12 +97,12 @@ if (!drag) {
  };
  
 var myIcon = L.icon({
-    iconUrl: '../map-marker.svg',
+    iconUrl: './Icones/map-marker.svg',
     iconSize: [40, 50]
     });
 	
 var myIconTemp = L.icon({
-    iconUrl: '../map-marker-sun.svg',
+    iconUrl: './Icones/map-marker-sun.svg',
     iconSize: [7, 7]
     });
  
@@ -107,14 +116,14 @@ function placeAire(latlng, map){
 		marker.closePopup();
 	}
 	polygon.push(L.latLng(latlng.lat, latlng.lng));
-	poly = L.polygon(polygon, {color: '#1C1E7C', fillColor: '#1C1E7C'}).addTo(map);
-	poly.bindPopup("<input type='button' value='Supprimer' class='button delete-buttonPolygon'/>");
+	poly = L.polygon(polygon, {color: '#AEE7EF', fillColor: '#AEE7EF'}).addTo(map);
+	poly.bindPopup("<input type='image' src='./Icones/Recommencer.png' width='15px' class='button delete-buttonPolygon'/>");
 	poly.on("popupopen", onPopupOpen);
 	marker = L.marker([latlng.lat, latlng.lng], {icon: myIconTemp, draggable:true}).addTo(map)
 		.bindPopup(function() {
-			var temp="<input type='button' value='Retirer' class='button retirerAire'/>";
+			var temp="<input type='image' src='./Icones/Recommencer.png' width='15px' class='button retirerAire'/>";
 			if (poly != 1) 
-				temp += "<br><input type='button' value='Fin' class='button finPolygon'/>";
+				temp += "<br><input type='image' src='./Icones/Valider.png' width='15px' class='button finPolygon'/>";
 		return temp; });
 	marker.on("popupopen", onPopupOpen);
 	marker.on("dragstart", onDragStart);
@@ -132,14 +141,14 @@ function placeLigne(latlng, map){
 		marker.closePopup();
 	}
 	ligneTab.push(L.latLng(latlng.lat, latlng.lng));
-	ligne = L.polyline(ligneTab, {color: '#1C1E7C'}).addTo(map);
-	ligne.bindPopup("<input type='button' value='Supprimer' class='button delete-buttonLigne'/>");
+	ligne = L.polyline(ligneTab, {color: '#AEE7EF'}).addTo(map);
+	ligne.bindPopup("<input type='image' src='./Icones/Recommencer.png' width='15px' class='button delete-buttonLigne'/>");
 	ligne.on("popupopen", onPopupOpen);
 	marker = L.marker([latlng.lat, latlng.lng], {icon: myIconTemp, draggable:true}).addTo(map)
 		.bindPopup(function() {
-			var temp="<input type='button' value='Retirer' class='button retirerLigne'/>";
+			var temp="<input type='image' src='./Icones/Recommencer.png' width='15px' class='button retirerLigne'/>";
 			if (ligne != 1) 
-				temp += "<br><input type='button' value='Fin' class='button finLigne'/>";
+				temp += "<br><input type='image' src='./Icones/Valider.png' width='15px' class='button finLigne'/>";
 		return temp; });
 	marker.on("popupopen", onPopupOpen);
 	marker.on("dragstart", onDragStart);
@@ -228,7 +237,7 @@ function deplacement(tempMarker) {
  //Placer marqueur sur la map
  function placeMarkerAndPanTo(lat , lng, map) {
 	marker = L.marker([lat, lng],{icon: myIcon, draggable:true}).addTo(map)
-				.bindPopup("<input type='button' value='Supprimer' class='button delete-button'/>");
+				.bindPopup(" Nomenclature : <input type = 'text' class='nomen' id = 'nomen' onkeydown = 'if (event.keyCode == 13) enregistrement()'/> <input type='image' src='./Icones/Recommencer.png' width='15px' class='button delete-button'/>");
 	marker.on("popupopen", onPopupOpen);
 	map.panTo(L.latLng(lat,lng));
 };
@@ -277,12 +286,12 @@ function onPopupOpen() {
 	$(".finPolygon:visible").click(function () {
         finPolygon();
 		temp.closePopup();
-		document.getElementById('navig').checked=true;
+		actMap=0;
     });
 	$(".finLigne:visible").click(function () {
         finLigne();
 		temp.closePopup();
-		document.getElementById('navig').checked=true;
+		actMap=0;
     });
 }
 //Fonctions de recherche d'adresse

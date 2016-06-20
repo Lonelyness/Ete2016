@@ -17,7 +17,9 @@ text {
 	
 }
 
-.d3-tip { 
+.d3-tip {
+	position : fixed;
+	top : 0;
    line-height: 1;
    font-weight: 300;
    font-family: Roboto;

@@ -1,0 +1,50 @@
+body{margin:0px;}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: none;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: Roboto;
+    font-size: 12px;
+}
+
+text {
+	font-family:Roboto;
+	
+}
+
+.d3-tip {
+	position : fixed;
+	top : 0;
+   line-height: 1;
+   font-weight: 300;
+   font-family: Roboto;
+   font-style: light;
+   background-color: rgba(255,255,255,1);
+   color: black;
+   border-radius: 4px;
+   font-size: 12px;
+   padding: 8px 8px 8px 8px;
+   border: 1px solid #ccc;
+   line-height: 150%;
+   height:155px;
+}
+
+.nom {
+	font-weight:600;
+}
+
+.nomtrav {
+	font-size:12px
+}
+
+.titre {
+	text-align:center;
+	font-family: Roboto;
+	font-size:25px;
+	font-weight: 600;
+	}

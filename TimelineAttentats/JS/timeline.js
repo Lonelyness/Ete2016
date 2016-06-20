@@ -7,12 +7,11 @@ var yyyy = today.getFullYear();
 var endDate = format.parse(dd+"/"+mm+"/"+yyyy);
 
 
-document.getElementById('titre').style.width = Math.min(620,window.innerWidth)+"px";
+document.getElementById('titre').style.width = Math.min(590,window.innerWidth-30)+"px";
 
 
-if (window.innerWidth>500) {
-var margin = {top: 220, right: 100, bottom: 70, left: 90},
-    width = Math.min(620,window.innerWidth) - margin.left - margin.right,
+var margin = {top: 220, right: 95, bottom: 70, left: 95},
+    width = Math.min(600,window.innerWidth-30) - margin.left - margin.right,
     height = 280 - margin.top - margin.bottom;
 
 var x = d3.time.scale()
@@ -125,12 +124,12 @@ function draw(data, tabletop) {
 
 renderSpreadsheetData();
  svg.call(tip);
-}
 
 
+/*
 if (window.innerWidth<=500) {
 	var margin = {top: 30, right: 30, bottom: 30, left: 55},
-    width = window.innerWidth - margin.left - margin.right,
+    width = window.innerWidth - 30 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
 var x = d3.time.scale()
@@ -224,4 +223,4 @@ function draw(data, tabletop) {
 renderSpreadsheetData();
 	
 	
-}
+}*/
