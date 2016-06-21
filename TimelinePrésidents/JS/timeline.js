@@ -11,12 +11,12 @@ var yyyy = today.getFullYear();
 var endDate = format.parse(dd+"/"+mm+"/"+yyyy);*/
 var endDate = format.parse("2016.07.01");
 
-//Adaptation du titre pour le max 620
-document.getElementById('titre').style.width = Math.min(590,window.innerWidth-30)+"px";
+var xprec = 0;
+
 
 //Marge et taille du svg
 var margin = {top: 220, right: 95, bottom: 70, left: 95},
-    width = Math.min(600,window.innerWidth-30) - margin.left - margin.right,
+    width = window.innerWidth - margin.left - margin.right,
     height = 280 - margin.top - margin.bottom;
 
 	
@@ -46,7 +46,7 @@ var tip = d3.tip()
 			var nom = d.Nom;
 			var date = d.date;
 			var fonction = d.Titre;
-			var photo = d.photo;
+			var photo = "";//d.photo;
 			var note = "";//d.Texte;
 			return '<div class="flotte"><img src="' + photo + '" style="width:80px;" > </div> <div class=texte><span class="nom">'+ nom +' </span><br/> <span class="fonction">' + fonction + '</span><br/> Discours le '+ date + ' <br/> ' + note ;
 		;});	
@@ -66,19 +66,25 @@ function drawChart(data) {
 			.attr("opacity", .6)
 			.attr("stroke", "black");
 	
-	group.selectAll('cicle')
+	group.selectAll('ellipse')
 		.data(data)
 		.enter()
-		.append('circle')
+		.append('ellipse')
 		.attr("cy",-20)
 		.attr("cx",function(d) {
 			var date = d.date;
 			var y = x(format.parse(date));
+			if (Math.abs(xprec-y) < 2) y-=4;
+			xprec = y;
+			
 			return y;
 		})
-		.attr("r",2)
+		.attr("rx",2)
+		.attr("ry",10)
 		.style("stroke","black")
-		.style("fill","white")
+		.style("fill",function(d,i) {
+			if (i%2==0) return "blue";
+				return "white";})
 		.on('mouseover', tip.show)
 		.on('mouseout', tip.hide);
 		

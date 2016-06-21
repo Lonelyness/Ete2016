@@ -1,5 +1,5 @@
-﻿//Récupération des photos	- URL a changer		
-var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1tiCIvMgUxYddYsYNcXRMo2eW_orVxdoTcRrV7G7zSRg/pubhtml';
+//Récupération des photos	- URL a changer		
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1BtMfnaK_cOqIqv5DPZF5U9PQMnmt7WVEywgN5vVU8lk/pubhtml';
 
 
 
@@ -42,7 +42,9 @@ function drawChart(data) {
 	var infos = data[0];
 	var titre = infos.titre;
 	var sous_titre = infos.sous_titre;
+	var sous_titreF = sous_titre.replace(/'/g,"`");
 	var descrip = infos.description_page;
+	var descripF = descrip.replace(/'/g,"`");
 	var auteur = infos.auteur;
 	var date = infos.date_publication;
 	var nb = data.length;
@@ -52,14 +54,14 @@ function drawChart(data) {
 	$('head').append( '<meta property="og:description"   content="'+descrip+'" />');
 	$('head').append( '<meta property="og:image"   content="'+infos.lien+'" />');
 	window.parent.document.title = titre;
-	document.getElementById('lienfb').href="javascript:openfb( 'https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"&title="+titre+"&description="+sous_titre+"&redirect_uri=http://ledevoir.com&picture="+infos.lien+"' )";
-	document.getElementById('lientw').href="javascript:openfb( 'https://twitter.com/intent/tweet?url="+ window.location.href+"&text="+titre+" "+sous_titre+" @ledevoir&related=@ledevoir&counturl="+ window.location.href+"' )"
+	document.getElementById('lienfb').href="javascript:openfb( 'https://www.facebook.com/dialog/feed?app_id=256172254741882&link="+ window.location.href+"&title="+sous_titreF+"&description="+descripF+"&redirect_uri=http://ledevoir.com&picture="+infos.lien+"' )";
+	document.getElementById('lientw').href="javascript:openfb( 'https://twitter.com/intent/tweet?url="+ window.location.href+"&text="+sous_titreF+" @ledevoir&related=@ledevoir&counturl="+ window.location.href+"' )"
 
 	
 	//Création de la description en haut de page
 	d3.select("body").append('div')
 		.attr("class","haut")
-		.html("<div class='entete1'><span class='titre'>" + titre + "</span><br><span class=soustitre>"+sous_titre+"</span><br><span class=date>" + date +"</span> // <span class=nbPhotos>" + nb +" Photos </span></div><div class='entete2'><span class=description>" + descrip + "</span></div><div class='entete3'><span class=auteur> - Par " + auteur + " - </div>")
+		.html("<div class='entete1'><span class='titre'>" + titre + "</span><br><span class=soustitre>"+sous_titre+"</span><br><span class=date>" + date +"</span> // <span class=nbPhotos>" + nb +" Photos </span></div><div class='entete2'><span class=description>" + descrip + "</span></div><div class='entete3'><span class=auteur> <i>- Par " + auteur + " -</i> </div>")
 		.style("padding-top", height*0.05+'px')
 		.style("margin","0 "+ espacetext*2 +"% 0 " + espacetext+"%");
 	//Création du hr
