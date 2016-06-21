@@ -1,15 +1,15 @@
 ﻿//lien de la google sheet
-var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1VZsmtD5ohSfgXTVWFPgQaGlUeIDzbttTFR6DX3s9LsY/pubhtml?gid=0&single=true'	
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1Z7VEqCF34To1SC0k1yrEy2l_nAHM-XvZ8Lxr5OmO79Q/pubhtml?gid=0&single=true'	
 
 //Variable de début et de fin de la timeline
-var format = d3.time.format("%d/%m/%Y");
-var startDate = format.parse("01/01/1970");
+var format = d3.time.format("%Y.%m.%d");
+var startDate = format.parse("1939.01.01");
 /*var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth()+1; //January is 0!
 var yyyy = today.getFullYear();
 var endDate = format.parse(dd+"/"+mm+"/"+yyyy);*/
-var endDate = format.parse("01/07/2016");
+var endDate = format.parse("2016.07.01");
 
 //Adaptation du titre pour le max 620
 document.getElementById('titre').style.width = Math.min(590,window.innerWidth-30)+"px";
@@ -43,12 +43,11 @@ var tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-5, 0])
 		.html(function(d,i) {
-			var nom = d.nom;
-			var date = d.date_txt;
-			var age = d.age;
-			var fonction = d.fonction;
+			var nom = d.Nom;
+			var date = d.date;
+			var fonction = d.Titre;
 			var photo = d.photo;
-			var note = d.Texte;
+			var note = "";//d.Texte;
 			return '<div class="flotte"><img src="' + photo + '" style="width:80px;" > </div> <div class=texte><span class="nom">'+ nom +' </span><br/> <span class="fonction">' + fonction + '</span><br/> Discours le '+ date + ' <br/> ' + note ;
 		;});	
 	
@@ -77,7 +76,7 @@ function drawChart(data) {
 			var y = x(format.parse(date));
 			return y;
 		})
-		.attr("r",7)
+		.attr("r",2)
 		.style("stroke","black")
 		.style("fill","white")
 		.on('mouseover', tip.show)
@@ -96,7 +95,7 @@ function drawChart(data) {
 		})
 		.style("fill","black")
 		.text(function(d) {
-			return d.nom;
+			return d.Nom;
 		})
 		.attr("transform",function(d) {
 			var date = d.date;
