@@ -22,6 +22,9 @@ var widthMaxImage = width*0.45;
 		widthMaxImage = width*0.2;
 	if (width<400)
 		widthMaxImage = width*0.1;
+	
+	
+	
 
 // POur adapter la navbar a l'ecran
 var divs = document.getElementsByTagName('img');
@@ -38,6 +41,7 @@ for(var i=0; i<divs.length; i++){
 }
 
 document.getElementById("caption-1").style.height=height*0.78+'px';
+document.getElementById("caption-1").style.width=(width-widthMaxImage)*0.8+'px';
 document.getElementById("slide-1").style.height=height*0.78+'px';
 document.getElementById("titre").style.marginTop=height*0.05+'px';
 
