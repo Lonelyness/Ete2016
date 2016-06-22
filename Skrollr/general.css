@@ -162,7 +162,7 @@ html, body {
 		 text-decoration: none;
 		}
 		
-@media handheld {
+@media (max-width: 600px) {
 		#textTitre {
 			font-weight:300;
 			font-size:2em;
