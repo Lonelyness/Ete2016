@@ -118,25 +118,25 @@ html, body {
 		
 		#textTitre {
 			font-weight:200;
-			font-size:3em;
+			font-size:4em;
 			
 		}
 		
 		#description {
 			font-weight:200;
-			font-size:1.5em;
+			font-size:2em;
 			
 		}
 		
 		#auteurs {
 			font-weight:200;
-			font-size:1em;
+			font-size:1.5em;
 		}
 		
 		#photoA {
 			float:right;
 			font-weight:200;
-			font-size:0.8em;
+			font-size:1em;
 			opacity:0.5;
 		}
 		
@@ -161,6 +161,29 @@ html, body {
 		 background: #121212 ;
 		 text-decoration: none;
 		}
+		
+@media handheld {
+		#textTitre {
+			font-weight:300;
+			font-size:2em;
+			
+		}
+		
+		#description {
+			font-size:1em;
+			
+		}
+		
+		#auteurs {
+			font-size:0.8em;
+		}
+		
+		#photoA {
+			font-size:0.6em;
+		}
+	
+	
+}
 
 
 
