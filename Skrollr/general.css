@@ -104,6 +104,14 @@ html, body {
 		opacity:1;
 		}
 		
+		#DL {
+			position:fixed;
+			top:8%;
+			right:5px;
+			display:none;
+			background-color:grey;
+		}
+		
 		#accueil {
 			background:url(./Data/intro.png) no-repeat center center;
 			background-size: cover;
@@ -144,6 +152,9 @@ html, body {
 			font-weight:200;
 			font-size:1.5em;
 		}
+		
+
+		
 		
 		.btn {
 		 -webkit-border-radius: 2;

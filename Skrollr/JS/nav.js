@@ -145,6 +145,7 @@ function reloadPlus() {
 	}
 	if (compteur==data.UNES.length-1) {
 		document.getElementById("flecheD").style.display="none";
+		document.getElementById("DL").style.display="block";
 	}
 	if (compteur==1) {
 		document.getElementById("flecheG").style.display="block";
@@ -161,6 +162,7 @@ function reloadMoins() {
 	}
 	if (compteur==data.UNES.length-2) {
 		document.getElementById("flecheD").style.display="block";
+		document.getElementById("DL").style.display="none";
 	}
 }
 
