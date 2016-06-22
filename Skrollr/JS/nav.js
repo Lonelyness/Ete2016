@@ -14,6 +14,7 @@ if (width<=height) {
 
 //Variable pour la navigation fleche	
 var compteur = -1;
+var heightMax=height*0.8;
 
 var widthMaxImage = width*0.45;
 	if (width<600) 
@@ -21,7 +22,7 @@ var widthMaxImage = width*0.45;
 	if (width<500)
 		widthMaxImage = width*0.2;
 	if (width<400)
-		widthMaxImage = width*0.1;
+		widthMaxImage = width*0.2;
 	
 	
 	
@@ -40,15 +41,15 @@ for(var i=0; i<divs.length; i++){
 	divs[i].style.height= height*0.025+'px';}
 }
 
-document.getElementById("caption-1").style.height=height*0.78+'px';
+document.getElementById("caption-1").style.height=heightMax+'px';
 document.getElementById("caption-1").style.width=(width-widthMaxImage)*0.8+'px';
-document.getElementById("slide-1").style.height=height*0.78+'px';
-document.getElementById("titre").style.marginTop=height*0.05+'px';
+document.getElementById("slide-1").style.height=heightMax+'px';
+document.getElementById("slide-1").style.marginTop=height*0.12+'px';
+document.getElementById("caption-1").style.marginTop=height*0.12+'px';
 
 
-
-var titre = "Les UNES de la Saint Jean"
-var sous_titre = "L'analyse des Unes marquantes de la Saint Jean depuis 1900"
+var titre = "100 ans de Fête nationale à travers les unes du Devoir"
+var sous_titre = "De fête religieuse à fête politique, la « St-Jean » marque une date importante pour la province depuis le 19e siècle. Nous avons fouillé dans nos archives pour vous faire revivre la Fête nationale du Québec depuis plus d'un siècle."
 var lien = "";
 document.getElementById("lienfb").href='javascript:openfb( "https://www.facebook.com/dialog/feed?app_id=256172254741882&link='+ window.location.href+'&title='+titre+'&description='+sous_titre+'&redirect_uri=http://ledevoir.com&picture='+lien+'" )';
 document.getElementById("lientw").href='javascript:openfb( "https://twitter.com/intent/tweet?url='+ window.location.href+'&text='+titre+' '+sous_titre+' @ledevoir&related=@ledevoir&counturl='+ window.location.href+'" )'
@@ -91,23 +92,24 @@ load();
 //Fonction reload
 function reload() {
 	$("#caption-1").animate({
-						opacity: 0}, 1000, function() {
-				 document.getElementById('caption-1').innerHTML = "<h2>Année "+data.UNES[compteur].year +"</h2><br>"+data.UNES[compteur].text +"<br><br> Par "+data.UNES[compteur].author;
+						opacity: 0}, 200, function() {
+				 document.getElementById('caption-1').innerHTML = "<span id='date'>Année "+data.UNES[compteur].year +"</span><br>"+data.UNES[compteur].text +"<br><br> Par "+data.UNES[compteur].author;
+				 document.getElementById('caption-1').scrollTop=0;
 				 $("#caption-1").animate({
-						opacity: 1}, 1000, function() {
+						opacity: 1}, 500, function() {
 				// Animation complete.
 					});
 					});
 	  
 	   
 	$("#image").animate({
-						opacity: 0}, 1000, function() {
+						opacity: 0}, 200, function() {
 				var lien = "./Data/crop/"+data.UNES[compteur].year+"_crop.jpg"
 				 document.getElementById('image').src=lien;
 				 document.getElementById('href').href=lien;
 				  adatationImage(lien);
 				 $("#image").animate({
-						opacity: 1}, 1000, function() {
+						opacity: 1}, 500, function() {
 				// Animation complete.
 					});
 					});	
@@ -120,9 +122,9 @@ function adatationImage(url) {
 		var heightImage = this.height;
 		var widthImage = this.width;
 		var heightPrévu = ((heightImage*widthMaxImage)/widthImage);
-		if (heightPrévu>(height*0.78)) {
-			document.getElementById('image').height = height*0.78;
-			document.getElementById('image').width = ((widthImage*height*0.78)/heightImage);
+		if (heightPrévu>(heightMax)) {
+			document.getElementById('image').height = heightMax;
+			document.getElementById('image').width = ((widthImage*heightMax)/heightImage);
 		}
 		else {
 			document.getElementById('image').width = widthMaxImage;
@@ -134,6 +136,9 @@ function adatationImage(url) {
 
 
 function reloadPlus() {
+	document.getElementById("flecheD").style.display="block";
+	document.getElementById("slide-1").style.width=widthMaxImage+'px';
+	document.getElementById("accueil").style.display="none";
 	if (compteur < data.UNES.length-1) {
 	   compteur +=1;
 	   reload();

@@ -1,5 +1,6 @@
 body {
 	font-family:Roboto;
+	font-size:1em;
 }
 
 #top {
@@ -39,6 +40,127 @@ li {
     clear:right;
 	margin-right:10px;
 }
+
+html, body {
+			height:100%;
+			overflow: hidden;
+			margin:0;
+			padding:0;
+		}
+		
+		#titre {
+		 margin-top:5%;
+		 text-align:center;
+		 font-family:Roboto;
+		 padding-left:200px;
+		 padding-right:200px;
+		 padding-bottom:20px;
+		 display:none;
+		 font-weight:200;
+		 font-size:3em;
+		}
+		
+		#slide-1 {
+			text-align:center;
+			float:left;
+			margin-left:3%;
+		}
+		#caption-1 {
+			width:45%;
+			float : right;
+			overflow:auto;
+			margin-right:3%;
+		}
+		
+	
+		#flecheG, #flecheD {
+		position:fixed;
+		top:8%;
+		opacity:0.5;
+		height:30px;
+		width:120px;
+		background-color: black;
+		text-align:center;
+		vertical-align: middle;
+		line-height:1.50em;
+		padding-top:5px;
+		color:white;
+		border-radius:5px;
+		display:none;
+		}
+		
+		#flecheG {
+		left:-6px;
+		}
+		
+		#flecheD {
+		right:-6px;
+		}
+		
+		#flecheD:hover {
+		opacity:1;
+		}
+		#flecheG:hover {
+		opacity:1;
+		}
+		
+		#accueil {
+			background:url(./Data/intro.png) no-repeat center center;
+			background-size: cover;
+			position:fixed;
+			width:90%;
+			color:white;
+			height:80%;
+			top:6.7%;
+			overflow:auto;
+			padding:5% 5% 5% 5%;
+		}
+		
+		#textTitre {
+			font-weight:200;
+			font-size:4em;
+			
+		}
+		
+		#description {
+			font-weight:200;
+			font-size:2em;
+			
+		}
+		
+		#auteurs {
+			font-weight:200;
+			font-size:1.5em;
+		}
+		
+		#photoA {
+			float:right;
+			font-weight:200;
+			font-size:1em;
+			opacity:0.5;
+		}
+		
+		#date {
+			font-weight:200;
+			font-size:1.5em;
+		}
+		
+		.btn {
+		 -webkit-border-radius: 2;
+		 -moz-border-radius: 2;
+		 border-radius: 2px;
+		 color: #ffffff ;
+		 font-size: 20px;
+		 padding: 10px 20px 10px 20px;
+		 text-decoration: none;
+		 background:Transparent;
+		 border-width:1px;
+		}
+
+		.btn:hover {
+		 background: #121212 ;
+		 text-decoration: none;
+		}
 
 
 

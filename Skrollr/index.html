@@ -17,65 +17,7 @@
 			  ga('send', 'pageview');
 		</script>
 		
-		<title>UNES Saint Jean</title>
-		
-		<style type="text/css">
-		html, body {
-			height:100%;
-			overflow: hidden;
-		}
-		
-		#titre {
-		 margin-top:5%;
-		 text-align:center;
-		 font-family:Roboto;
-		}
-		
-		#slide-1 {
-			text-align:center;
-			float:left;
-			margin-left:3%;
-			margin-right:3%;
-		}
-		#caption-1 {
-			width:45%;
-			float : right;
-			overflow:auto;
-		}
-		
-	
-		#flecheG, #flecheD {
-		position:fixed;
-		top:8%;
-		opacity:0.5;
-		height:30px;
-		width:100px;
-		background-color: black;
-		text-align:center;
-		vertical-align: middle;
-		line-height:1.50em;
-		padding-top:5px;
-		color:white;
-		border-radius:5px;
-		}
-		
-		#flecheG {
-		display:none;
-		left:-6px;
-		}
-		
-		#flecheD {
-		right:-6px;
-		}
-		
-		#flecheD:hover {
-		opacity:1;
-		}
-		#flecheG:hover {
-		opacity:1;
-		}
-		
-		</style>
+		<title>100 ans de Fête nationale à travers les unes du Devoir</title>
  <body>
 	<body onkeydown="detectTouche(event)">
     <nav class="navbar fixe" role="navigation">
@@ -84,18 +26,40 @@
 				<li class="twitterfacebook" ><a id="lienfb" href="https://www.facebook.com/dialog/feed?app_id=256172254741882&link=LIENSITE&description=DESCRIPTION&redirect_uri=http://ledevoir.com&image=LIENIMAGE" ><img class="imageF" src="./facebook-letter-logo.svg" height="1px"></a><a id="lientw" href="https://twitter.com/share" class="twitter-share-button"><img class="imageT" src="./twitter-logo.svg" height="1px"></a></li>
 			</ul>          
 	</nav>
-		<div id="titre"><h1>Les UNES de la Saint Jean</h1></div>
+		<div id="titre"> </div>
 		<div id="slides" >
 			<div id="slide-1" class="slide">
-			<a id="href" href="lien.html" onclick="window.open(this.href); return false;"><img src='./Data/intro.png' width="100%" id="image"></a>
+			<a id="href" href="lien.html" onclick="window.open(this.href); return false;"><img src='' height="100%" id="image"></a>
 			</div>
 			<div id="caption-1" class="caption">
 			</div>
 </div>
-		<a onclick="reloadMoins()"><div id="flecheG">Précédent</div></a>
-		<a onclick="reloadPlus()"><div id="flecheD">Suivant</div></a>
+		<a onclick="reloadMoins()"><div id="flecheG">Précédente</div></a>
+		<a onclick="reloadPlus()"><div id="flecheD">Suivante</div></a>
 	<script src="./JS/nav.js" charset="utf-8"></script>
+	<div id="accueil">
+	<span id="textTitre">100 ans de Fête nationale à travers les unes du Devoir<br><br></span>
+	<br>
+	<span id="description">De fête religieuse à fête politique, la « St-Jean » marque une date importante pour la province depuis le 19e siècle.<br>
+	<br>
+	Nous avons fouillé dans nos archives pour vous faire revivre la Fête nationale du Québec depuis plus d'un siècle.</span>
+	<br>
+	<br>
+	<a onclick="reloadPlus()"> <button class="btn"> Commencer </button></a>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<span id="auteurs"><i>Par Guillaume Levasseur, Aude Nazaire et Dave Noël</i></span>
+	<br>
+	<br>
+	<br>
+	<span id="photoA">Photo Jacques Nadeau (Le Devoir)</span>
+	</div>
 
+	
 	<script type="text/javascript">
 	  var _sf_async_config = { uid: 63518, domain: 'ledevoir.com', useCanonical: true };
 	  (function() {

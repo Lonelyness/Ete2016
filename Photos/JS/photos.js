@@ -80,7 +80,7 @@ function drawChart(data) {
 			return d.id;
 		})
 		.html(function(d) {
-			return '<div class="divPhoto"><img src="' + d.lien + '" style="width:'+ taillePhoto + '%;" > <div class="sousPhoto" style="margin: 0 '+ espacetext +'% 0 '+ espacetext +'%;"> <span class="idPhoto"> #' + d.id +'</span> - ' + d.description + ' // <span class="artiste">' + d.artiste + ' (' + d.agence +') </span> </div>';
+			return '<div class="divPhoto"><img src="' + d.lien + '" style="width:'+ taillePhoto + '%;" > <div class="sousPhoto" style="margin: 0 '+ espacetext +'% 0 '+ espacetext +'%;"> <span class="idPhoto"> #' + d.id +'</span> - ' + d.description + '<span class="artiste"><em> ' + d.artiste + ' ' + d.agence +' </em></span> </div>';
 		})
 		.style("padding-top", height*0.02+'px' )
 		.style("padding-bottom", "15px" );;
