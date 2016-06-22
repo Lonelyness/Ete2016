@@ -1,0 +1,118 @@
+﻿<!doctype html>
+<html>
+<head>	
+		<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>`
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<script src="./JS/jquery.min.js" charset="utf-8"></script>
+		<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="./general.css">
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+			  ga('create', 'UA-1157473-1', 'auto');
+			  ga('send', 'pageview');
+		</script>
+		
+		<title>UNES Saint Jean</title>
+		
+		<style type="text/css">
+		html, body {
+			height:100%;
+			overflow: hidden;
+		}
+		
+		#titre {
+		 margin-top:5%;
+		 text-align:center;
+		 font-family:Roboto;
+		}
+		
+		#slide-1 {
+			text-align:center;
+			float:left;
+			margin-left:3%;
+			margin-right:3%;
+		}
+		#caption-1 {
+			width:45%;
+			float : right;
+			overflow:auto;
+		}
+		
+	
+		#flecheG, #flecheD {
+		position:fixed;
+		top:8%;
+		opacity:0.5;
+		height:30px;
+		width:100px;
+		background-color: black;
+		text-align:center;
+		vertical-align: middle;
+		line-height:1.50em;
+		padding-top:5px;
+		color:white;
+		border-radius:5px;
+		}
+		
+		#flecheG {
+		display:none;
+		left:-6px;
+		}
+		
+		#flecheD {
+		right:-6px;
+		}
+		
+		#flecheD:hover {
+		opacity:1;
+		}
+		#flecheG:hover {
+		opacity:1;
+		}
+		
+		</style>
+ <body>
+	<body onkeydown="detectTouche(event)">
+    <nav class="navbar fixe" role="navigation">
+			<ul class="ul-navbar">
+				<li><a href="http://ledevoir.com"><img class="imageD" src="./logo_devoir_avecD2.svg" height="1px"></a></li>
+				<li class="twitterfacebook" ><a id="lienfb" href="https://www.facebook.com/dialog/feed?app_id=256172254741882&link=LIENSITE&description=DESCRIPTION&redirect_uri=http://ledevoir.com&image=LIENIMAGE" ><img class="imageF" src="./facebook-letter-logo.svg" height="1px"></a><a id="lientw" href="https://twitter.com/share" class="twitter-share-button"><img class="imageT" src="./twitter-logo.svg" height="1px"></a></li>
+			</ul>          
+	</nav>
+		<div id="titre"><h1>Les UNES de la Saint Jean</h1></div>
+		<div id="slides" >
+			<div id="slide-1" class="slide">
+			<a id="href" href="lien.html" onclick="window.open(this.href); return false;"><img src='./Data/intro.png' width="100%" id="image"></a>
+			</div>
+			<div id="caption-1" class="caption">
+			</div>
+</div>
+		<a onclick="reloadMoins()"><div id="flecheG">Précédent</div></a>
+		<a onclick="reloadPlus()"><div id="flecheD">Suivant</div></a>
+	<script src="./JS/nav.js" charset="utf-8"></script>
+
+	<script type="text/javascript">
+	  var _sf_async_config = { uid: 63518, domain: 'ledevoir.com', useCanonical: true };
+	  (function() {
+		function loadChartbeat() {
+		  window._sf_endpt = (new Date()).getTime();
+		  var e = document.createElement('script');
+		  e.setAttribute('language', 'javascript');
+		  e.setAttribute('type', 'text/javascript');
+		  e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+		  document.body.appendChild(e);
+		};
+		var oldonload = window.onload;
+		window.onload = (typeof window.onload != 'function') ?
+		  loadChartbeat : function() { oldonload(); loadChartbeat(); };
+	  })();
+	</script>
+		
+	
+ </body>
+</html>
