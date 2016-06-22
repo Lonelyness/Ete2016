@@ -118,25 +118,25 @@ html, body {
 		
 		#textTitre {
 			font-weight:200;
-			font-size:4em;
+			font-size:3em;
 			
 		}
 		
 		#description {
 			font-weight:200;
-			font-size:2em;
+			font-size:1.5em;
 			
 		}
 		
 		#auteurs {
 			font-weight:200;
-			font-size:1.5em;
+			font-size:1em;
 		}
 		
 		#photoA {
 			float:right;
 			font-weight:200;
-			font-size:1em;
+			font-size:0.8em;
 			opacity:0.5;
 		}
 		
