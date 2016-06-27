@@ -42,6 +42,8 @@ L.tileLayer('https://api.mapbox.com/styles/v1/fdaudens/cipsrn0zv0000brm7esi81vm6
 	ext: 'png'
 }).addTo(map);
 
+new OSMBuildings(map).load();
+
 //Event au click sur la map
  map.on('click', function(e) {
 if (!drag) {	 
