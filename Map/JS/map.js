@@ -29,12 +29,13 @@ document.getElementById('map').style.width = m+"px";
 document.getElementById('map').style.height = m+"px";
 document.getElementById('choix').style.width = m+"px";
 
+L_PREFER_CANVAS = true;
 //Création de la map Leaflet
 var map = L.map('map')
     .setView([45.504629, -73.55686], 11);
 //Indication de comment l'afficher	
-L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', {
-	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, Icon by <a href="http://simpleicon.com/">Simple Icon</a> &mdash; <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+L.tileLayer('https://api.mapbox.com/styles/v1/fdaudens/cipsrn0zv0000brm7esi81vm6/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg', {
+	attribution: 'Map by <a href="http://www.ledevoir.com">Le Devoir</a>, Icon by <a href="http://simpleicon.com/">Simple Icon</a>',
 	subdomains: 'abcd',
 	minZoom: 0,
 	maxZoom: 20,
@@ -344,4 +345,22 @@ function httpGet(theUrl)
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
     xmlHttp.send( null );
     return xmlHttp.responseText;
+}
+
+
+function valider() {
+	document.getElementById('val').style.display="block";
+	
+	var snapshot = document.getElementById('img-out');
+	function doImage(err, canvas) {
+	var img = document.createElement('img');
+	var dimensions = map.getSize();
+	img.width = dimensions.x;
+	img.height = dimensions.y;
+	img.src = canvas.toDataURL();
+	snapshot.innerHTML = '';
+	snapshot.appendChild(img);
+	}
+	
+	leafletImage(map, doImage);
 }

@@ -52,7 +52,7 @@ var titre = "100 ans de Fête nationale à travers les unes du Devoir"
 var sous_titre = "De fête religieuse à fête politique, la « St-Jean » marque une date importante pour la province depuis le 19e siècle. Nous avons fouillé dans nos archives pour vous faire revivre la Fête nationale du Québec depuis plus d'un siècle."
 var lien = "";
 document.getElementById("lienfb").href='javascript:openfb( "https://www.facebook.com/dialog/feed?app_id=256172254741882&link='+ window.location.href+'&title='+titre+'&description='+sous_titre+'&redirect_uri=http://ledevoir.com&picture='+lien+'" )';
-document.getElementById("lientw").href='javascript:openfb( "https://twitter.com/intent/tweet?url='+ window.location.href+'&text='+titre+' '+sous_titre+' @ledevoir&related=@ledevoir&counturl='+ window.location.href+'" )'
+document.getElementById("lientw").href='javascript:openfb( "https://twitter.com/intent/tweet?url='+ window.location.href+'&text='+titre+' @ledevoir &related=@ledevoir&counturl='+ window.location.href+'" )';
 
 
 //Pour ouvrir la pop up de partage facebook ou twitter

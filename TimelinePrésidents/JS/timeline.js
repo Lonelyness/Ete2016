@@ -66,10 +66,10 @@ function drawChart(data) {
 			.attr("opacity", .6)
 			.attr("stroke", "black");
 	
-	group.selectAll('ellipse')
+	group.selectAll('circle')
 		.data(data)
 		.enter()
-		.append('ellipse')
+		.append('circle')
 		.attr("cy",-20)
 		.attr("cx",function(d) {
 			var date = d.date;
@@ -79,12 +79,14 @@ function drawChart(data) {
 			
 			return y;
 		})
-		.attr("rx",2)
-		.attr("ry",10)
+		.attr("r", function(d) {
+			if (d.Affichage==1)
+				return 5;
+			else
+		return 0;
+	})
 		.style("stroke","black")
-		.style("fill",function(d,i) {
-			if (i%2==0) return "blue";
-				return "white";})
+		.style("fill","white")
 		.on('mouseover', tip.show)
 		.on('mouseout', tip.hide);
 		
@@ -101,7 +103,10 @@ function drawChart(data) {
 		})
 		.style("fill","black")
 		.text(function(d) {
-			return d.Nom;
+			if (d.Affichage==1)
+				return d.Nom;
+			else
+				return "";
 		})
 		.attr("transform",function(d) {
 			var date = d.date;

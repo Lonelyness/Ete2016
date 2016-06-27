@@ -3,12 +3,14 @@
 <head>
 <meta charset=utf-8 />
 <title>A simple map</title>
+<script>L_PREFER_CANVAS = true;</script>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" />
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="./CSS/general.css" />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
 <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC95qiflxZ2XVSOypJpjAmZttSWZHEFx0A&language=fr" type="text/javascript"></script>
 <script src="./JS/jquery.min.js" charset="utf-8"></script>
+<script src='./JS/leaflet-image.js'></script>
 </head>
 <body>
 <div id='choix'>
@@ -57,6 +59,18 @@ Format :
 </ul>	   
 </div>
 <div id='map'> </div>
+<div id='val'>
+	<ul> 
+		<li> PNG <div id="img-out"></div> </li>
+		<li> WEB </li>
+	</ul>
+	<input type="image"
+	   class="button"
+       id = "btnclear"
+       src="./Icones/Recommencer.png"
+	   width="4%"
+       onclick = "document.getElementById('val').style.display='none';"/>
+ </div>
 <script src="./JS/map.js" charset="utf-8"></script>
 </body>
 </html>
