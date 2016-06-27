@@ -14,7 +14,6 @@
    padding-top:5px;
    padding-bottom:5px;
 }
-
 	.nomEtat {
 		font-family: Roboto;
 		font-size: 13px;
@@ -26,31 +25,4 @@
 		-ms-user-select: none;       /* Internet Explorer/Edge */
 		user-select: none; 
 		cursor:default;
-	}
-	
-	.hexagon:hover {
-		opacity: 0.8;
-	}
-	
-	.legende {
-		font-family: Roboto;
-		font-size: 12px;
-		font-weight : 400;
-	}
-	.legendeC{
-		font-family: Roboto;
-		font-size: 10px;
-		font-weight : 400;
-	}
-	
-	.titreCarte {
-		font-family: Georgia-bold;
-		font-size: 22px;
-		font-weight : 300;
-	}
-	
-	.titre {
-		 font-family: Roboto;
-		 font-size: 14px;
-		 font-weight : 800;
 	}

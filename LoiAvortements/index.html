@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
-		<title>Où les candidats ont-ils remporté leurs délégués ?</title>
+		<title>Loi sur l'avortement</title>
 		<script src="./JS/jquery.min.js" charset="utf-8"></script>
-		<script src="./JS/Tabletop.js" charset="utf-8"></script>
 		<script src="./JS/d3.min.js" charset="utf-8"></script>
 		<script src="./JS/tip.js" charset="utf-8"></script>
 		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="./CSS/general.css" />
-		<link rel="stylesheet" media="screen and (max-width:500px)" href="./CSS/CSSpetit.css"/>
-		<link rel="stylesheet" media="screen and (max-width:350px)" href="./CSS/CSSpetit2.css"/>
-	
 </head>		
 <body>
 <div class="box">
@@ -35,33 +31,43 @@ var xRange = function(x) {
 var yRange = function(y) {
 	return (y+1)*(3/2)*r;
 }
-
+//Echelle des couleurs
 var color = function(x) {
+console.log(x);
 	if (x==3)
-		return '#006d2c';
+		return '#f4aa59';
 	else if (x==2)
-		return '#2ca25f';
+		return '#4c7d95';
+	else if (x==1)
+		return '#f7c38a';
 	else
-		return '#045a8d';		
+		return '#c3c3c3';		
 }
 
+
+//Ouverture du csv des données dans une fonction
 d3.csv("EtatsUSA.csv", function(csv) {
+//on appelle les données data
 var data=csv;
 
+
+//fonction pour chercher la valeur dans data en fonction du nom
 var getData = function(name) {
 var index=-1;
 	for (i = 0; i < data.length; i++) { 
 		if (data[i].Etat==name) 
-			index=data[i].Valeur;
+			index = data[i].Valeur;
 }
 return index;
-}  
-	
+} 
+ 
+// fonction de dessin d'une ligne	
 var lineFunction = d3.svg.line()
                       .x(function(d) { return d.x; })
                       .y(function(d) { return d.y; })
                       .interpolate("linear");
-					  
+
+//fonction pour indiquer les points pour faire l'héxagone en fonction du centre et du rayon.					  
 function hexagon(a,b,r) { 
 		return [{x:a,y:b-r},{x: a+(Math.sqrt(3)/2)*r,y: b-(1/2)*r},{x: a+(Math.sqrt(3)/2)*r,y: b+(1/2)*r},{x: a,y: b+r},{x: a-(Math.sqrt(3)/2)*r,y: b+(1/2)*r},{x: a-(Math.sqrt(3)/2)*r,y: b-(1/2)*r},{x:a,y:b-r}];
 	};
@@ -76,14 +82,16 @@ var svg = d3.select('svg')
      ].join(" "));
 	 
 	 
-//Tip tool fixe - endroit a définir dans la librairie tip.js dans la fonction show (ligne 44 et 45 )
-var tip = d3.tip()
+//Tiptool si besoin
+/*var tip = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-5, -(1/2)*r])
 		.html(function(d) {
 			return d.name;
-		});	 
-
+		});	*/
+		
+		
+//Dessin des hexagones en parcourant la carte des USA 
 svg.selectAll("path")
 		.data(gridmapLayoutUsa)
 		.enter()
@@ -102,7 +110,7 @@ svg.selectAll("path")
 		.attr("stroke-width","1")
 		.attr("opacity",0.6);
 		
-	
+// Dessin du nom des Etats	
 svg.selectAll("text")
 		.data(gridmapLayoutUsa)
 		.enter()
@@ -119,8 +127,10 @@ svg.selectAll("text")
 			return yRange(d.y);
 		})
 		.text(function(d) {return d.key;})
-		.style("fill","#e5e5e5");
-var group = svg.append("g");		
+		.style("fill","white");
+		
+// Si on veut un tooltip sur les hexagones		
+/*var group = svg.append("g");		
 group.selectAll("path")
 		.data(gridmapLayoutUsa)
 		.enter()
@@ -139,9 +149,9 @@ group.selectAll("path")
 		.attr("stroke-width","1")
 		.attr("opacity",0.1)
 		.on('mouseover', tip.show)
-		.on('mouseout', tip.hide);		
+		.on('mouseout', tip.hide);	
 		
-svg.call(tip);	
+svg.call(tip); */	
 
 });	
 </script>
