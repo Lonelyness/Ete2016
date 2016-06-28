@@ -13,7 +13,7 @@
     font-family: Roboto;
   }
 
-	.d3-tip { 
+  .d3-tip { 
    line-height: 1;
    font-weight: normal;
    font-family: Roboto;
@@ -29,18 +29,18 @@
    padding-top:5px;
    padding-bottom:5px;
 }
-	.nomEtat {
-		font-family: Roboto;
-		font-size: 13px;
-		font-weight : 200;
-		-webkit-touch-callout: none; /* iOS Safari */
-		-webkit-user-select: none;   /* Chrome/Safari/Opera */
-		-khtml-user-select: none;    /* Konqueror */
-		-moz-user-select: none;      /* Firefox */
-		-ms-user-select: none;       /* Internet Explorer/Edge */
-		user-select: none; 
-		cursor:default;
-	}
+  .nomEtat {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight : 200;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none; 
+    cursor:default;
+  }
 
    .source {
     font-family:Roboto;
@@ -59,7 +59,7 @@
     padding-right: 5px;
     padding-bottom: 35px;
     padding-left: 15px; 
-    font-family: roboto;
+    font-family: Roboto;
     font-size: 10px; 
   } 
 
