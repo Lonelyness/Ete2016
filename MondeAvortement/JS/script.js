@@ -16,7 +16,7 @@ var series = data;
     // color can be whatever you wish
     var paletteScale = d3.scale.linear()
             .domain([0,1,2,3,4,5,6,7])
-            .range(['#fcfbfd','#efedf5','#dadaeb','#bcbddc','#9e9ac8','#807dba','#6a51a3','#4a1486']); // COLOR degradé
+            .range(['#fcfbfd','#dadaeb','#bcbddc','#9e9ac8','#807dba','#6a51a3','#54278f','#3f007d']); // COLOR degradé
     // fill dataset in appropriate format
     series.forEach(function(item){ //
         // item example value ["USA", 70]
@@ -32,17 +32,19 @@ var series = data;
 		responsive : true,
         projection: 'mercator', // big world map
         // countries don't listed in dataset will be painted with this color
-        fills: { defaultFill: '#F5F5F5' },
+        fills: { defaultFill: '#FFFFFF' },
         data: dataset,
         geographyConfig: {
             borderColor: '#DEDEDE',
             highlightBorderWidth: 1,
             // don't change color on mouse hover
             highlightFillColor: function(geo) {
-                return geo['fillColor'] || '#F5F5F5';
+                return geo['fillColor'] || '#FFFFFF';
             },
             // only change border
-            highlightBorderColor: '#B7B7B7',
+            highlightBorderColor: function(geo) {
+                return '#B7B7B7';
+            },
             // show desired information in tooltip
             popupTemplate: function(geo, data) {
                 // don't show tooltip if country don't present in dataset
@@ -59,13 +61,13 @@ var series = data;
 	
 };
 
-//Fonction pour aller chercher les donn�es du spreadsheet
+//Fonction pour aller chercher les données du spreadsheet
 function renderSpreadsheetData() {
     Tabletop.init( { key: public_spreadsheet_url,
                      callback: draw,
                      simpleSheet: true } )
 }
-//Fonction pour appeler la cr�ation
+//Fonction pour appeler la création
 function draw(data, tabletop) {
   // draw chart
   drawChart(data);
