@@ -90,7 +90,7 @@ g.selectAll("path")
 		})
 		.attr("stroke", "white")
 		.attr("stroke-width","1")
-		.attr("opacity",0.6);
+		.attr("opacity",0.8);
 		
 // Dessin du nom des Etats	
 g.selectAll("text")
@@ -106,7 +106,7 @@ g.selectAll("text")
 				return (xRange(d.x)+(Math.sqrt(3)/2)*r);}
 			})
 		.attr("y", function(d) {
-			return yRange(d.y);
+			return yRange(d.y)+5;
 		})
 		.text(function(d) {return d.key;})
 		.style("fill","white");

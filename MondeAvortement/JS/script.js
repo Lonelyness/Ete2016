@@ -14,7 +14,7 @@ var series = data;
             maxValue = Math.max.apply(null, onlyValues);
     // create color palette function
     // color can be whatever you wish
-	var couleur = ['#fcfbfd','#dadaeb','#bcbddc','#9e9ac8','#807dba','#6a51a3','#54278f','#3f007d'];
+	var couleur = ['#ece7f2','#d0d1e6','#a6bddb','#74a9cf','#3690c0','#0570b0','#045a8d','#023858'];
     var paletteScale = d3.scale.linear()
             .domain([0,1,2,3,4,5,6,7])
             .range(couleur); // COLOR degradé
@@ -26,25 +26,25 @@ var series = data;
 				nomfrancais = item.nomFR,
 				valeurXO = "Avortement autorisé :<br>";
 		if (item.FemmeVie=="X") {
-			valeurXO += "&nbsp;&nbsp;Pour sauver la vie de la femme <br>";
+			valeurXO += "&nbsp;&nbsp;&#149; Pour sauver la vie de la femme <br>";
 		}
 		if (item.FemmePhy=="X") {
-			valeurXO += "&nbsp;&nbspPour préserver la santé physique de la femme <br>";
+			valeurXO += "&nbsp;&nbsp&#149; Pour préserver la santé physique de la femme <br>";
 		}
 		if (item.FemmeMen=="X") {
-			valeurXO += "&nbsp;&nbspPour préserver la santé mentale de la femme <br>";
+			valeurXO += "&nbsp;&nbsp&#149; Pour préserver la santé mentale de la femme <br>";
 		}
 		if (item.Viol=="X") {
-			valeurXO += "&nbsp;&nbspEn cas de viol ou d'inceste <br>";
+			valeurXO += "&nbsp;&nbsp&#149; En cas de viol ou d'inceste <br>";
 		}
 		if (item.Malformation=="X") {
-			valeurXO += "&nbsp;&nbspEn cas de malformation foetale <br>";
+			valeurXO += "&nbsp;&nbsp&#149; En cas de malformation foetale <br>";
 		}
 		if (item.Economique=="X") {
-			valeurXO += "&nbsp;&nbspPour des raisons économiques ou sociales <br>";
+			valeurXO += "&nbsp;&nbsp&#149; Pour des raisons économiques ou sociales <br>";
 		}
 		if (item.Demande=="X") {
-			valeurXO += "&nbsp;&nbspSur demande <br>";
+			valeurXO += "&nbsp;&nbsp&#149; Sur demande <br>";
 		}
 		if (valeurXO=="Avortement autorisé :<br>") {
 			valeurXO="Avortement interdit"
@@ -84,8 +84,8 @@ var series = data;
         }
     });
 	var width = 800;
-	var height = 100;
-	var svg = d3.select("body").append("svg")
+	var height = 70;
+	var svg = d3.select("#container2").append("svg")
 				.attr("viewBox", [
 					0,
 					0,
@@ -95,7 +95,31 @@ var series = data;
 
 var group = svg.append("g")
 				.attr("transform", "translate("+width/2+",0)");
-var legend = group.selectAll('rect')
+				
+var gradient = svg.append("defs")
+  .append("linearGradient")
+    .attr("id", "gradient")
+    .attr("x1", "0%")
+    .attr("x2", "100%")
+    .attr("spreadMethod", "pad");
+
+gradient.selectAll("stop")
+	.data(couleur)
+	.enter()
+	.append("stop")
+    .attr("offset", function(d,i) {return i*(100/couleur.length)+"%";})
+    .attr("stop-color", function(d) {return d;})
+    .attr("stop-opacity", 1);
+	
+
+group.append("rect")
+    .attr("width", 20*couleur.length)
+    .attr("height", 20)
+	.attr("x",20)
+	.attr("y",30)
+    .style("fill", "url(#gradient)");	
+				
+/*var legend = group.selectAll('rect')
 				.data(couleur)
 				.enter()
 				.append('rect')
@@ -108,7 +132,9 @@ var legend = group.selectAll('rect')
 				.style("stroke","#8f8f8f")
 				.style("fill",function(d,i) {
 					return d;
-				});
+				});*/
+				
+				
 				
 group.append("text")
 	.attr("x",-70)
@@ -122,6 +148,7 @@ group.append("text")
 	.attr("text-anchor","end")
 	.text("0")
 	.style("fill","#8f8f8f");
+	
 group.append("text")
 	.attr("x",25+20*couleur.length)
 	.attr("y",45)

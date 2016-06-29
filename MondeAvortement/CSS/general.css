@@ -1,4 +1,18 @@
 body {
-	margin : 30px;
 	font-family : Roboto;
+}
+
+#titre {
+	font-size:1.3em;
+	width:100%;
+	font-weight:600;
+	text-align:left;
+	color:#333;
+}
+#container {
+	margin-top : 10px;
+}
+.source {
+	font-size:0.7em;
+	color:#8f8f8f;
 }
