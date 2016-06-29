@@ -1,0 +1,131 @@
+Région,Num. Reg.,Pop (estimé 2015),,Ressources,Adresse,Ville,Code postal,Adresse complète,,lat,long,,
+Bas Saint-Laurent,01,199 577,1,CLSC de Matane,349 Avenue Saint-Jérôme,Matane,G4W3A8,"CLSC de Matane, 349 Avenue Saint-Jérôme, Matane, QC G4W3A8",,48.846412,-67.529534,1,1
+,,,2,CLSC les Aboiteaux,1201 6ième avenue,La Pocatière,G0R1Z0,"CLSC les Aboiteaux, 1201 6ième avenue, La Pocatière, QC G0R1Z0",,47.364876,-70.033674,1,1
+,,,3,CLSC Rivières et marées,22 rue Saint-Laurent,Rivière-du-Loup,G0L3Y0,"CLSC Rivières et marées, 22 rue Saint-Laurent, Rivière-du-Loup, QC G0L3Y0",,47.83063,-69.53609,1,1
+,,,4,CLSC Saint-Pascal,595 Avenue Martin,Saint-Pascal,G0L3Y0,"CLSC Saint-Pascal, 595 Avenue Martin, Saint-Pascal, QC G0L3Y0",,47.529466,-69.8026705,1,1
+,,,5,CSSS de La Mitis,800 Avenue du Sanatorium,Mont-Joli,G5H3L6,"CSSS de La Mitis, 800 Avenue du Sanatorium, Mont-Joli, QC G5H3L6",,48.5725695,-68.2145149,1,1
+,,,6,CSSS Rimouski-Neigette,150 Avenue Rouleau,Rimouski,G5L5T1,"CSSS Rimouski-Neigette, 150 Avenue Rouleau, Rimouski, QC G5L5T1",,48.4467795,-68.5317542,1,1
+Saguenay-Lac-Saint-Jean,02,277 209,7,Centre hospitalier de Jonquière,2230 rue de l'Hôpital,Jonquière,G7X7X2,"Centre hospitalier de Jonquière, 2230 rue de l'Hôpital, Jonquière, QC G7X7X2",,48.4136,-71.23513,1,1
+,,,8,CLSC Cléophas-Claveau,800 rue Aimé-Gravel,La Baie,G7B2M4,"CLSC Cléophas-Claveau, 800 rue Aimé-Gravel, La Baie, QC G7B2M4",,48.3379,-70.8796799,1,1
+,,,9,CLSC d'Alma,100 rue Saint-Joseph Sud,Alma,G8B7A6,"CLSC d'Alma, 100 rue Saint-Joseph Sud, Alma, QC G8B7A6",,48.55007,-71.65273,1,1
+,,,10,CLSC de Chicoutimi,411 rue Hôtel-Dieu,Chicoutimi,G7H7Z5,"CLSC de Chicoutimi, 411 rue Hôtel-Dieu, Chicoutimi, QC G7H7Z5",,48.42752,-71.05535,1,1
+,,,11,CLSC de Dolbeau-Mistassini,201 boulevard des Pères,Dolbeau-Mistassini,G8L5K6,"CLSC de Dolbeau-Mistassini, 201 boulevard des Pères, Dolbeau-Mistassini, QC G8L5K6",,48.89079,-72.226406,1,1
+,,,12,CLSC Roberval,400 Avenue Bergeron,Roberval,G8H1K8,"CLSC Roberval, 400 Avenue Bergeron, Roberval, QC G8H1K8",,48.51709,-72.22588,1,1
+,,,13,CLSC St-Félicien,1209 Boulevard Sacré-Coeur,Saint-Félicien,G8K2P8,"CLSC St-Félicien, 1209 Boulevard Sacré-Coeur, Saint-Félicien, QC G8K2P8",,48.652893,-72.44639,1,1
+Capitale-Nationale,03,737 455,14,Centre hospitalier de l'Université de Laval (CHUL),2705 Boulevard Laurier,Sainte-Foy,G1V4G2,"Centre hospitalier de l'Université de Laval (CHUL), 2705 Boulevard Laurier, Sainte-Foy, QC G1V4G2",,46.769473,-71.282796,1,1
+,,,15,CLSC Baie-Saint-Paul,5 rue Boivin,Baie-Saint-Paul,G3Z1S6,"CLSC Baie-Saint-Paul, 5 rue Boivin, Baie-Saint-Paul, QC G3Z1S6",,47.44149,-70.50703,1,1
+,,,16,CLSC Basse-Ville-Laurier,50 rue Saint-Joseph Est,Québec,G1K3A5,"CLSC Basse-Ville-Laurier, 50 rue Saint-Joseph Est, Québec, QC G1K3A5",,46.81262,-71.23031,1,1
+,,,17,CLSC Cap-Rouge-Saint-Augustin,1100 Boulevard de la Chaudière,Québec,G1Y0A1,"CLSC Cap-Rouge-Saint-Augustin, 1100 Boulevard de la Chaudière, Québec, QC G1Y0A1",,46.75969,-71.35123,1,1
+,,,18,CLSC de l'Ancienne-Lorette,1320 rue Saint-Paul,Ancienne-Lorette,G2E1Z4,"CLSC de l'Ancienne-Lorette, 1320 rue Saint-Paul, Ancienne-Lorette, QC G2E1Z4",,46.79792,-71.35184,1,1
+,,,19,CLSC de la Jacques-Cartier à Loretteville,11999A rue de l'Hôpital,Loretteville,G2A2M5,"CLSC de la Jacques-Cartier à Loretteville, 11999A rue de l'Hôpital, Loretteville, QC G2A2M5",,46.853202,-71.370169,1,1
+,,,20,CLSC Donnacona,400 route 138,Donnaconna,G3M1C3,"CLSC Donnacona, 400 route 138, Donnaconna, QC G3M1C3",,46.6817764,-71.7258986,1,1
+,,,21,CLSC Haute-Ville,55 chemin Sainte-Foy,Québec,G1R1S9,"CLSC Haute-Ville, 55 chemin Sainte-Foy, Québec, QC G1R1S9",,46.8060199,-71.22789,1,1
+,,,22,CLSC La Malbaie,535 boulevard de Comporté,La Malbaie,G5A1S8,"CLSC La Malbaie, 535 boulevard de Comporté, La Malbaie, QC G5A1S8",,47.65307,-70.14866,1,1
+,,,23,CLSC Limoilou,1405 chemin de la Canardière,Québec,G1J0A7,"CLSC Limoilou, 1405 chemin de la Canardière, Québec, QC G1J0A7",,46.83614,-71.22403,1,1
+,,,24,CLSC Sainte-Foy-Sillery,3108 chemin Sainte-Foy,Québec,G1X1P8,"CLSC Sainte-Foy-Sillery, 3108 chemin Sainte-Foy, Québec, QC G1X1P8",,46.77522,-71.31241,1,1
+,,,25,Pavillon Saint-François d'Assise,10 rue de l'Espinay,Québec,G1L3L5,"Pavillon Saint-François d'Assise, 10 rue de l'Espinay, Québec, QC G1L3L5",,46.8275,-71.23669,1,1
+Mauricie,04,266 907,26,Centre Comtois,41 boulevard Comtois,Louiseville,J5V2H8,"Centre Comtois, 41 boulevard Comtois, Louiseville, QC J5V2H8",,46.2556747,-72.9523982,1,1
+,,,27,Centre de santé des femmes de la Mauricie,889 rue du Haut-Boc,Trois-Rivières,G9A4W7,"Centre de santé des femmes de la Mauricie, 889 rue du Haut-Boc, Trois-Rivières, QC G9A4W7",,46.34594,-72.54144,1,1
+,,,28,Centre hospitalier affilié universitaire régional,1991 boulevard Carmel,Trois-Rivières,G8Z3R9,"Centre hospitalier affilié universitaire régional, 1991 boulevard Carmel, Trois-Rivières, QC G8Z3R9",,46.354993,-72.561108,1,1
+,,,29,CSSS du Haut-Saint-Maurice,885 boulevard Ducharme,La Tuque,G9X3C1,"CSSS du Haut-Saint-Maurice, 885 boulevard Ducharme, La Tuque, QC G9X3C1",,47.4284188,-72.7852749,1,1
+,,,30,CSSS Trois-Rivières,731 rue Ste-Julie,Trois-Rivières,G9A1Y1,"CSSS Trois-Rivières, 731 rue Ste-Julie, Trois-Rivières, QC G9A1Y1",,46.34706,-72.54649,1,1
+Estrie,05,322 099,31,Centre hospitalier universitaire de Sherbrooke,3001 12ième avenue Nord,Sherbrooke,J1H2X8,"Centre hospitalier universitaire de Sherbrooke, 3001 12ième avenue Nord, Sherbrooke, QC J1H2X8",,45.447207,-71.869807,1,1
+,,,32,CLSC Magog,50 rue Saint-Patrice Est,Magog,J1X3X3,"CLSC Magog, 50 rue Saint-Patrice Est, Magog, QC J1X3X3",,45.26529,-72.14504,1,1
+Montréal,06,1 999 795,33,À deux mains,5833 rue Sherbrooke Ouest,Montréal,H4A1X4,"À deux mains, 5833 rue Sherbrooke Ouest, Montréal, QC H4A1X4",,45.46972,-73.6181,1,1
+,,,34,Centre de santé des femmes de Montréal,3401 rue Delorimier,Montréal,H2K3X5,"Centre de santé des femmes de Montréal, 3401 rue Delorimier, Montréal, QC H2K3X5",,45.53098,-73.56344,1,1
+,,,35,Centre hospitalier Maisonneuve-Rosemont,5415 boulevard de l'Assomption,Montréal,H1T2M4,"Centre hospitalier Maisonneuve-Rosemont, 5415 boulevard de l'Assomption, Montréal, QC H1T2M4",,45.5733181,-73.5589565,1,1
+,,,36,Centre hospitalier Royal Victoria,687 avenue des Pins Ouest,Montréal,H3A1A1,"Centre hospitalier Royal Victoria, 687 avenue des Pins Ouest, Montréal, QC H3A1A1",,45.5079134,-73.5804358,1,1
+,,,37,Centre hospitalier universitaire Sainte-Justine,3175 chemin de la Côte-Sainte-Catherine,Montréal,H3T1C5,"Centre hospitalier universitaire Sainte-Justine, 3175 chemin de la Côte-Sainte-Catherine, Montréal, QC H3T1C5",,45.503219,-73.623916,1,1
+,,,38,Clinique communautaire Pointe St-Charles,1955 rue Centre,Montréal,H3K1J1,"Clinique communautaire Pointe St-Charles, 1955 rue Centre, Montréal, QC H3K1J1",,45.482283,-73.563339,1,1
+,,,39,Clinique médicale de l'Alternative,2034 rue Saint-Hubert,Montréal,H2L3Z5,"Clinique médicale de l'Alternative, 2034 rue Saint-Hubert, Montréal, QC H2L3Z5",,45.5180099,-73.5651,1,1
+,,,40,Clinique médicale Fémina,1265 rue Berri,Montréal,H2L4X4,"Clinique médicale Fémina, 1265 rue Berri, Montréal, QC H2L4X4",,45.51439,-73.55878,1,1
+,,,41,Clinique médicale l'Envolée,5025 rue de Salaberry,Montréal,H4J1J1,"Clinique médicale l'Envolée, 5025 rue de Salaberry, Montréal, QC H4J1J1",,45.53233,-73.70739,1,1
+,,,42,Clinique Morgentaler,1259 rue Berri,Montréal,H2L4C7,"Clinique Morgentaler, 1259 rue Berri, Montréal, QC H2L4C7",,45.51446,-73.55864,1,1
+,,,43,CLSC Ahuntsic,1165 boulevard Henri-Bourassa Est,Montréal,H2C3K2,"CLSC Ahuntsic, 1165 boulevard Henri-Bourassa Est, Montréal, QC H2C3K2",,45.56065,-73.66598,1,1
+,,,44,CLSC Bordeaux-Cartierville,11822 avenue Bois-de-Boulogne,Montréal,H3M2X6,"CLSC Bordeaux-Cartierville, 11822 avenue Bois-de-Boulogne, Montréal, QC H3M2X6",,45.5408199,-73.68934,1,1
+,,,45,CLSC de Lasalle,8550 boulevard Newman,LaSalle,H8N1Y5,"CLSC de Lasalle, 8550 boulevard Newman, LaSalle, QC H8N1Y5",,45.43096,-73.63151,1,1
+,,,46,CLSC de Rivière-des-Prairies,8655 boulevard Perras,Montréal,H1E4M7,"CLSC de Rivière-des-Prairies, 8655 boulevard Perras, Montréal, QC H1E4M7",,45.64478,-73.58598,1,1
+,,,47,CLSC des Faubourgs - Sanguinet,1250 rue Sanguinet,Montréal,H2X3E7,"CLSC des Faubourgs - Sanguinet, 1250 rue Sanguinet, Montréal, QC H2X3E7",,45.51229,-73.56071,1,1
+,,,48,CLSC Hochelaga-Maisonneuve,4201 rue Ontario Est,Montréal,H1V1K2,"CLSC Hochelaga-Maisonneuve, 4201 rue Ontario Est, Montréal, QC H1V1K2",,45.551254,-73.540808,1,1
+,,,49,CLSC La Petite-Patrie,6520 rue Saint-Vallier,Montréal,H2S2P7,"CLSC La Petite-Patrie, 6520 rue Saint-Vallier, Montréal, QC H2S2P7",,45.53503,-73.6053,1,1
+,,,50,CLSC Lac-Saint-Louis,180 avenue Cartier,Pointe-Claire,H9S4S1,"CLSC Lac-Saint-Louis, 180 avenue Cartier, Pointe-Claire, QC H9S4S1",,45.43897,-73.82753,1,1
+,,,51,CLSC Montréal-Nord,11441 boulevard Lacordaire,Montréal,H1G4J9,"CLSC Montréal-Nord, 11441 boulevard Lacordaire, Montréal, QC H1G4J9",,45.606986,-73.620037,1,1
+,,,52,CLSC Pierrefonds,13800 boulevard Gouin Ouest,Pierrefonds,H8Z3H6,"CLSC Pierrefonds, 13800 boulevard Gouin Ouest, Pierrefonds, QC H8Z3H6",,45.49721,-73.84844,1,1
+,,,53,CLSC Pointe-aux-Trembles/Montréal-Est,13926 rue Notre-Dame Est,Montréal,H1A1T5,"CLSC Pointe-aux-Trembles/Montréal-Est, 13926 rue Notre-Dame Est, Montréal, QC H1A1T5",,45.66636,-73.49356,1,1
+,,,54,CLSC René-Cassin,5800 boulevard Cavendish,Montréal,H4W2T5,"CLSC René-Cassin, 5800 boulevard Cavendish, Montréal, QC H4W2T5",,45.47588,-73.6616113,1,1
+,,,55,CLSC Saint-Henri,3833 rue Notre-Dame Ouest,Montréal,H4C1P8,"CLSC Saint-Henri, 3833 rue Notre-Dame Ouest, Montréal, QC H4C1P8",,45.47863,-73.58366,1,1
+,,,56,CLSC Saint-Léonard,5540 rue Jarry Est,Montréal,H1P1T9,"CLSC Saint-Léonard, 5540 rue Jarry Est, Montréal, QC H1P1T9",,45.58525,-73.58992,1,1
+,,,57,CLSC St-Michel,3355 rue Jarry Est,Montréal,H1Z2E5,"CLSC St-Michel, 3355 rue Jarry Est, Montréal, QC H1Z2E5",,45.56554,-73.60815,1,1
+,,,58,CLSC Verdun,400 rue de l'Église,Verdun,H4G2M4,"CLSC Verdun, 400 rue de l'Église, Verdun, QC H4G2M4",,45.46259,-73.56938,1,1
+,,,59,CLSC Ville-Émard/Côte-Saint-Paul,6161 rue Laurendeau,Montréal,H4E3X6,"CLSC Ville-Émard/Côte-Saint-Paul, 6161 rue Laurendeau, Montréal, QC H4E3X6",,45.45723,-73.58893,1,1
+,,,60,CLSC Villeray,1425 rue Jarry Est,Montréal,H2E1A7,"CLSC Villeray, 1425 rue Jarry Est, Montréal, QC H2E1A7",,45.551462,-73.620881,1,1
+Outaouais,07,385 579,61,Clinique des femmes de l'Outaouais,228 boulevard Saint-Joseph ,Gatineau,J8Y3X4,"Clinique des femmes de l'Outaouais, 228 boulevard Saint-Joseph , Gatineau, QC J8Y3X4",,45.43512,-75.73278,1,1
+,,,62,CLSC de Gatineau - De la Gappe,777 boulevard de la Gappe,Gatineau,J8T8R2,"CLSC de Gatineau - De la Gappe, 777 boulevard de la Gappe, Gatineau, QC J8T8R2",,45.48323,-75.68614,1,1
+,,,63,CLSC de Gatineau - LeGuerrier,425 rue LeGuerrier,Gatineau,J9H6N8,"CLSC de Gatineau - LeGuerrier, 425 rue LeGuerrier, Gatineau, QC J9H6N8",,45.39961,-75.83604,1,1
+,,,64,CLSC de Gatineau - Saint-Rédempteur,85 rue Saint-Rédempteur,Hull,J8X4E6,"CLSC de Gatineau - Saint-Rédempteur, 85 rue Saint-Rédempteur, Hull, QC J8X4E6",,45.42723,-75.72195,1,1
+Abitibi-Témiscamingue,08,147 700,65,Centre hospitalier de Val-d'Or,725 6ième rue,Val-d'Or,J9P3Y1,"Centre hospitalier de Val-d'Or, 725 6ième rue, Val-d'Or, QC J9P3Y1",,48.10477,-77.7823499,1,1
+,,,66,CLSC de Rouyn-Noranda,1 9ième avenue,Rouyn-Noranda,J9X2A9,"CLSC de Rouyn-Noranda, 1 9ième avenue, Rouyn-Noranda, QC J9X2A9",,48.20446,-78.85601,1,1
+,,,67,CLSC Ville-Marie,22 Notre-Dame Nord,Ville-Marie,J9V1W8,"CLSC Ville-Marie, 22 Notre-Dame Nord, Ville-Marie, QC J9V1W8",,47.33297,-79.44498,1,1
+Côte-Nord,09,93 932,68,Centre hospitalier Le Royer,635 boulevard Joliet,Baie-Comeau,G5C1P1,"Centre hospitalier Le Royer, 635 boulevard Joliet, Baie-Comeau, QC G5C1P1",,49.1911729,-68.2520184,1,1
+,,,69,Centre hospitalier régional de Sept-Îles,45 rue Père Divet,Côte-Nord,G4R3N7,"Centre hospitalier régional de Sept-Îles, 45 rue Père Divet, Côte-Nord, QC G4R3N7",,50.209716,-66.383587,1,1
+,,,70,CLSC Des Escoumins,4 rue de l'Hôpital ,Les Escoumins,G0T1K0,"CLSC Des Escoumins, 4 rue de l'Hôpital , Les Escoumins, QC G0T1K0",,48.35206,-69.4071,1,1
+,,,71,CLSC Forestville,2 7ième rue,Côte-Nord,G0T1E0,"CLSC Forestville, 2 7ième rue, Côte-Nord, QC G0T1E0",,48.73722,-69.07419,1,1
+,,,72,CLSC Lionel-Charest,340 rue Clément-Lavoie,Baie-Comeau,G4Z3B8,"CLSC Lionel-Charest, 340 rue Clément-Lavoie, Baie-Comeau, QC G4Z3B8",,49.20892,-68.23792,1,1
+Nord-du-Québec,10,44 769,73,Centre de santé de Chibougamau,51 3ième rue,Chibougamau,G8P1N1,"Centre de santé de Chibougamau, 51 3ième rue, Chibougamau, QC G8P1N1",,49.91522,-74.34851,1,1
+,,,74,Centre de santé Isle-Dieu,130 boulevard Matagami,Matagami,J0Y2A0,"Centre de santé Isle-Dieu, 130 boulevard Matagami, Matagami, QC J0Y2A0",,49.7561504,-77.6284564,1,1
+,,,75,Centre de santé René-Ricard,32 3ième Avenue,Chapais,G0W1H0,"Centre de santé René-Ricard, 32 3ième Avenue, Chapais, QC G0W1H0",,49.78144,-74.85365,1,1
+Gaspésie-Île-de-la-Madeleine,11,91 786,76,CLSC de Cap-aux-Meules,420 chemin Principal,Cap-aux-Meules,G4T1S1,"CLSC de Cap-aux-Meules, 420 chemin Principal, Cap-aux-Meules, QC G4T1S1",,47.3762,-61.86784,1,1
+,,,77,CLSC de Caplan,96 route 132,Caplan,G0C1H0,"CLSC de Caplan, 96 route 132, Caplan, QC G0C1H0",,48.12021,-65.67168,1,1
+,,,78,CLSC de Paspébiac,273 boulevard Gérard D. Lévesque,Paspébiac,G0C2K0,"CLSC de Paspébiac, 273 boulevard Gérard D. Lévesque, Paspébiac, QC G0C2K0",,48.0208902,-65.2885305,1,1
+,,,79,Hôtel-Dieu de Gaspé,215 boulevard York Ouest,Gaspé,G4X2W2,"Hôtel-Dieu de Gaspé, 215 boulevard York Ouest, Gaspé, QC G4X2W2",,48.8142183,-64.4929002,1,1
+Chaudière-Appalaches,12,421 832,80,Centre Paul-Gilbert,9330 boulevard du Centre hospitalier Charny,Lévis,G6X1L6,"Centre Paul-Gilbert, 9330 boulevard du Centre hospitalier Charny, Lévis, QC G6X1L6",,46.72453,-71.25832,1,1
+,,,81,CLSC de Thetford Mines,17 rue Notre-Dame Ouest,Thetford Mine,G6G1J1,"CLSC de Thetford Mines, 17 rue Notre-Dame Ouest, Thetford Mine, QC G6G1J1",,46.09141,-71.3008399,1,1
+,,,82,CLSC Lévis,99 rue Mont-Marie,Lévis,G0V8Y9,"CLSC Lévis, 99 rue Mont-Marie, Lévis, QC G0V8Y9",,46.81431,-71.1749899,1,1
+,,,83,CLSC Saint-Georges,12523 25ième avenue,Saint-Georges,G5Y5N6,"CLSC Saint-Georges, 12523 25ième avenue, Saint-Georges, QC G5Y5N6",,46.09458,-70.61659,1,1
+,,,84,CLSC Saint-Joseph-de-Beauce,1125 avenue du Palais,Saint-Joseph-de-Beauce,G0S2V0,"CLSC Saint-Joseph-de-Beauce, 1125 avenue du Palais, Saint-Joseph-de-Beauce, QC G0S2V0",,46.2993,-70.87133,1,1
+,,,85,CLSC Saint-Romuald,1205 boulevard de la Rive-Sud,Saint Romuald,G6W0J6,"CLSC Saint-Romuald, 1205 boulevard de la Rive-Sud, Saint Romuald, QC G6W0J6",,46.73404,-71.26542,1,1
+,,,86,Hôtel-Dieu de Lévis,143 rue Wolfe,Lévis,G6V3Z1,"Hôtel-Dieu de Lévis, 143 rue Wolfe, Lévis, QC G6V3Z1",,46.8148699,-71.1795962,1,1
+Laval,13,425 225,87,Clinique médicale Rose-des-Vents,3498 boulevard Sainte-Rose,Laval,H7P4K7,"Clinique médicale Rose-des-Vents, 3498 boulevard Sainte-Rose, Laval, QC H7P4K7",,45.591151,-73.815099,1,1
+,,,88,CLSC de Sainte-Rose,280 boulevard Roi-du-Nord,Laval,H7L4L2,"CLSC de Sainte-Rose, 280 boulevard Roi-du-Nord, Laval, QC H7L4L2",,45.60794,-73.78942,1,1
+,,,89,CLSC des Milles-Îles,4731 boulevard Lévesques Est,Laval,H7C1M9,"CLSC des Milles-Îles, 4731 boulevard Lévesques Est, Laval, QC H7C1M9",,45.607032,-73.645172,1,1
+,,,90,CLSC du Marigot,1351 boulevard des Laurentides,Laval,H7M2Y2,"CLSC du Marigot, 1351 boulevard des Laurentides, Laval, QC H7M2Y2",,45.58692,-73.71015,1,1
+,,,91,Hôpital de la Cité-de-la-Santé,1755 boulevard René-Laennec,Laval,H7M3L9,"Hôpital de la Cité-de-la-Santé, 1755 boulevard René-Laennec, Laval, QC H7M3L9",,45.6031981,-73.7129345,1,1
+Lanaudière,14,496 086,92,CLSC de Joliette,380 boulevard Base-de-Roc,Joliette,J6E9J6,"CLSC de Joliette, 380 boulevard Base-de-Roc, Joliette, QC J6E9J6",,46.01911,-73.43716,1,1
+,,,93,CLSC Lamater,1317 boulevard des Seigneurs,Terrebonne,J6W5B1,"CLSC Lamater, 1317 boulevard des Seigneurs, Terrebonne, QC J6W5B1",,45.69983,-73.6585,1,1
+,,,94,CLSC Meilleur de Repentigny-Iberville,1124 boulevard Iberville,Repentigny,J5Y3M6,"CLSC Meilleur de Repentigny-Iberville, 1124 boulevard Iberville, Repentigny, QC J5Y3M6",,45.77726,-73.4175099,1,1
+,,,95,CLSC Saint-Esprit,102 rue Saint-Isidore,Saint-Esprit,J0K2L0,"CLSC Saint-Esprit, 102 rue Saint-Isidore, Saint-Esprit, QC J0K2L0",,45.90351,-73.66467,1,1
+Laurentides,15,592 683,96,CLSC de Mont-Tremblant,635 rue Léonard,Mont-Tremblant,J8E3H9,"CLSC de Mont-Tremblant, 635 rue Léonard, Mont-Tremblant, QC J8E3H9",,46.11542,-74.59544,1,1
+,,,97,CLSC de Saint-Jérôme,430 rue Labelle,Saint-Jérôme,J7Z5L3,"CLSC de Saint-Jérôme, 430 rue Labelle, Saint-Jérôme, QC J7Z5L3",,45.77942,-74.00451,1,1
+,,,98,CLSC de Sainte-Agathe,2 rue Préfontaine Ouest,Sainte-Agathe-des-Monts,J8C1R5,"CLSC de Sainte-Agathe, 2 rue Préfontaine Ouest, Sainte-Agathe-des-Monts, QC J8C1R5",,46.0495,-74.28901,1,1
+,,,99,CLSC Jean-Olivier Chénier,29 chemin d'Oka,Saint-Eustache,J7R1K6,"CLSC Jean-Olivier Chénier, 29 chemin d'Oka, Saint-Eustache, QC J7R1K6",,45.55088,-73.89358,1,1
+,,,100,CLSC Mont-Laurier,757 rue de la Madone,Mont-Laurier,J9L1T3,"CLSC Mont-Laurier, 757 rue de la Madone, Mont-Laurier, QC J9L1T3",,46.55637,-75.49508,1,1
+,,,101,CLSC Rivière-Rouge,1525 rue de l'Annonciation Nord,Rivière-Rouge,J0T1T0,"CLSC Rivière-Rouge, 1525 rue de l'Annonciation Nord, Rivière-Rouge, QC J0T1T0",,46.4215847,-74.8824121,1,1
+,,,102,CLSC Thérèse-de-Blainville,125 rue Duquet,Sainte-Thérèse,J7E0A5,"CLSC Thérèse-de-Blainville, 125 rue Duquet, Sainte-Thérèse, QC J7E0A5",,45.64431,-73.84049,1,1
+,,,103,CSSS d'Argenteuil,145 boulevard de la Province,Lachute,J8H4C7,"CSSS d'Argenteuil, 145 boulevard de la Province, Lachute, QC J8H4C7",,45.6622479,-74.3509164,1,1
+,,,104,Hôpital de Mont-Laurier,2561 chemin de la Lièvre Sud,Mont-Laurier,J9L3G3,"Hôpital de Mont-Laurier, 2561 chemin de la Lièvre Sud, Mont-Laurier, QC J9L3G3",,46.5494856,-75.5168095,1,1
+,,,105,Hôpital de Saint-Eustache,520 boulevard Arthur-Sauvé,Saint-Eustache,J7R5B1,"Hôpital de Saint-Eustache, 520 boulevard Arthur-Sauvé, Saint-Eustache, QC J7R5B1",,45.57197,-73.91278,1,1
+Montérégie,16,1 520 094,106,Centre hospitalier Anna-Laberge,200 boulevard Brisebois,Châteauguay,J6K4W8,"Centre hospitalier Anna-Laberge, 200 boulevard Brisebois, Châteauguay, QC J6K4W8",,45.3458886,-73.7654536,1,1
+,,,107,Centre hospitalier Brome-Missisquoi-Perkins,950 rue Principale,Cowansville,J2K0E3,"Centre hospitalier Brome-Missisquoi-Perkins, 950 rue Principale, Cowansville, QC J2K0E3",,45.20709,-72.71442,1,1
+,,,108,Centre hospitalier Charles-LeMoyne,3120 boulevard Taschereau,Greenfield Park,J4V2H1,"Centre hospitalier Charles-LeMoyne, 3120 boulevard Taschereau, Greenfield Park, QC J4V2H1",,45.49727,-73.48642,1,1
+,,,109,Centre hospitalier Honoré-Mercier,2750 boulevard Laframboise,Saint-Hyacinthe,J2S4Y8,"Centre hospitalier Honoré-Mercier, 2750 boulevard Laframboise, Saint-Hyacinthe, QC J2S4Y8",,45.6334332,-72.9592893,1,1
+,,,110,CLSC Châteauguay,95 avenue de la Verdure,Châteauguay,J6K0E8,"CLSC Châteauguay, 95 avenue de la Verdure, Châteauguay, QC J6K0E8",,45.35747,-73.7365,1,1
+,,,111,CLSC Cowansville,112 rue du Sud,Cowansville,J2K1N4,"CLSC Cowansville, 112 rue du Sud, Cowansville, QC J2K1N4",,45.20664,-72.7482,1,1
+,,,112,CLSC de la MRC-d'Acton,1266 rue Lemay,Acton Vale,J0H1A0,"CLSC de la MRC-d'Acton, 1266 rue Lemay, Acton Vale, QC J0H1A0",,45.6501499,-72.5707,1,1
+,,,113,CLSC de Vaudreuil-Dorion,3031 Boulevard de la Gare,Vaudreuil-Dorion,J7V8P2,"CLSC de Vaudreuil-Dorion, 3031 Boulevard de la Gare, Vaudreuil-Dorion, QC J7V8P2",,45.3971623,-74.0541004,1,1
+,,,114,CLSC des Maskoutains,1015 rue Gauthier,Saint-Hyacinthe,J2S8T2,"CLSC des Maskoutains, 1015 rue Gauthier, Saint-Hyacinthe, QC J2S8T2",,45.63656,-72.96044,1,1
+,,,115,CLSC des Patriotes,300 rue Serge-Pepin,Beloeil,J3G0B8,"CLSC des Patriotes, 300 rue Serge-Pepin, Beloeil, QC J3G0B8",,45.5927349,-73.20274,1,1
+,,,116,CLSC des Seigneuries de Boucherville,160 boulevard de Montarville,Boucherville,J4B6S2,"CLSC des Seigneuries de Boucherville, 160 boulevard de Montarville, Boucherville, QC J4B6S2",,45.60281,-73.45245,1,1
+,,,117,CLSC des Seigneuries de Sainte Julie,461 boulevard Saint-Joseph,Sainte-Julie,J3E1W8,"CLSC des Seigneuries de Sainte Julie, 461 boulevard Saint-Joseph, Sainte-Julie, QC J3E1W8",,45.592623,-73.336607,1,1
+,,,118,CLSC des Seigneuries de Varennes,2220 boulevard René-Gaultier,Varesses,J3X1E3,"CLSC des Seigneuries de Varennes, 2220 boulevard René-Gaultier, Varesses, QC J3X1E3",,45.68251,-73.4362699,1,1
+,,,119,CLSC Longueil-Ouest,201 boulevard Curé-Poirier Ouest,Longueuil,J4J2G4,"CLSC Longueil-Ouest, 201 boulevard Curé-Poirier Ouest, Longueuil, QC J4J2G4",,45.52755,-73.48317,1,1
+,,,120,CLSC Saint-Hubert,6800 boulevard Cousineau,Saint-Hubert,J3Y8Z4,"CLSC Saint-Hubert, 6800 boulevard Cousineau, Saint-Hubert, QC J3Y8Z4",,45.49284,-73.40328,1,1
+,,,121,CLSC Simone-Monet-Chartrand,1303 boulevard Jacques-Cartier Est,Longueuil,J4M2Y8,"CLSC Simone-Monet-Chartrand, 1303 boulevard Jacques-Cartier Est, Longueuil, QC J4M2Y8",,45.53614,-73.45855,1,1
+,,,122,CLSC Vallée des Forts,978 boulevard du Séminaire Nord,Saint-Jean-Sur-Richelieu,J3A1E5,"CLSC Vallée des Forts, 978 boulevard du Séminaire Nord, Saint-Jean-Sur-Richelieu, QC J3A1E5",,45.33667,-73.26928,1,1
+,,,123,CLSC Yvan-Duquette,294 rue Déragon,Granby,J2G5J5,"CLSC Yvan-Duquette, 294 rue Déragon, Granby, QC J2G5J5",,45.41088,-72.72736,1,1
+Centre-du-Québec,17,240 872,124,CLSC de l'Érable,1331 rue Saint-Calixte,Plessisville,G6L1P4,"CLSC de l'Érable, 1331 rue Saint-Calixte, Plessisville, QC G6L1P4",,46.21584,-71.77795,1,1
+,,,125,CLSC Suzor-Côté,100 rue de l'Ermitage,Victoriaville,G6P9N2,"CLSC Suzor-Côté, 100 rue de l'Ermitage, Victoriaville, QC G6P9N2",,46.06084,-71.96417,1,1
+,,,126,CSSS de l'Énergie,1265 rue Trudel,Shawinigan,G9N8T3,"CSSS de l'Énergie, 1265 rue Trudel, Shawinigan, QC G9N8T3",,46.5542,-72.7479,1,1
+,,,127,CSSS Drummond,350 rue Saint-Jean,Drummondville,J2B5L4,"CSSS Drummond, 350 rue Saint-Jean, Drummondville, QC J2B5L4",,45.8762,-72.48384,1,1
+,,,128,Hôtel-Dieu d'Arthabaska,5 rue des Hospitalières,Victoriaville,G6P6N2,"Hôtel-Dieu d'Arthabaska, 5 rue des Hospitalières, Victoriaville, QC G6P6N2",,46.0408199,-71.9161699,1,1
+Nunavik,18,12 090 (2011),129,Centre de santé Tulattavik de l'Ungava,Rue Kigiak,Kuujjuaq,J0M1C0,"Centre de santé Tulattavik de l'Ungava, Rue Kigiak, Kuujjuaq, QC J0M1C0",,58.106311,-68.407566,1,1
+Terre-Cries-de-la-Baie-James,19,,130,Aucun,,,,,,45.50884,-73.58781,1,1
