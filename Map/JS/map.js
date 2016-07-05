@@ -42,7 +42,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/fdaudens/cipsrn0zv0000brm7esi81vm6
 	ext: 'png'
 }).addTo(map);
 
-new OSMBuildings(map).load();
+//new OSMBuildings(map).load();
 
 //Event au click sur la map
  map.on('click', function(e) {
@@ -117,6 +117,7 @@ function placeAire(latlng, map){
 	if (poly != 1) {
 		map.removeLayer(poly);
 		marker.closePopup();
+		marker.unbindPopup();
 	}
 	polygon.push(L.latLng(latlng.lat, latlng.lng));
 	poly = L.polygon(polygon, {color: '#AEE7EF', fillColor: '#AEE7EF'}).addTo(map);
@@ -142,6 +143,7 @@ function placeLigne(latlng, map){
 	if (ligne != 1) {
 		map.removeLayer(ligne);
 		marker.closePopup();
+		marker.unbindPopup();
 	}
 	ligneTab.push(L.latLng(latlng.lat, latlng.lng));
 	ligne = L.polyline(ligneTab, {color: '#AEE7EF'}).addTo(map);
@@ -176,7 +178,8 @@ function onDragEnd() {
 // Si possible glisser la figure pendant le drag
 function onDrag() {
 	var tempMarker = this;
-	//deplacement(tempMarker);
+	deplacement(tempMarker);
+	coordonnees = tempMarker.getLatLng();
 }
 //
 function deplacement(tempMarker) {
@@ -239,11 +242,16 @@ function deplacement(tempMarker) {
 }
  //Placer marqueur sur la map
  function placeMarkerAndPanTo(lat , lng, map) {
-	marker = L.marker([lat, lng],{icon: myIcon, draggable:true}).addTo(map)
-				.bindPopup(" Nomenclature : <input type = 'text' class='nomen' id = 'nomen' onkeydown = 'if (event.keyCode == 13) enregistrement()'/> <input type='image' src='./Icones/Recommencer.png' width='15px' class='button delete-button'/>");
+	marker = L.marker([lat, lng],{icon: myIcon, draggable:true}).addTo(map);
+	marker.nomen="";
+	marker.bindPopup(function(d) { marker = d; return "Nomenclature : <input type = 'text' class='nomen' value='"+ d.nomen +"' id = 'nomen' onkeydown = 'if (event.keyCode == 13) enregistrement(this.value)'/> <input type='image' src='./Icones/Recommencer.png' width='15px' class='button delete-button'/>";});
 	marker.on("popupopen", onPopupOpen);
 	map.panTo(L.latLng(lat,lng));
 };
+
+function enregistrement(value) {
+	marker.nomen=value;
+}
 
 function onPopupOpen() {
     var temp = this;
@@ -351,8 +359,7 @@ function httpGet(theUrl)
 
 
 function valider() {
-	document.getElementById('val').style.display="block";
-	
+leafletImage(map, function(err, canvas) {
 	var snapshot = document.getElementById('img-out');
 	function doImage(err, canvas) {
 	var img = document.createElement('img');
@@ -365,4 +372,7 @@ function valider() {
 	}
 	
 	leafletImage(map, doImage);
+});
+	
+
 }

@@ -8,8 +8,8 @@ var svg = d3.select("#svg1").append("svg")
 				   width,
 				   height
 				 ].join(" "))
-			 .append("g")
-			.call(d3.behavior.zoom().scaleExtent([1, 6]).on("zoom", zoom));
+			 .append("g");
+//svg.call(d3.behavior.zoom().scaleExtent([1, 6]).on("zoom", zoom));
 			
 function zoom() {
   svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
