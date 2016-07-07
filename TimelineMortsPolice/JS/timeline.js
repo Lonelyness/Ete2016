@@ -35,7 +35,14 @@ svg.append("g")
 	
 var tip = d3.tip()
 		.attr('class', 'd3-tip')
-		.offset([50,120])
+		.offset(function(d) {
+			if (d.nom=="Alton Sterling") {
+				return [220,120];
+			}
+			else if (d.nom=="Philando Castile") {
+				return [300,120];
+			}
+			else return[20,120];})
 		.html(function(d,i) {
 			var ville = d.ville;
 			var etat = d.etat;
