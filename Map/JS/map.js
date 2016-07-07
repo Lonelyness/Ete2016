@@ -10,6 +10,7 @@ var encours=false;
 var drag =false;
 var coordonnees;
 var actMap=0;
+var size;
 
 function actionMap(id) {
 	var temp=id;
@@ -27,6 +28,7 @@ var h = window.innerHeight;
 var m = Math.min(w, h-200)*0.95;
 document.getElementById('map').style.width = m+"px";
 document.getElementById('map').style.height = m+"px";
+size = "width: "+m+"px"+";height: "+m+"px"+";"
 document.getElementById('choix').style.width = m+"px";
 
 L_PREFER_CANVAS = true;
@@ -84,17 +86,20 @@ if (!drag) {
 	if (id=="carre") {
 		document.getElementById('map').style.width = m+"px";
 		document.getElementById('map').style.height = m+"px";
+		size = "width: "+m+"px"+";height: "+m+"px"+";" 
 		map.invalidateSize()
 	}	
 	if (id=="colonne") {
 		document.getElementById('map').style.width = 300 +"px";
 		document.getElementById('map').style.height = m+"px";
+		size = "width: "+300+"px"+";height: "+m+"px"+";"
 		map.invalidateSize()		
 		
 	}	
 	if (id=="large") {
 		document.getElementById('map').style.width = m+"px";
 		document.getElementById('map').style.height = 300+"px";
+		size = "width: "+m+"px"+";height: "+300+"px"+";"
 		map.invalidateSize()
 	}
  };
@@ -359,20 +364,23 @@ function httpGet(theUrl)
 
 
 function valider() {
-leafletImage(map, function(err, canvas) {
-	var snapshot = document.getElementById('img-out');
-	function doImage(err, canvas) {
-	var img = document.createElement('img');
-	var dimensions = map.getSize();
-	img.width = dimensions.x;
-	img.height = dimensions.y;
-	img.src = canvas.toDataURL();
-	snapshot.innerHTML = '';
-	snapshot.appendChild(img);
-	}
+//Variable de la carte
+var centre = map.getCenter();
+var zoom = map.getZoom();
 	
-	leafletImage(map, doImage);
-});
+	
+var js = '<!DOCTYPE html><html><head><meta charset=utf-8 /><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" /><link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic" rel="stylesheet" type="text/css"><script src="https://api.tiles.mapbox.com/mapbox.js/v2.4.0/mapbox.js"></script><script src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js" charset="utf-8"></script><style>#map {'+size+'}</style></head>';
+
+js = js + '<body><div id="map"> </div><script>var map = new L.Map("map", {center: ['+centre.lat+','+centre.lng+'], zoom: '+zoom+', dragging: false, zoomControl: false, scrollWheelZoom: false, doubleClickZoom : false,boxZoom: false, touchZoom: false}).addLayer(new L.TileLayer("https://api.mapbox.com/styles/v1/fdaudens/cipsrn0zv0000brm7esi81vm6/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg"));</script></body>';
+
+js = js + 'var svg = d3.select(map.getPanes().overlayPane).append("svg"); var g = svg.append("g").attr("class", "leaflet-zoom-hide");function projectPoint(x, y) {var point = map.latLngToLayerPoint(new L.LatLng(y, x));this.stream.point(point.x, point.y);}';
+
+js = js + 'var transform = d3.geo.transform({point: projectPoint}),path = d3.geo.path().projection(transform);';
+
+js = js + '</script></body>';
 	
 
+
+var file = new File([js], "resultat.html", {type: "text/plain;charset=utf-8"});
+saveAs(file);
 }
