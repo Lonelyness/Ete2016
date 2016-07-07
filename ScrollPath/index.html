@@ -113,7 +113,7 @@ $(document).ready(function() {
   //on a scroll event - execute function
     //calculate how far down the page the user is 
 	var stop = [$("#1").height(),$("#2").height(),$("#3").height(),$("#4").height(),$("#5").height(),$("#6").height()];
-	var pourcent = [.2,.1,.2,.3,.1,.1];
+	var pourcent = [.05,.25,.2,.3,.1,.2];
 	var path = d3.select("#path");
 	var totalLength = path.node().getTotalLength();
 	path.attr("stroke-dasharray", totalLength)
@@ -127,10 +127,10 @@ $(document).ready(function() {
 	$(window).scroll(function() {
 	var scroll = $(window).scrollTop();
 	if (scroll<stop[0]) {
-		path.attr("stroke-dashoffset", totalLength - ((scroll*totalLength*pourcent[0])/($("#1").height()-(height))));
+		path.attr("stroke-dashoffset", totalLength - ((scroll*totalLength*pourcent[0])/($("#1").height())));
 	}
 	else if (scroll<stop[1]) {
-		path.attr("stroke-dashoffset", totalLength - ((scroll*totalLength)/($("html").height()-(height))));
+		path.attr("stroke-dashoffset", totalLength - ((scroll*totalLength*pourcent[0])/($("#1").height())));
 	}
 	else if (scroll<stop[2]) {
 		path.attr("stroke-dashoffset", totalLength - ((scroll*totalLength)/($("html").height()-(height))));

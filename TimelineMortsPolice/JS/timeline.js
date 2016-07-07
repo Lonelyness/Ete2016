@@ -5,13 +5,13 @@ var dd = today.getDate();
 var mm = today.getMonth()+1; //January is 0!
 var yyyy = today.getFullYear();
 var endDate = format.parse(dd+"/"+mm+"/"+yyyy);
-
+var formatDate = d3.time.format("%m/%Y");
 
 document.getElementById('titre').style.width = Math.min(590,window.innerWidth-30)+"px";
 
 
-var margin = {top: 100, right: 95, bottom: 100, left: 95},
-    width = 400 - margin.left - margin.right,
+var margin = {top: 100, right: 95, bottom: 100, left: 70},
+    width = Math.min(window.innerHeight,600) - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
 var x = d3.time.scale()
@@ -20,18 +20,14 @@ var x = d3.time.scale()
     .range([height, 0]);
 
 var svg = d3.select("body").append("svg")
-	.attr("viewBox", [
-       0,
-       0,
-       (width + margin.left + margin.right),
-       (height + margin.top + margin.bottom)
-     ].join(" "))
+	.attr("width", width + margin.left + margin.right)
+	.attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 svg.append("g")
     .attr("class", "x axis")
-    .call(d3.svg.axis().scale(x).orient("left"));
+    .call(d3.svg.axis().scale(x).orient("left").tickFormat(formatDate));
 	
 var tip = d3.tip()
 		.attr('class', 'd3-tip')
@@ -42,7 +38,9 @@ var tip = d3.tip()
 			else if (d.nom=="Philando Castile") {
 				return [300,120];
 			}
-			else return[20,120];})
+		else {
+			return [20,120];}
+		})
 		.html(function(d,i) {
 			var ville = d.ville;
 			var etat = d.etat;
