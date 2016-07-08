@@ -61,7 +61,7 @@ li {
 	font-size:1.5em;
 }
 
-@media handheld {
+@media (max-width: 420px) {
 .text {
 	width:100%;
 }
