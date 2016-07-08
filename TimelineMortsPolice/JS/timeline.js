@@ -10,9 +10,9 @@ var formatDate = d3.time.format("%m/%Y");
 document.getElementById('titre').style.width = Math.min(590,window.innerWidth-30)+"px";
 
 
-var margin = {top: 100, right: 95, bottom: 100, left: 70},
+var margin = {top: 20, right: 95, bottom: 20, left: 70},
     width = Math.min(window.innerHeight,600) - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+    height = 600 - margin.top - margin.bottom;
 
 var x = d3.time.scale()
     .domain([startDate, endDate])
@@ -97,8 +97,8 @@ function drawChart(data) {
 			return y;
 		})
 		.attr("r",5)
-		.style("stroke","black")
-		.style("fill","white")
+		.style("stroke","#fff")
+		.style("fill","#4c7d95")
 		.on('mouseover', tip.show)
 		.on('mouseout', tip.hide);
 		

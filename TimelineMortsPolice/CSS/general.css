@@ -1,4 +1,22 @@
-body{margin:0px;}
+body{
+  margin:0px;
+  backgound:#F6F5EB;
+}
+
+  h1 {
+    font-size: 20px;
+    font-family: Roboto;
+    color:#333;
+    margin: 10px 0 0 10px;
+  }
+
+  p {
+    font-size: 14px;
+    margin: 10px 0 0 10px;
+    color:#333;
+    font-weight: 300;
+    font-family: Roboto;
+  }
 
 .axis path,
 .axis line {
@@ -9,12 +27,13 @@ body{margin:0px;}
 
 .axis text {
     font-family: Roboto;
-    font-size: 12px;
+    font-size: 11px;
+    fill:#c3c3c3;
 }
 
 text {
-	font-family:Roboto;
-	
+  font-family:Roboto;
+  color:#333;
 }
 
 .d3-tip {
@@ -43,8 +62,8 @@ text {
 }
 
 .titre {
-	text-align:center;
-	font-family: Roboto;
-	font-size:25px;
-	font-weight: 600;
-	}
+    font-size: 20px;
+    font-family: Roboto;
+    color:#333;
+    margin: 10px 0 0 10px;
+  }
