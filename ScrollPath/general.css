@@ -46,13 +46,13 @@ li {
 	margin-right:10px;
 }
 
-svg {
+
+#cont {
   position: fixed;
   margin: auto;
   left: 0;
-  width: 30%;
-  max-width: 480px;
-  max-height: 340px;
+  text-align: center;
+  width:30%;
 }
 
 .text {
