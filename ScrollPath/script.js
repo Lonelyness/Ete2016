@@ -1,13 +1,13 @@
 //A completer a la main
 //Utilisation : Si on indique des pourcentages, il faut bien avoir donné un id unique a chaque p de l'html et la taille de l'array pourcent doit etre le nombre de paragraphe p.
 
-	// Description pour Facebook (les og:type)
-	var sous_titre = "Route 380 Premier texte";
-	var descrip =  "Sur la Basse Côte-Nord, on peut rejoindre Blanc Sablon en faisant un énorme arc de cercle par le Nord québécois et le Labrador terre-neuvien. Le Devoir a fait le long périple et bouclé la boucle de Baie Comeau à Baie Comeau, une distance de près de 3 000 km, d’abord par la route, puis en bateau sur le golfe du Saint-Laurent. Compte-rendu d’un voyage insolite et fascinant dans l’immensité sauvage. Premier article de huit.";
+// Description pour Facebook (les og:type)
+	var sous_titre = "Au pays de la 389 - Péninsule du Labrador : la grande boucle";
+	var descrip =  "Sur la Basse-Côte-Nord, on peut rejoindre Blanc-Sablon en faisant un énorme arc de cercle par le Nord québécois et le Labrador terre-neuvien. Le Devoir a fait le long périple et bouclé la boucle de Baie-Comeau à Baie-Comeau, une distance de près de 3000 km.";
 	var lien= "";
 	
 	//Proportion du tracé pour chaque paragraphe.
-	var pourcent = []; //exemple : [10,20,10,15,15,10,20,0];
+	var pourcent = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,13,7,8,10,0,0,0,0]; //exemple : [10,20,10,15,15,10,20,0];
 
 	
 	
@@ -110,10 +110,14 @@ $(document).ready(function() {
 		if (ind==-1) {
 			resultat+= (((scroll)*totalLength*(pourcent[ind+1]/100))/(stop[ind+1]));
 			}
+		else if (ind==p.length-1){
+			resultat+= (pourcentSomme[ind]/100)*totalLength;
+			}
 		else {
 		resultat+= (pourcentSomme[ind]/100)*totalLength;
 		resultat+= (((scroll-stopSomme[ind])*totalLength*(pourcent[ind+1]/100))/(stop[ind+1]));
 		}
+		console.log(resultat);
 		path.attr("stroke-dashoffset", resultat);
 	}
 	});
