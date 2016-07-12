@@ -367,7 +367,11 @@ function valider() {
 //Variable de la carte
 var centre = map.getCenter();
 var zoom = map.getZoom();
-	
+var elementSring = "[";
+elements.forEach( function(d) {
+	 elementSring =  elementSring + "," + d ;
+});
+elementSring = elementSring + "]";
 	
 var js = '<!DOCTYPE html><html><head><meta charset=utf-8 /><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" /><link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic" rel="stylesheet" type="text/css"><script src="https://api.tiles.mapbox.com/mapbox.js/v2.4.0/mapbox.js"></script><script src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script><script type="text/javascript" src="https://d3js.org/d3.v3.js"></script><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js" charset="utf-8"></script><style>#map {'+size+'}</style></head>';
 
@@ -376,6 +380,9 @@ js = js + '<body><div id="map"> </div><script>var map = new L.Map("map", {center
 js = js + 'var svg = d3.select(map.getPanes().overlayPane).append("svg"); var g = svg.append("g").attr("class", "leaflet-zoom-hide");function projectPoint(x, y) {var point = map.latLngToLayerPoint(new L.LatLng(y, x));this.stream.point(point.x, point.y);}';
 
 js = js + 'var transform = d3.geo.transform({point: projectPoint}),path = d3.geo.path().projection(transform);';
+
+js = js + 'svg.selectAll("path").data('+ elementSring +');';
+
 
 js = js + '</script></body>';
 	
