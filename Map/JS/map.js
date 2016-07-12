@@ -369,7 +369,11 @@ var centre = map.getCenter();
 var zoom = map.getZoom();
 var elementSring = "[";
 elements.forEach( function(d) {
-	 elementSring =  elementSring + "," + d ;
+	var temp = d.getLatLngs()[0].toString();
+	temp = temp.replace(/LatLng/g," ");
+	temp = temp.replace(/\(/g,"[");
+	temp = temp.replace(/\)/g,"]");
+	elementSring =  elementSring + temp+ "," ;
 });
 elementSring = elementSring + "]";
 	
