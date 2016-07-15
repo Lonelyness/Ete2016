@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<head>
+		<title>Tessellate Canada</title>
+		<script src="./JS/jquery.min.js" charset="utf-8"></script>
+		<script src="./JS/d3.min.js" charset="utf-8"></script>
+		<script src="./JS/tip.js" charset="utf-8"></script>
+		<script src="./JS/d3-legend.js" charset="utf-8"></script>
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="./CSS/general.css" />
+</head>		
+<body>
+
+<div>
+<h1>Tessellate Canada</h1>
+<p>Description des valeurs</p>
+
+
+<ul class="key">
+<li class="key-item"><b style="background: rgb(76, 125, 149);opacity: .8;"></b><label>Valeur 1</label></li>
+<li class="key-item"><b style="background: rgb(	247, 195, 138);opacity: .8;"></b><label>Valeur 2</label></li>
+</ul>
+
+</div>
+
+<div class="box">
+<p align="center">
+<svg id="legende"></svg>
+<svg id="carte"></svg>
+</div>
+<!-- Script pour récupérer un array des positions des états :  "gridmapLayoutUsa" -->
+<script src="./JS/etatsCAN.js"></script>
+<script src="./JS/carte.js"></script>
+
+
+<div class="source" style="overflow-x:auto;">
+<table style="width:100%">
+  <tr>
+    <td>Source</td>
+    <td><img src="img/logo.png" width="25px" align="right">
+</td>
+  </tr>
+</table>
+</div>
+
+</body>
