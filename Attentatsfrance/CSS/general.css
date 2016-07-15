@@ -1,0 +1,86 @@
+body{
+  margin:0px;
+  backgound:#F6F5EB;
+}
+
+  h1 {
+    font-size: 20px;
+    font-family: Roboto;
+    color:#333;
+    margin: 10px 0 0 10px;
+  }
+
+  p {
+    font-size: 14px;
+    margin: 10px 0 0 10px;
+    color:#333;
+    font-weight: 300;
+    font-family: Roboto;
+  }
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: none;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: Roboto;
+    font-size: 11px;
+    fill:#9d9d9d;
+}
+
+text {
+  font-family:Roboto;
+  color:#333;
+}
+
+.d3-tip {
+	position : fixed;
+	top : 0;
+   line-height: 1;
+   font-weight: 300;
+   font-family: Roboto;
+   font-style: light;
+   background-color: rgba(255,255,255,1);
+   color: black;
+   border-radius: 4px;
+   font-size: 12px;
+   padding: 8px 8px 8px 8px;
+   border: 1px solid #ccc;
+   line-height: 150%;
+   width:500px;
+}
+
+.nom {
+	font-weight:600;
+}
+
+.nomtrav {
+	font-size:12px
+}
+
+.titre {
+    font-size: 20px;
+    font-family: Roboto;
+    color:#333;
+    margin: 10px 0 0 10px;
+  }
+
+@media (max-width: 800px) {
+.d3-tip {
+	width:320px;
+}	
+}
+@media (max-width: 620px) {
+.d3-tip {
+	width:220px;
+}	
+}
+@media (max-width: 375px) {
+.d3-tip {
+	width:180px;
+}	
+}
+
