@@ -249,13 +249,38 @@ function deplacement(tempMarker) {
  function placeMarkerAndPanTo(lat , lng, map) {
 	marker = L.marker([lat, lng],{icon: myIcon, draggable:true}).addTo(map);
 	marker.nomen="";
-	marker.bindPopup(function(d) { marker = d; return "Nomenclature : <input type = 'text' class='nomen' value='"+ d.nomen +"' id = 'nomen' onkeydown = 'if (event.keyCode == 13) enregistrement(this.value)'/> <input type='image' src='./Icones/Recommencer.png' width='15px' class='button delete-button'/>";});
+	marker.nomenPlacement=0;
+	marker.couleur=0;
+	marker.bindPopup(function(d) { marker = d;
+	var selected = d.nomenPlacement;
+	var selected2 = d.couleur;	
+	var temp = "Nomenclature : <input type = 'text' class='nomen' value='"+ d.nomen +"' id = 'nomen''/>";
+	temp += "<FORM><SELECT id='placement' size='1'><OPTION "+ ((selected == 0) ? "SELECTED" : "") +">Haut<OPTION "+ ((selected == 1) ? "SELECTED" : "") +">Bas<OPTION "+ ((selected == 2) ? "SELECTED" : "") +">Gauche<OPTION "+ ((selected == 3) ? "SELECTED" : "") +">Droite</SELECT></FORM>";
+	temp += "<form role='form'><div><input type='radio' name='cor' id='cor1' value='#f4aa59' "+ ((selected2 == 1) ? "checked='true'" : "") +"/><label for='cor1' class='cor1'></label><input type='radio' name='cor' id='cor2' value='#4c7d95' "+ ((selected2 == 2) ? "checked='true'" : "") +"/><label for='cor2' class='cor2'></label><input type='radio' name='cor' id='cor3' value='#00b2cd' "+ ((selected2 == 3) ? "checked='true'" : "") +"/><label for='cor3' class='cor3'></label></div></form>";
+	temp += "<input type='image' src='./Icones/Valider.png' width='20px' class='valNomen' onclick='enregistrement()'/>";
+	temp += "<input type='image' src='./Icones/Recommencer.png' width='20px' class='button delete-button'/>";
+	return temp;});  
 	marker.on("popupopen", onPopupOpen);
 	map.panTo(L.latLng(lat,lng));
 };
 
-function enregistrement(value) {
+function enregistrement() {
+	var value = document.getElementById('nomen').value;
+	var valueP = document.getElementById('placement').selectedIndex;
+	var valueC = 0;//document.getElementById('couleur').selectedIndex;
+	if (document.getElementById('cor1').checked==true) {
+		valueC=1;
+	}
+	if (document.getElementById('cor2').checked==true) {
+		valueC=2;
+	}
+	if (document.getElementById('cor3').checked==true) {
+		valueC=3;
+	}
 	marker.nomen=value;
+	marker.nomenPlacement=valueP;
+	marker.couleur=valueC;
+	marker.closePopup();
 }
 
 function onPopupOpen() {

@@ -1,11 +1,53 @@
+
+ 
  body { margin:0; padding:0; font-family:Roboto; font-weight:500;}
  #map { margin: 0 auto; border-style: solid; border-width: 2px; border-color:#AEE7EF ; border-radius: 5px;}
  #choix { margin: 0 auto; border-style: solid; border-width: 2px; border-color:#AEE7EF ; border-radius: 5px;}
- #val {
-	 width: 90% ; display: none; position: fixed; top: 10px; left: 5%; background-color: white;
-	 border-style: solid; border-width: 2px; border-color:#AEE7EF ; border-radius: 5px;
- }
+  
+  input[id*="cor"] {
 
+  
+  &:checked + label {
+    &:before {
+      content: '\f00c';
+      display: block;
+      position: absolute;
+      font-family: 'fontawesome';
+      top: 0px;
+      left: 1px;
+      font-size: 12px;
+      color: #000;
+    }
+  }
+}
+
+label[class*="cor"] {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  position: relative;
+  margin-right: 5px;
+  
+  &:hover {
+    border-color: #000;
+  }
+}
+
+.cor1 {
+  background-color: #f4aa59;
+  border-color: #f4aa59;
+}
+.cor2 {
+  background-color: #4c7d95;
+  border-color: #4c7d95;
+}
+.cor3 {
+  background-color: #00b2cd;
+  border-color: #00b2cd;
+}
+  
   
  .last {
 	 text-align: right;
