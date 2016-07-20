@@ -412,9 +412,8 @@ function validerPDF() {
 	  // only jpeg is supported by jsPDF
   var imgData = canvas.toDataURL("image/jpeg", 1.0);
   var doc = new jsPDF();
+  console.log(doc);
   doc.addImage(imgData, 'JPEG', 0, 0);
-  var download = document.getElementById('download');
-
   doc.save("download.pdf");
 	});
 }
