@@ -261,6 +261,7 @@ function deplacement(tempMarker) {
 	temp += "<input type='image' src='./Icones/Recommencer.png' width='20px' class='button delete-button'/>";
 	return temp;});  
 	marker.on("popupopen", onPopupOpen);
+	markers.push(marker);
 	map.panTo(L.latLng(lat,lng));
 };
 
@@ -389,18 +390,50 @@ function httpGet(theUrl)
 
 
 function valider() {
+	document.getElementById('val').style.display="block";
+	document.getElementById('map').style.display="none";
+	
+leafletImage(map, function(err, canvas) {
+    // now you have canvas
+    // example thing to do with that canvas:
+    var img = document.createElement('img');
+    var dimensions = map.getSize();
+    img.width = dimensions.x;
+    img.height = dimensions.y;
+    img.src = canvas.toDataURL();
+    document.getElementById('snapshot').innerHTML = '';
+    document.getElementById('snapshot').appendChild(img);
+});
+
+};
+
+function validerPDF() {
+	leafletImage(map, function(err, canvas) {
+	  // only jpeg is supported by jsPDF
+  var imgData = canvas.toDataURL("image/jpeg", 1.0);
+  var doc = new jsPDF();
+  doc.addImage(imgData, 'JPEG', 0, 0);
+  var download = document.getElementById('download');
+
+  doc.save("download.pdf");
+	});
+}
+
+function validerWeb() {	
 //Variable de la carte
 var centre = map.getCenter();
 var zoom = map.getZoom();
 var elementSring = "[";
-elements.forEach( function(d) {
-	var temp = d.getLatLngs()[0].toString();
-	temp = temp.replace(/LatLng/g,"");
-	temp = temp.replace(/\(/g,"[");
-	temp = temp.replace(/\)/g,"]");
-	elementSring =  elementSring + "["+temp+ "]," ;
+markers.forEach( function(d) {
+	var temp = "lat: "+ d.getLatLng().lat+",";
+	temp += "lng: "+ d.getLatLng().lng +",";
+	temp += "nomen: '"+ d.nomen +"'," ;
+	temp += "nomenPlacement: "+ d.nomenPlacement +"," ;
+	temp += "couleur: "+ d.couleur;
+	elementSring =  elementSring + "{"+temp+ "}," ;
 });
 elementSring = elementSring.substring(0,elementSring.length-1);
+console.log(elementSring);
 elementSring = elementSring + "]";
 	
 var js = '<!DOCTYPE html><html><head><meta charset=utf-8 /><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" /><link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic" rel="stylesheet" type="text/css"><script src="https://api.tiles.mapbox.com/mapbox.js/v2.4.0/mapbox.js"></script><script src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script><script type="text/javascript" src="https://d3js.org/d3.v3.js"></script><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js" charset="utf-8"></script><style>#map {'+size+'}</style></head>';
@@ -410,8 +443,9 @@ js = js + '<body><div id="map"> </div><script>var map = new L.Map("map", {center
 js = js + 'var svg = d3.select(map.getPanes().overlayPane).append("svg"); var g = svg.append("g").attr("class", "leaflet-zoom-hide");function projectPoint(x, y) {var point = map.latLngToLayerPoint(new L.LatLng(y, x));this.stream.point(point.x, point.y);}';
 
 js = js + 'var transform = d3.geo.transform({point: projectPoint}),path = d3.geo.path().projection(transform);var lineFunction = d3.svg.line().x(function(d) { return d.x; }).y(function(d) { return d.y; }).interpolate("linear");';
+js = js + 'var projection = d3.geo.albers().center(['+centre.lat+','+centre.lng+']).scale('+zoom+');';
 
-js = js + 'svg.selectAll("path").data('+ elementSring +').enter().append("path").attr("d", path);';
+js = js + 'svg.selectAll("circle").data('+ elementSring +').enter().append("circle").attr("transform", function(d) {  var coord=L.Map.latLngToContainer(L.LatLng(d.lat,d.lng)); return "translate(" + coord[0] + "," + coord[1] + ")"; }).attr("r", 40).style("fill", "red");';
 
 js = js + '</script></body>';
 	

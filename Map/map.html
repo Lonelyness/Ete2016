@@ -12,7 +12,8 @@
 <script src="./JS/jquery.min.js" charset="utf-8"></script>
 <script src="./JS/FileSaver.min.js" charset="utf-8"></script>
 <script src="./JS/OSMBuildings-Leaflet.js"></script>
-<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>
+<script src="./JS/leafletImage.js" charset="utf-8"></script>
+<script src="./JS/pdf.js" charset="utf-8"></script>
 
 </head>
 <body>
@@ -64,15 +65,15 @@ Format :
 <div id='map'> </div>
 <div id='val'>
 	<ul> 
-		<li> PNG <div id="img-out"></div> </li>
-		<li> WEB </li>
+		<li> <a onclick="validerPDF()"> PNG </a><div id="snapshot"></div> </li>
+		<li> <a onclick="validerWeb()"> WEB </a></li>
 	</ul>
 	<input type="image"
 	   class="button"
        id = "btnclear"
        src="./Icones/Recommencer.png"
 	   width="4%"
-       onclick = "document.getElementById('val').style.display='none';"/>
+       onclick = "document.getElementById('val').style.display='none';document.getElementById('map').style.display='block';"/>
  </div>
 <script src="./JS/map.js" charset="utf-8"></script>
 </body>
