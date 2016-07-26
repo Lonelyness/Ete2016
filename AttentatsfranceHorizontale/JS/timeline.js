@@ -14,25 +14,24 @@ var formatDate = d3.time.format("%m/%Y");
 document.getElementById('titre').style.width = window.innerWidth+"px";
 
 
-var width = (window.innerWidth/3),
-	margin = {top: 20, right: 95, bottom: 30, left: width/2},
-    height = 600 - margin.top - margin.bottom;
-	
+var width = (window.innerWidth) ,
+    height = 100,
+	margin = {top: 20, right: 95, bottom: 20, left: 30};
 
 var x = d3.time.scale()
     .domain([startDate, endDate])
     .nice(d3.time.month)
-    .range([height, 0]);
+    .range([0, width-margin.left-margin.right]);
 
 var svg = d3.select(".contenant").append("svg")
 	.attr("width", width )
-	.attr("height", height + margin.top + margin.bottom)
+	.attr("height", height )
     .append("g")
-    .attr("transform", "translate(" + (margin.left+10) + "," + margin.top + ")");
+    .attr("transform", "translate(" + (margin.left) + "," + margin.top + ")");
 
 svg.append("g")
     .attr("class", "x axis")
-    .call(d3.svg.axis().scale(x).orient("left").tickFormat(formatDate));
+    .call(d3.svg.axis().scale(x).orient("bottom").tickFormat(formatDate));
 	
 	
 function drawChart(data) {
@@ -41,10 +40,10 @@ function drawChart(data) {
 	
 	group.append("line")
 			.attr("class", "separation")
-			.attr("y1", x(startDate))
-			.attr("y2", x(endDate))
-			.attr("x1", 15)
-			.attr("x2", 15)
+			.attr("x1", x(startDate))
+			.attr("x2", x(endDate))
+			.attr("y1", 40)
+			.attr("y2", 40)
 			.attr("opacity", .6)
 			.attr("stroke", "black");
 	
@@ -55,16 +54,16 @@ function drawChart(data) {
 		.attr('id', function(d){ 
 			return d.uid;
 		})
-		.attr("cx",15)
-		.attr("cy",function(d) {
+		.attr("cy",40)
+		.attr("cx",function(d) {
 
 			var date = d.date_txt;
 			var y = x(format.parse(date));
 			if (d.uid==1) {
-				return y+10;
+				return y-10;
 				}
 			if (d.uid==9) {
-				return y+6;
+				return y-6;
 				}				
 			return y;
 		})
@@ -79,22 +78,6 @@ function drawChart(data) {
 			var age = d.age;
 			var note = d.detail;
 			document.getElementById("description").innerHTML = '<div class=texte><b>Le '+ date + ' </b><br/><span class="note">' + note + '</span>' ;
-		});
-		
-	group.selectAll('text')
-		.data(data)
-		.enter()
-		.append('text')
-		.attr("class","nomtrav")
-		.attr("x",25)
-		.attr("y",function(d) {
-			var date = d.date_txt;
-			var y = x(format.parse(date));
-			return y+4;
-		})
-		.style("fill","black")
-		.text(function(d) {
-			return d.nom;
 		});
 		
 		var d = data[data.length-1];

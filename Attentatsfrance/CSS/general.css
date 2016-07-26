@@ -36,21 +36,31 @@ text {
   color:#333;
 }
 
-.d3-tip {
-	position : fixed;
-	top : 0;
+#Global
+{
+    width:100%;
+}
+
+.contenant {
+	width: 33%;
+	float:left;	
+}
+.description {
+   float:right;
+   height:600px;
+   width: 53%;
    line-height: 1;
    font-weight: 300;
    font-family: Roboto;
    font-style: light;
-   background-color: rgba(255,255,255,1);
+   background-color: rgba(250,250,250,0.8);
    color: black;
    border-radius: 4px;
    font-size: 12px;
    padding: 8px 8px 8px 8px;
+   margin: 4px 4px 4px 4px;
    border: 1px solid #ccc;
    line-height: 150%;
-   width:500px;
 }
 
 .nom {
@@ -61,26 +71,19 @@ text {
 	font-size:12px
 }
 
-.titre {
-    font-size: 20px;
-    font-family: Roboto;
-    color:#333;
-    margin: 10px 0 0 10px;
-  }
-
 @media (max-width: 800px) {
 .d3-tip {
-	width:320px;
+	width:620px;
 }	
 }
 @media (max-width: 620px) {
 .d3-tip {
-	width:220px;
+	width:400px;
 }	
 }
 @media (max-width: 375px) {
 .d3-tip {
-	width:180px;
+	width:140px;
 }	
 }
 

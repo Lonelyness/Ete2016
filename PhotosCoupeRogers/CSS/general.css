@@ -1,0 +1,129 @@
+body {
+	font-family:Roboto;
+	font-weight:300;
+	height:100%;
+	font-size: 1em;
+}
+
+
+#top {
+	position:absolute;
+	left : 0;
+	top:0;
+	width:100%;
+	height:2px;
+}
+
+#lienfb {
+	margin-right:10px;
+}
+
+.haut {
+	font-family:Roboto;
+}
+
+.fixe {
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100%;
+	background-color:black;
+	display: inline;
+}
+
+.ul-navbar {
+	display: inline;
+	-webkit-padding-start: 5%;
+}
+
+li {
+    display: inline;
+}
+.twitterfacebook {
+    float:right;
+    position:absolute;
+    bottom:25%;
+    right:0;
+    clear:right;
+	margin-right:10px;
+}
+
+.retour {
+	font-family:Roboto;
+	text-align: right;
+	background-color:black;
+	color:white;
+	padding:15px 15px 15px 15px; 
+}
+
+
+.divPhoto {
+	font-family:Roboto;
+	text-align: center;
+}
+
+.sousPhoto{
+	text-align: justify;
+}
+
+a.lien_reference {
+	color:#5d5d5d;	
+}
+a.lien_reference:hover {
+	color:#5d5d5d;
+}
+
+a {
+	color:white;	
+}
+a:hover {
+	color:white;
+}
+
+
+.idPhoto  {
+	font-family:Roboto;
+	font-weight:700;	
+}
+
+.artiste  {
+	font-weight:400;	
+}
+
+.soustitre {
+	font-weight:400;
+	font-size:42px;		
+}
+
+.titre  {
+	font-size:25px;	
+}
+
+.nbPhotos {
+	font-weight:300;
+}
+
+.entete1{
+	padding-top:30px;
+	padding-bottom:20px;
+	line-height:170%;
+}
+.entete2{
+	padding-bottom:30px;
+}
+.entete3{
+	padding-bottom:25px;
+}
+
+@media handheld {
+ .titre  {
+	font-size:35px;	
+}
+
+ .soustitre  {
+	font-size:60px;	
+}
+}
+
+
+
