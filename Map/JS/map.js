@@ -35,8 +35,11 @@ L_PREFER_CANVAS = true;
 //Création de la map Leaflet
 var map = L.map('map')
     .setView([45.504629, -73.55686], 11);
-//Indication de comment l'afficher	
-L.tileLayer('https://api.mapbox.com/styles/v1/fdaudens/cipsrn0zv0000brm7esi81vm6/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg', {
+//Indication de comment l'afficher
+// API : Capitale : https://api.mapbox.com/styles/v1/fdaudens/cir51xxpx000ybxnjy79ggecw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg 
+// API : Proche : https://api.mapbox.com/styles/v1/fdaudens/cipsrn0zv0000brm7esi81vm6/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg
+
+L.tileLayer('https://api.mapbox.com/styles/v1/fdaudens/cir51xxpx000ybxnjy79ggecw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg', {
 	attribution: 'Map by <a href="http://www.ledevoir.com">Le Devoir</a>, Icon by <a href="http://simpleicon.com/">Simple Icon</a>',
 	subdomains: 'abcd',
 	minZoom: 0,
