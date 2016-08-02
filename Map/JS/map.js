@@ -408,8 +408,42 @@ leafletImage(map, function(err, canvas) {
 	
 	var svg = d3.select("#snapshot").append('svg').attr("height",dimensions.x).attr("width",dimensions.y);
 	
-	svg.append("defs").append("pattern").attr("id","img1").append("image").attr("id","img2").attr("xlink:href",img.src);
-	svg.append('rect').attr("height",dimensions.x).attr("width",dimensions.y).attr("x",0).attr("y",0).attr("fill","url(#img2)");
+	var centre = map.getCenter();
+	var bound = map.getBounds().getNorthWest();
+	console.log(bound);
+	var alpha = (centre.lat - bound.lat)/(dimensions.x/2);
+	var beta = (centre.lng - bound.lng)/(dimensions.y/2);
+	
+	
+	svg.append("image")
+		.attr("id","img2")
+		.attr("xlink:href",img.src)
+		.attr("height",dimensions.x)
+		.attr("width",dimensions.y);
+		
+	svg.selectAll('circle')
+		.data(markers)
+		.enter()
+		.append("circle")
+		.attr("cx", function(d) {
+			return (dimensions.x/2) + (centre.lat-d.getLatLng().lat)/alpha;
+		})
+		.attr("cy", function(d) {
+			return (dimensions.y/2) + (centre.lng-d.getLatLng().lng)/beta;
+		})
+		.attr("r",4)
+		.style("fill",function(d) {
+			if (d.couleur==1) {
+				return "#f4aa59"
+			}
+			if (d.couleur==2) {
+				return "#4c7d95"
+			}
+			if (d.couleur==3) {
+				return "#00b2cd"
+			}
+			return "black";
+		})
 	  
 	  
 });
