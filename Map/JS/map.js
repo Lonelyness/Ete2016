@@ -41,7 +41,6 @@ var map = L.map('map')
 
 L.tileLayer('https://api.mapbox.com/styles/v1/fdaudens/cir51xxpx000ybxnjy79ggecw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg', {
 	attribution: 'Map by <a href="http://www.ledevoir.com">Le Devoir</a>, Icon by <a href="http://simpleicon.com/">Simple Icon</a>',
-	subdomains: 'abcd',
 	minZoom: 0,
 	maxZoom: 20,
 	ext: 'png'
@@ -109,7 +108,7 @@ if (!drag) {
  
 var myIcon = L.icon({
     iconUrl: './Icones/map-marker.svg',
-    iconSize: [40, 50]
+    iconSize: [30, 30]
     });
 	
 var myIconTemp = L.icon({
@@ -405,7 +404,14 @@ leafletImage(map, function(err, canvas) {
     img.height = dimensions.y;
     img.src = canvas.toDataURL();
     document.getElementById('snapshot').innerHTML = '';
-    document.getElementById('snapshot').appendChild(img);
+    //document.getElementById('snapshot').appendChild(img);
+	
+	var svg = d3.select("#snapshot").append('svg').attr("height",dimensions.x).attr("width",dimensions.y);
+	
+	svg.append("defs").append("pattern").attr("id","img1").append("image").attr("id","img2").attr("xlink:href",img.src);
+	svg.append('rect').attr("height",dimensions.x).attr("width",dimensions.y).attr("x",0).attr("y",0).attr("fill","url(#img2)");
+	  
+	  
 });
 
 };

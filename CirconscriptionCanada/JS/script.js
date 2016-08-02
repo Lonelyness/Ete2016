@@ -31,15 +31,14 @@ series = data;
 		}
     });
 	
-	console.log(dataset);
     // render map
      var map = new Datamap({
         element: document.getElementById('container'),
 		responsive : true,
         geographyConfig: {
-            dataUrl: './JS/Fed2013.json'
+            dataUrl: './JS/afghan.json'
         },
-        scope: 'CF_CA_2_1_FR',
+        scope: 'afghan',
         setProjection: function(element, options) {
 			var projection = d3.geo.mercator()
 				.center([66.166667, 34.4444])
