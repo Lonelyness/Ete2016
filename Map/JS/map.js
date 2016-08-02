@@ -6,6 +6,7 @@ var polygon = [];
 var ligneTab = [];
 var elements = [];
 var markers = [];
+var markersAffichables = [];
 var encours=false;
 var drag =false;
 var coordonnees;
@@ -63,6 +64,8 @@ if (!drag) {
  function clearMap() {
 	polygon = [];
 	ligneTab = [];
+	markers = [];
+	markersAffichables = [];
 	poly=1;
 	ligne=1;
 	elements = [];
@@ -264,6 +267,7 @@ function deplacement(tempMarker) {
 	return temp;});  
 	marker.on("popupopen", onPopupOpen);
 	markers.push(marker);
+	markersAffichables.push(marker);
 	map.panTo(L.latLng(lat,lng));
 };
 
@@ -291,6 +295,10 @@ function onPopupOpen() {
     // To remove marker on click of delete button in the popup of marker
     $(".delete-button:visible").click(function () {
         map.removeLayer(temp);
+		var index = markersAffichables.indexOf(temp);
+		if (index > -1) {
+			markersAffichables.splice(index, 1);
+		}
     });
 	$(".delete-buttonLigne:visible").click(function () {
 		tab = temp.getLatLngs();
@@ -304,6 +312,10 @@ function onPopupOpen() {
 			}
 		}
 		map.removeLayer(temp);
+		var index = elements.indexOf(temp);
+		if (index > -1) {
+			elements.splice(index, 1);
+		}
     });
 	$(".delete-buttonPolygon:visible").click(function () {
 		tab = temp.getLatLngs()[0];
@@ -317,6 +329,10 @@ function onPopupOpen() {
 			}
 		}	
         map.removeLayer(temp);
+		var index = elements.indexOf(temp);
+		if (index > -1) {
+			elements.splice(index, 1);
+		}
     });
 	$(".retirerLigne:visible").click(function () {
 		
@@ -400,7 +416,6 @@ leafletImage(map, function(err, canvas) {
     // example thing to do with that canvas:
     var img = document.createElement('img');
     var dimensions = map.getSize();
-	console.log(dimensions);
     img.width = dimensions.x;
     img.height = dimensions.y;
     img.src = canvas.toDataURL();
@@ -422,7 +437,7 @@ leafletImage(map, function(err, canvas) {
 		.attr("width",dimensions.x);
 		
 	svg.selectAll('circle')
-		.data(markers)
+		.data(markersAffichables)
 		.enter()
 		.append("circle")
 		.attr("cy", function(d) {
@@ -434,17 +449,31 @@ leafletImage(map, function(err, canvas) {
 		.attr("r",4)
 		.style("fill",function(d) {
 			if (d.couleur==1) {
-				return "#f4aa59"
+				return "#f4aa59";
 			}
 			if (d.couleur==2) {
-				return "#4c7d95"
+				return "#4c7d95";
 			}
 			if (d.couleur==3) {
-				return "#00b2cd"
+				return "#00b2cd";
 			}
-			return "black";
+			return "#4c7d95";
 		})
+		
+		var lineFunction = d3.svg.line()
+			.y(function(d) { return (dimensions.x/2) - (centre.lat-d.lat)/alpha; })
+			.x(function(d) { return (dimensions.y/2) - (centre.lng-d.lng)/beta; })
+			.interpolate("linear-closed");
 	  
+		svg.selectAll('path')
+			.data(elements)
+			.enter()
+			.append("path")
+			.attr("d", function(d) { return lineFunction(d.getLatLngs()[0]);})
+			.attr("stroke", "#4c7d95")
+			.attr("stroke-width", 2)
+			.attr("fill", "#00b2cd")
+			.attr("opacity","0.3");
 	  
 });
 
