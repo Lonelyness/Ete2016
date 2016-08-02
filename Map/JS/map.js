@@ -400,17 +400,17 @@ leafletImage(map, function(err, canvas) {
     // example thing to do with that canvas:
     var img = document.createElement('img');
     var dimensions = map.getSize();
+	console.log(dimensions);
     img.width = dimensions.x;
     img.height = dimensions.y;
     img.src = canvas.toDataURL();
     document.getElementById('snapshot').innerHTML = '';
     //document.getElementById('snapshot').appendChild(img);
 	
-	var svg = d3.select("#snapshot").append('svg').attr("height",dimensions.x).attr("width",dimensions.y);
+	var svg = d3.select("#snapshot").append('svg').attr("height",dimensions.y).attr("width",dimensions.x);
 	
 	var centre = map.getCenter();
 	var bound = map.getBounds().getNorthWest();
-	console.log(bound);
 	var alpha = (centre.lat - bound.lat)/(dimensions.x/2);
 	var beta = (centre.lng - bound.lng)/(dimensions.y/2);
 	
@@ -418,18 +418,18 @@ leafletImage(map, function(err, canvas) {
 	svg.append("image")
 		.attr("id","img2")
 		.attr("xlink:href",img.src)
-		.attr("height",dimensions.x)
-		.attr("width",dimensions.y);
+		.attr("height",dimensions.y)
+		.attr("width",dimensions.x);
 		
 	svg.selectAll('circle')
 		.data(markers)
 		.enter()
 		.append("circle")
-		.attr("cx", function(d) {
-			return (dimensions.x/2) + (centre.lat-d.getLatLng().lat)/alpha;
-		})
 		.attr("cy", function(d) {
-			return (dimensions.y/2) + (centre.lng-d.getLatLng().lng)/beta;
+			return (dimensions.x/2) - (centre.lat-d.getLatLng().lat)/alpha;
+		})
+		.attr("cx", function(d) {
+			return (dimensions.y/2) - (centre.lng-d.getLatLng().lng)/beta;
 		})
 		.attr("r",4)
 		.style("fill",function(d) {
