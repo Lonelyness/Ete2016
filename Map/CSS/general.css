@@ -41,6 +41,14 @@ label[class*="cor"] {
   }
 }
 
+.text {
+	font-family : Roboto;
+	font-weight : 700;
+	background-color : rgba(0, 0, 0, 0.5);
+	padding :  5px 5px 5px 5px;
+	border-radius : 3px;
+	}
+
 .cor1 {
   background-color: #f4aa59;
   border-color: #f4aa59;

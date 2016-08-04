@@ -30,7 +30,7 @@ for(var i=0; i<divs.length; i++){
 	divs[i].style.height= height*0.025+'px';}
 }
 document.getElementById('text').style.marginTop = $("#nav").height()+'px';
-document.getElementById('svg').style.marginTop = $("#nav").height()+'px';
+document.getElementById('cont').style.marginTop = $("#nav").height()+'px';
 
 if ((0.3*width*580/250)>0.9*height) {
 	console.log('correction');

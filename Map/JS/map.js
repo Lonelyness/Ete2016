@@ -436,6 +436,8 @@ leafletImage(map, function(err, canvas) {
 		.attr("height",dimensions.y)
 		.attr("width",dimensions.x);
 		
+		
+	// Pour les markers
 	svg.selectAll('circle')
 		.data(markersAffichables)
 		.enter()
@@ -459,7 +461,8 @@ leafletImage(map, function(err, canvas) {
 			}
 			return "#4c7d95";
 		})
-		
+			
+		//Pour les Polygones
 		var lineFunction = d3.svg.line()
 			.y(function(d) { return (dimensions.x/2) - (centre.lat-d.lat)/alpha; })
 			.x(function(d) { return (dimensions.y/2) - (centre.lng-d.lng)/beta; })
@@ -474,6 +477,49 @@ leafletImage(map, function(err, canvas) {
 			.attr("stroke-width", 2)
 			.attr("fill", "#00b2cd")
 			.attr("opacity","0.3");
+			
+		//Texte Markers
+	svg.selectAll('text')
+		.data(markersAffichables)
+		.enter()
+		.append("text")
+		.attr('class','text')
+		.attr("y", function(d) {
+			var placement = d.nomenPlacement ;		
+			var valeur = 5 ;
+			if (placement==0) {
+				valeur = -15;
+				}
+			if (placement==1) {
+				valeur = 30;
+				}				
+			return valeur + (dimensions.x/2) - (centre.lat-d.getLatLng().lat)/alpha;
+		})
+		.attr("x", function(d) {
+			var placement = d.nomenPlacement ;		
+			var valeur = 0 ;
+			if (placement==2) {
+				valeur = -15;
+				}
+			if (placement==3) {
+				valeur = 15;
+				}
+			return valeur + (dimensions.y/2) - (centre.lng-d.getLatLng().lng)/beta;
+		})
+		.attr('text-anchor', function(d){
+						var placement = d.nomenPlacement ;		
+			var valeur = 'middle' ;
+			if (placement==2) {
+				valeur = 'end';
+				}
+			if (placement==3) {
+				valeur = 'start';
+				}
+			return valeur ;
+		})
+		.text(function (d) { console.log(d.nomen); return d.nomen ; })
+		.attr("font-size", "15px")
+		.attr("fill", "grey");
 	  
 });
 
