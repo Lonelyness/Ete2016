@@ -12,6 +12,8 @@ var drag =false;
 var coordonnees;
 var actMap=0;
 var size;
+var tempsizeW;
+var tempsizeH;
 
 function actionMap(id) {
 	var temp=id;
@@ -92,20 +94,35 @@ if (!drag) {
 		document.getElementById('map').style.width = m+"px";
 		document.getElementById('map').style.height = m+"px";
 		size = "width: "+m+"px"+";height: "+m+"px"+";" 
-		map.invalidateSize()
+		map.invalidateSize();
 	}	
 	if (id=="colonne") {
 		document.getElementById('map').style.width = 300 +"px";
 		document.getElementById('map').style.height = m+"px";
 		size = "width: "+300+"px"+";height: "+m+"px"+";"
-		map.invalidateSize()		
+		map.invalidateSize();		
 		
 	}	
 	if (id=="large") {
 		document.getElementById('map').style.width = m+"px";
 		document.getElementById('map').style.height = 300+"px";
 		size = "width: "+m+"px"+";height: "+300+"px"+";"
-		map.invalidateSize()
+		map.invalidateSize();
+	}
+	if (id=="reboot1") {
+		tempsizeW = document.getElementById('map').style.width;
+		tempsizeH = document.getElementById('map').style.height;
+		console.log(tempsizeW);
+		document.getElementById('map').style.width = 0+"px";
+		document.getElementById('map').style.height = 0+"px";
+		size = "width: "+0+"px"+";height: "+0+"px"+";"
+		map.invalidateSize();
+	}
+	if (id=="reboot2") {
+		document.getElementById('map').style.width = tempsizeW;
+		document.getElementById('map').style.height = tempsizeH;
+		size = "width: "+tempsizeW+"px"+";height: "+tempsizeH+"px"+";"
+		map.invalidateSize();
 	}
  };
  
@@ -255,13 +272,13 @@ function deplacement(tempMarker) {
 	marker = L.marker([lat, lng],{icon: myIcon, draggable:true}).addTo(map);
 	marker.nomen="";
 	marker.nomenPlacement=0;
-	marker.couleur=0;
+	marker.couleur=2;
 	marker.bindPopup(function(d) { marker = d;
 	var selected = d.nomenPlacement;
 	var selected2 = d.couleur;	
 	var temp = "Nomenclature : <input type = 'text' class='nomen' value='"+ d.nomen +"' id = 'nomen''/>";
 	temp += "<FORM><SELECT id='placement' size='1'><OPTION "+ ((selected == 0) ? "SELECTED" : "") +">Haut<OPTION "+ ((selected == 1) ? "SELECTED" : "") +">Bas<OPTION "+ ((selected == 2) ? "SELECTED" : "") +">Gauche<OPTION "+ ((selected == 3) ? "SELECTED" : "") +">Droite</SELECT></FORM>";
-	temp += "<form role='form'><div><input type='radio' name='cor' id='cor1' value='#f4aa59' "+ ((selected2 == 1) ? "checked='true'" : "") +"/><label for='cor1' class='cor1'></label><input type='radio' name='cor' id='cor2' value='#4c7d95' "+ ((selected2 == 2) ? "checked='true'" : "") +"/><label for='cor2' class='cor2'></label><input type='radio' name='cor' id='cor3' value='#00b2cd' "+ ((selected2 == 3) ? "checked='true'" : "") +"/><label for='cor3' class='cor3'></label></div></form>";
+	temp += "<form role='form'><div><input type='radio' name='cor' id='cor1' value='#f4aa59' "+ ((selected2 == 1) ? "checked='true'" : "") +"/><label for='cor1' class='cor1'></label><input type='radio' name='cor' id='cor2' value='#4c7d95' "+ ((selected2 == 2) ? "checked='true'" : "") +"/><label for='cor2' class='cor2'></label><input type='radio' name='cor' id='cor3' value='#00b2cd' "+ ((selected2 == 3) ? "checked='true'" : "") +"/><label for='cor3' class='cor3'></label><input type='radio' name='cor' id='cor4' value='#333' "+ ((selected2 == 4) ? "checked='true'" : "") +"/><label for='cor4' class='cor4'></label><input type='radio' name='cor' id='cor5' value='white' "+ ((selected2 == 5) ? "checked='true'" : "") +"/><label for='cor5' class='cor5'></label></div></form>";
 	temp += "<input type='image' src='./Icones/Valider.png' width='20px' class='valNomen' onclick='enregistrement()'/>";
 	temp += "<input type='image' src='./Icones/Recommencer.png' width='20px' class='button delete-button'/>";
 	return temp;});  
@@ -283,6 +300,12 @@ function enregistrement() {
 	}
 	if (document.getElementById('cor3').checked==true) {
 		valueC=3;
+	}
+	if (document.getElementById('cor4').checked==true) {
+		valueC=4;
+	}
+	if (document.getElementById('cor5').checked==true) {
+		valueC=5;
 	}
 	marker.nomen=value;
 	marker.nomenPlacement=valueP;
@@ -409,20 +432,18 @@ function httpGet(theUrl)
 
 function valider() {
 	document.getElementById('val').style.display="block";
-	document.getElementById('map').style.display="none";
+	document.getElementById('map').style.display='none';
 	
 leafletImage(map, function(err, canvas) {
-    // now you have canvas
-    // example thing to do with that canvas:
     var img = document.createElement('img');
     var dimensions = map.getSize();
     img.width = dimensions.x;
     img.height = dimensions.y;
     img.src = canvas.toDataURL();
-    document.getElementById('snapshot').innerHTML = '';
-    //document.getElementById('snapshot').appendChild(img);
 	
-	var svg = d3.select("#snapshot").append('svg').attr("height",dimensions.y).attr("width",dimensions.x);
+	d3.select("#svg").remove();
+	var svg = d3.select("#snapshot").append('svg').attr("id","svg");
+	svg.attr("height",dimensions.y).attr("width",dimensions.x);
 	
 	var centre = map.getCenter();
 	var bound = map.getBounds().getNorthWest();
@@ -459,55 +480,76 @@ leafletImage(map, function(err, canvas) {
 			if (d.couleur==3) {
 				return "#00b2cd";
 			}
+			if (d.couleur==4) {
+				return "#333";
+			}
+			if (d.couleur==5) {
+				return "none";
+			}			
 			return "#4c7d95";
 		})
 			
 		//Pour les Polygones
-		var lineFunction = d3.svg.line()
+		var lineFunctionClosed = d3.svg.line()
 			.y(function(d) { return (dimensions.x/2) - (centre.lat-d.lat)/alpha; })
 			.x(function(d) { return (dimensions.y/2) - (centre.lng-d.lng)/beta; })
 			.interpolate("linear-closed");
+		var lineFunction = d3.svg.line()
+			.y(function(d) { return (dimensions.x/2) - (centre.lat-d.lat)/alpha; })
+			.x(function(d) { return (dimensions.y/2) - (centre.lng-d.lng)/beta; })
+			.interpolate("linear");
 	  
 		svg.selectAll('path')
 			.data(elements)
 			.enter()
 			.append("path")
-			.attr("d", function(d) { return lineFunction(d.getLatLngs()[0]);})
+			.attr("d", function(d) { if (d.getLatLngs().length==1 ) {return lineFunctionClosed(d.getLatLngs()[0]);}
+			else return lineFunction(d.getLatLngs());
+			})
 			.attr("stroke", "#4c7d95")
 			.attr("stroke-width", 2)
-			.attr("fill", "#00b2cd")
+			.attr("fill", function(d) { if (d.getLatLngs().length==1 ) {return "#00b2cd";}
+			else return "none";
+			})
 			.attr("opacity","0.3");
 			
+			
+var hauteur = 20;
+var decal = 15;			
 		//Texte Markers
-	svg.selectAll('text')
+	var nodes = svg.selectAll('g')
 		.data(markersAffichables)
 		.enter()
-		.append("text")
+		.append("g")
 		.attr('class','text')
-		.attr("y", function(d) {
-			var placement = d.nomenPlacement ;		
-			var valeur = 5 ;
-			if (placement==0) {
-				valeur = -15;
-				}
-			if (placement==1) {
-				valeur = 30;
-				}				
-			return valeur + (dimensions.x/2) - (centre.lat-d.getLatLng().lat)/alpha;
-		})
-		.attr("x", function(d) {
+		.attr("transform", function(d) {
 			var placement = d.nomenPlacement ;		
 			var valeur = 0 ;
+			if (placement==0) {
+				valeur = -hauteur;
+				}
+			if (placement==1) {
+				valeur = hauteur;
+				}				
+			var y = valeur + (dimensions.x/2) - (centre.lat-d.getLatLng().lat)/alpha;	
+			var valeur = 0 ;
 			if (placement==2) {
-				valeur = -15;
+				valeur = -decal;
 				}
 			if (placement==3) {
-				valeur = 15;
+				valeur = decal;
 				}
-			return valeur + (dimensions.y/2) - (centre.lng-d.getLatLng().lng)/beta;
-		})
+			var x =  valeur + (dimensions.y/2) - (centre.lng-d.getLatLng().lng)/beta;
+			
+			return "translate("+ x +","+ y +")";
+		});
+	
+	nodes.append("text") 
+		.attr("text-anchor", "middle")
+		.attr("dx", 0)
+		.attr("dy", ".35em")
 		.attr('text-anchor', function(d){
-						var placement = d.nomenPlacement ;		
+			var placement = d.nomenPlacement ;		
 			var valeur = 'middle' ;
 			if (placement==2) {
 				valeur = 'end';
@@ -517,25 +559,66 @@ leafletImage(map, function(err, canvas) {
 				}
 			return valeur ;
 		})
-		.text(function (d) { console.log(d.nomen); return d.nomen ; })
-		.attr("font-size", "15px")
-		.attr("fill", "grey");
+		.text(function(d) {
+			return d.nomen;
+		})
+		.style("fill", "white")
+		.call(getTextBox);
+
+var padding = 4;		
+ 
+	nodes.filter(function(d) {return (d.nomen!="")}).insert("rect","text")
+		.attr("x", function(d){return d.bbox.x - padding})
+		.attr("y", function(d){return d.bbox.y - padding})
+		.attr("width", function(d){return d.bbox.width + 2*padding})
+		.attr("height", function(d){return d.bbox.height + 2*padding})
+		.style("fill", "black")
+		.style("opacity", 0.4);	
+
+function getTextBox(selection) {
+    selection.each(function(d) { d.bbox = this.getBBox(); })
+}
+	
+	
 	  
 });
 
 };
 
 function validerPDF() {
-	leafletImage(map, function(err, canvas) {
-	  // only jpeg is supported by jsPDF
-  var imgData = canvas.toDataURL("image/jpeg", 1.0);
-  var doc = new jsPDF();
-  console.log(doc);
-  doc.addImage(imgData, 'JPEG', 0, 0);
-  doc.save("download.pdf");
-	});
+	var svg  = document.getElementById('svg'),
+		xml  = new XMLSerializer().serializeToString(svg),
+		data = "data:image/svg+xml;base64," + btoa(xml);
+	var doc = new jsPDF();
+	doc.addImage(data, 'JPEG', 0, 0);
+	doc.save("carte.pdf");
 }
 
+function validerSVG() {
+	    try {
+        var isFileSaverSupported = !!new Blob();
+    } catch (e) {
+        alert("blob not supported");
+    }
+
+    var html = d3.select("#svg")
+        .attr("title", "test2")
+        .attr("version", 1.1)
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .node().parentNode.innerHTML;
+
+    var blob = new Blob([html], {type: "image/svg+xml"});
+    saveAs(blob, "carte.svg");
+};
+
+
+function fermer() {
+	document.getElementById('val').style.display='none';
+	document.getElementById('map').style.display='block';
+}
+
+
+/* Fonction imcomplette de début d'exportation en Leaflet/HTML
 function validerWeb() {	
 //Variable de la carte
 var centre = map.getCenter();
@@ -550,7 +633,6 @@ markers.forEach( function(d) {
 	elementSring =  elementSring + "{"+temp+ "}," ;
 });
 elementSring = elementSring.substring(0,elementSring.length-1);
-console.log(elementSring);
 elementSring = elementSring + "]";
 	
 var js = '<!DOCTYPE html><html><head><meta charset=utf-8 /><link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.css" /><link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic" rel="stylesheet" type="text/css"><script src="https://api.tiles.mapbox.com/mapbox.js/v2.4.0/mapbox.js"></script><script src="http://cdn.leafletjs.com/leaflet/v1.0.0-rc.1/leaflet.js"></script><script type="text/javascript" src="https://d3js.org/d3.v3.js"></script><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js" charset="utf-8"></script><style>#map {'+size+'}</style></head>';
@@ -570,4 +652,4 @@ js = js + '</script></body>';
 
 var file = new File([js], "resultat.html", {type: "text/plain;charset=utf-8"});
 saveAs(file);
-}
+}*/
