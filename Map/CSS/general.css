@@ -8,6 +8,10 @@
 	 width: 90% ; display: none; position: fixed; top: 10px; left: 5%; background-color: white;
 	 border-style: solid; border-width: 2px; border-color:#AEE7EF ; border-radius: 5px;
 }
+
+#canvas {
+	display : none;
+}
   
   
   input[id*="cor"] {
@@ -40,6 +44,8 @@ label[class*="cor"] {
     border-color: #000;
   }
 }
+
+
 
 .text {
 	font-family : Roboto;

@@ -128,7 +128,7 @@ if (!drag) {
  
 var myIcon = L.icon({
     iconUrl: './Icones/map-marker.svg',
-    iconSize: [30, 30]
+    iconSize: [25, 25]
     });
 	
 var myIconTemp = L.icon({
@@ -269,7 +269,7 @@ function deplacement(tempMarker) {
 }
  //Placer marqueur sur la map
  function placeMarkerAndPanTo(lat , lng, map) {
-	marker = L.marker([lat, lng],{icon: myIcon, draggable:true}).addTo(map);
+	marker = L.marker([lat, lng],{draggable:true}).addTo(map);
 	marker.nomen="";
 	marker.nomenPlacement=0;
 	marker.couleur=2;
@@ -586,12 +586,26 @@ function getTextBox(selection) {
 };
 
 function validerPDF() {
-	var svg  = document.getElementById('svg'),
-		xml  = new XMLSerializer().serializeToString(svg),
-		data = "data:image/svg+xml;base64," + btoa(xml);
-	var doc = new jsPDF();
-	doc.addImage(data, 'JPEG', 0, 0);
-	doc.save("carte.pdf");
+	 //Get svg markup as string
+	var svg = document.getElementById('snapshot').innerHTML;
+
+	if (svg)
+		svg = svg.replace(/\r?\n|\r/g, '').trim();
+
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+
+
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	canvg(canvas, svg);
+
+
+	var imgData = canvas.toDataURL('image/png');
+
+	// Generate PDF
+	var doc = new jsPDF('p', 'pt', 'a4');
+	doc.addImage(imgData, 'PNG', 40, 40, 75, 75);
+	doc.save('carte.pdf');
 }
 
 function validerSVG() {
