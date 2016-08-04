@@ -14,6 +14,7 @@
 <script src="./JS/OSMBuildings-Leaflet.js"></script>
 <script src="./JS/leafletImage.js" charset="utf-8"></script>
 <script src="./JS/pdf.js" charset="utf-8"></script>
+<script src="./JS/pdfSaver.js" charset="utf-8"></script>
 <script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
 
 </head>
@@ -65,16 +66,16 @@ Format :
 </div>
 <div id='map'> </div>
 <div id='val'>
-	<ul> 
-		<li> <a onclick="validerPDF()"> PNG </a><div id="snapshot"></div> </li>
-		<li> <a onclick="validerWeb()"> WEB </a></li>
-	</ul>
-	<input type="image"
-	   class="button"
-       id = "btnclear"
-       src="./Icones/Recommencer.png"
-	   width="4%"
-       onclick = "document.getElementById('val').style.display='none';document.getElementById('map').style.display='block';"/>
+		<a onclick="validerPDF()">  Exporter en PDF </a>
+		<br>
+		<a onclick="validerSVG()">  Exporter en SVG </a>
+		<div id="snapshot"></div> </li>
+		<input type="image"
+			class="button"
+			id = "btnclear"
+			src="./Icones/Recommencer.png"
+			width="4%"
+			onclick = "fermer()"/>
  </div>
 <script src="./JS/map.js" charset="utf-8"></script>
 </body>

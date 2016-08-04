@@ -61,6 +61,13 @@ label[class*="cor"] {
   background-color: #00b2cd;
   border-color: #00b2cd;
 }
+.cor4 {
+  background-color: #333;
+  border-color: #333;
+}
+.cor5 {
+  background-image: url(http://cdn2.packshot-creator.com/sites/all/themes/basic/images/interface/grid.png);
+}
   
   
  .last {
