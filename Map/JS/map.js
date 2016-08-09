@@ -453,6 +453,7 @@ leafletImage(map, function(err, canvas) {
 	
 	svg.append("image")
 		.attr("id","img2")
+		.attr("type","image/svg+xml")
 		.attr("xlink:href",img.src)
 		.attr("height",dimensions.y)
 		.attr("width",dimensions.x);
@@ -629,6 +630,7 @@ function validerSVG() {
 function fermer() {
 	document.getElementById('val').style.display='none';
 	document.getElementById('map').style.display='block';
+	map.invalidateSize();
 }
 
 
