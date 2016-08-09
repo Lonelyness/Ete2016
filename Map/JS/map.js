@@ -42,12 +42,26 @@ var map = L.map('map')
 // API : Capitale : https://api.mapbox.com/styles/v1/fdaudens/cir51xxpx000ybxnjy79ggecw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg 
 // API : Proche : https://api.mapbox.com/styles/v1/fdaudens/cipsrn0zv0000brm7esi81vm6/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg
 
-L.tileLayer('https://api.mapbox.com/styles/v1/fdaudens/cir51xxpx000ybxnjy79ggecw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg', {
-	attribution: 'Map by <a href="http://www.ledevoir.com">Le Devoir</a>, Icon by <a href="http://simpleicon.com/">Simple Icon</a>',
+var CapitaleTileLayer = L.tileLayer('https://api.mapbox.com/styles/v1/fdaudens/cir51xxpx000ybxnjy79ggecw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg', {
+	attribution: 'Map by <a href="http://www.ledevoir.com">Le Devoir</a>',
 	minZoom: 0,
 	maxZoom: 20,
 	ext: 'png'
 }).addTo(map);
+
+var ProcheTileLayer = L.tileLayer('https://api.mapbox.com/styles/v1/fdaudens/cipsrn0zv0000brm7esi81vm6/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZmRhdWRlbnMiLCJhIjoicUtCOGRFSSJ9.JV9UlZPShWdgvloqqcVaqg', {
+	attribution: 'Map by <a href="http://www.ledevoir.com">Le Devoir</a>',
+	minZoom: 0,
+	maxZoom: 20,
+	ext: 'png'
+}).addTo(map);
+
+var baseMaps = {
+	"Capitale": CapitaleTileLayer,
+	"Proche": ProcheTileLayer
+};
+map.addControl(new L.Control.Layers(baseMaps, {}));
+
 
 //new OSMBuildings(map).load();
 
