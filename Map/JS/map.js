@@ -56,10 +56,12 @@ var ProcheTileLayer = L.tileLayer('https://api.mapbox.com/styles/v1/fdaudens/cip
 	ext: 'png'
 }).addTo(map);
 
+
 var baseMaps = {
 	"Capitale": CapitaleTileLayer,
 	"Proche": ProcheTileLayer
 };
+
 map.addControl(new L.Control.Layers(baseMaps, {}));
 
 
@@ -461,8 +463,8 @@ leafletImage(map, function(err, canvas) {
 	
 	var centre = map.getCenter();
 	var bound = map.getBounds().getNorthWest();
-	var alpha = (centre.lat - bound.lat)/(dimensions.x/2);
-	var beta = (centre.lng - bound.lng)/(dimensions.y/2);
+	var alpha = (centre.lat - bound.lat)/(dimensions.y/2);
+	var beta = (centre.lng - bound.lng)/(dimensions.x/2);
 	
 	
 	svg.append("image")
@@ -479,10 +481,10 @@ leafletImage(map, function(err, canvas) {
 		.enter()
 		.append("circle")
 		.attr("cy", function(d) {
-			return (dimensions.x/2) - (centre.lat-d.getLatLng().lat)/alpha;
+			return (dimensions.y/2) - (centre.lat-d.getLatLng().lat)/alpha;
 		})
 		.attr("cx", function(d) {
-			return (dimensions.y/2) - (centre.lng-d.getLatLng().lng)/beta;
+			return (dimensions.x/2) - (centre.lng-d.getLatLng().lng)/beta;
 		})
 		.attr("r",4)
 		.style("fill",function(d) {
@@ -506,12 +508,12 @@ leafletImage(map, function(err, canvas) {
 			
 		//Pour les Polygones
 		var lineFunctionClosed = d3.svg.line()
-			.y(function(d) { return (dimensions.x/2) - (centre.lat-d.lat)/alpha; })
-			.x(function(d) { return (dimensions.y/2) - (centre.lng-d.lng)/beta; })
+			.y(function(d) { return (dimensions.y/2) - (centre.lat-d.lat)/alpha; })
+			.x(function(d) { return (dimensions.x/2) - (centre.lng-d.lng)/beta; })
 			.interpolate("linear-closed");
 		var lineFunction = d3.svg.line()
-			.y(function(d) { return (dimensions.x/2) - (centre.lat-d.lat)/alpha; })
-			.x(function(d) { return (dimensions.y/2) - (centre.lng-d.lng)/beta; })
+			.y(function(d) { return (dimensions.y/2) - (centre.lat-d.lat)/alpha; })
+			.x(function(d) { return (dimensions.x/2) - (centre.lng-d.lng)/beta; })
 			.interpolate("linear");
 	  
 		svg.selectAll('path')
@@ -546,7 +548,7 @@ var decal = 15;
 			if (placement==1) {
 				valeur = hauteur;
 				}				
-			var y = valeur + (dimensions.x/2) - (centre.lat-d.getLatLng().lat)/alpha;	
+			var y = valeur + (dimensions.y/2) - (centre.lat-d.getLatLng().lat)/alpha;	
 			var valeur = 0 ;
 			if (placement==2) {
 				valeur = -decal;
@@ -554,12 +556,12 @@ var decal = 15;
 			if (placement==3) {
 				valeur = decal;
 				}
-			var x =  valeur + (dimensions.y/2) - (centre.lng-d.getLatLng().lng)/beta;
+			var x =  valeur + (dimensions.x/2) - (centre.lng-d.getLatLng().lng)/beta;
 			
 			return "translate("+ x +","+ y +")";
 		});
 	
-	nodes.append("text") 
+	nodes.filter(function(d) {return (d.nomen!="")}).append("text") 
 		.attr("text-anchor", "middle")
 		.attr("dx", 0)
 		.attr("dy", ".35em")
