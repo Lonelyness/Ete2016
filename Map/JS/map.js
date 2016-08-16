@@ -451,6 +451,8 @@ function valider() {
 	document.getElementById('map').style.display='none';
 	
 leafletImage(map, function(err, canvas) {
+	
+	
     var img = document.createElement('img');
     var dimensions = map.getSize();
     img.width = dimensions.x;
@@ -458,6 +460,7 @@ leafletImage(map, function(err, canvas) {
     img.src = canvas.toDataURL();
 	
 	d3.select("#svg").remove();
+	
 	var svg = d3.select("#snapshot").append('svg').attr("id","svg");
 	svg.attr("height",dimensions.y).attr("width",dimensions.x);
 	
@@ -641,7 +644,7 @@ function validerSVG() {
     var blob = new Blob([html], {type: "image/svg+xml"});
     saveAs(blob, "carte.svg");
 };
-
+ 
 
 function fermer() {
 	document.getElementById('val').style.display='none';

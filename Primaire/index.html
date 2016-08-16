@@ -1,10 +1,382 @@
 <!DOCTYPE html>
-<html lang="fr">
-	<head>
-	<script language="javascript">
-    window.location.href = "./HTML/usaSquare.html"
-	</script>
-	</head>
-	<body>
-	</body>
-</html>
+<meta charset="utf-8">
+<head>
+		<title>Où les candidats ont-ils remporté leurs délégués ?</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="./JS/jquery.min.js" charset="utf-8"></script>
+		<script src="./JS/Tabletop.js" charset="utf-8"></script>
+		<script src="./JS/d3.min.js" charset="utf-8"></script>
+		<script src="./JS/tip.js" charset="utf-8"></script>
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="./CSS/general.css" />
+		<link rel="stylesheet" media="screen and (max-width:500px)" href="../CSS/CSSpetit.css"/>
+		<link rel="stylesheet" media="screen and (max-width:350px)" href="../CSS/CSSpetit2.css"/>
+	
+</head>		
+<body>
+<div class="box">
+<p align="center">
+  <svg></svg>
+</div>
+<!-- Script pour récupérer un array des positions des états :  "gridmapLayoutUsa" -->
+<script src="./JS/etats.js"></script>
+<script>
+
+//variables pour la taille d'origine du svg (qui s'adaptera avec la viewbox)
+var width = 700,
+    height = 580; 
+	
+	
+//lien de la google sheet
+var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1lMb_c6dGcmpsluqg1DR1Cic5b5b9gs344rlqDOuD6ZA/pubhtml'	
+	
+	
+// Echelle couleur 
+var color = function(x) {
+	if (x<30)
+		return '#006d2c';
+	else if (x<40)
+		return '#2ca25f';
+	else if (x<45)
+		return '#66c2a4';
+	else if (x<55)
+		return '#999999';
+	else if (x<60)
+		return '#74a9cf';
+	else if (x<70)
+		return '#2b8cbe';
+	else
+		return '#045a8d';		
+}
+// Echelle X : le range a été mis "a la main" pour que les états soient assez espacé
+var xRange = d3.scale.linear()
+  .domain([0, 30])
+  .range([40,800-40]);
+// Echelle Y :  le range a été mis "a la main" pour que les états soient assez espacé
+var yRange = d3.scale.linear()
+  .domain([0, 30])
+  .range([40,800-40]);
+// Echelle taille carré  : minimun de taille à 10 pour valeur inférieur à 40, puis échelle linéaire de 10 à 35 pour les valeurs jusqu'a 475
+var radRange = function(x) {
+	if (x<40) {
+		return 10;
+	}
+	else {
+	var temp = d3.scale.linear()
+		.domain([0, 475])
+		.range([10,35]);
+  
+		return temp(x); }
+} 
+
+
+//Création d'une view box pour que les espaces entre les éléments du svg restent constant.
+var svg = d3.select('svg')
+	.attr("viewBox", [
+       0,
+       0,
+       width,
+       height
+     ].join(" ")); 
+
+//Données emplacements donné par le script etat.js 
+var dataLoc = gridmapLayoutUsa;
+
+//Fonction pour trouver l'emplacement en fonction du nom : retourne l'index de l'état dans le tableau des emplacements
+var recherche = function(name) {
+var index=-1;
+	for (i = 0; i < dataLoc.length; i++) { 
+		if (dataLoc[i].name==name) 
+			index=i;
+}
+return index;
+}
+//Tip tool fixe - endroit a définir dans la librairie tip.js dans la fonction show (ligne 44 et 45 )
+var tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([0, -80])
+		.html(function(d) {
+			if (d.clinton>1&&d.sanders>1)
+				return "<p class='titre'>&nbsp;&nbsp;"+d.nameFR+"</p>&nbsp;Clinton : "+d.clinton+" délégués <br> &nbsp;Sanders : "+d.sanders+" délégués<br>&nbsp;";
+			else if (d.clinton<=1)
+				return "<p class='titre'>&nbsp;&nbsp;"+d.nameFR+"</p>&nbsp;Clinton : "+d.clinton+" délégué <br> &nbsp;Sanders : "+d.sanders+" délégués<br>&nbsp;";
+			else
+			return "<p class='titre'>&nbsp;&nbsp;"+d.nameFR+"</p>&nbsp;Clinton : "+d.clinton+" délégués <br> &nbsp;Sanders : "+d.sanders+" délégué<br>&nbsp;";
+			
+		});
+
+
+// Construction de la carte en carré
+
+function drawChart(data) {
+
+//Affectation des données aux noeuds
+var nodes = d3.range(data.length).map(function(i) {
+	// On récupère toutes les infos du tableau google
+  var name = data[i].État_EN;
+  var nameFR = data[i].État_FR;
+  var key = dataLoc[recherche(name)].key
+  var xt = dataLoc[recherche(name)].x;
+  var yt = dataLoc[recherche(name)].y;
+  var rad = data[i].Nombre_de_délégués_par_État;
+  var clin = parseInt(data[i].Délégués_Clinton);
+  var san = parseInt(data[i].Délégués_Sanders);
+  var col = 100*(clin/(clin + san));
+	return {
+	key : key,
+	name: name,
+	nameFR : nameFR,
+	radius: radRange(rad),
+	clinton : clin,
+	sanders : san,
+    x: xRange(xt),
+    y: yRange(yt),
+	x0: xRange(xt),
+    y0: yRange(yt),
+	color : color(col)
+  };
+});
+
+//Force - Collision non fonctionelle
+var force = d3.layout.force()
+    .nodes(nodes)
+	.size([width, height])
+    .gravity(0)
+    .charge(0)
+    .on("tick", tick)
+    .start();	
+
+//Création d'un groupe pour les carrés et leur texte	
+var groupp = svg.append("g");
+
+var group = groupp.selectAll('g')
+  .data(nodes)
+  .enter()
+  .append('g')
+  .attr('transform', function(d){return 'translate('+d.x0+','+d.y0+')';});
+  
+// Création des rectangles : taille et couleur en fonction des échelles
+var rectangle =  group.append("rect")
+  .attr("class","rectangle")
+  .attr("width", function(d) { return d.radius*2; })
+  .attr("height", function(d) { return d.radius*2; })
+  .style("fill", function(d) { return d.color; })
+  .style("opacity", "1")
+  .attr("stroke-width", "0.5px")
+  .attr("stroke", "white")
+  .on('mouseover', tip.show)
+  .on('mouseout', tip.hide);
+//Création du texte 
+var text = group.append('text')
+  .attr("class","nomEtat")
+  .attr("dx", ".1em")
+  .attr("dy", "1em")
+  .text(function(d) {return d.key;})
+  .style("fill","#e5e5e5")
+  .on('mouseover', tip.show)
+  .on('mouseout', tip.hide);
+  
+
+  //Fonction de déplacement (les rectangles et les textes sont déplacé par la gravité et si collision )
+ function tick(e) {
+  rectangle
+      .each(gravity(.5 * e.alpha))
+      .each(collide(.1))
+      .attr("x", function(d) { return d.x - d.radius ; })
+      .attr("y", function(d) { return d.y - d.radius ; });
+	text
+      .each(gravity(.5 * e.alpha))
+      .each(collide(.1))
+      .attr("x", function(d) { return d.x - d.radius ; })
+      .attr("y", function(d) { return d.y - d.radius ; });
+};
+
+//Fonction de gravité (les rectangles et les textes sont attirés par leurs point d'origine x0,y0 )
+  function gravity(alpha) {
+  return function(d) {
+    d.y += (d.y0 - d.y) * alpha;
+    d.x += (d.x0 - d.x) * alpha;
+  };
+}
+//Fonction de collision a revoir 
+function collide(k) {
+  var quadtree = d3.geom.quadtree(nodes);
+  return function(node) {
+    var nr = node.radius,
+        nx1 = node.x - nr,
+        nx2 = node.x + nr,
+        ny1 = node.y - nr,
+        ny2 = node.y + nr;
+    quadtree.visit(function(quad, x1, y1, x2, y2) {
+  if (quad.point && (quad.point !== node)) {
+			var x = node.x - quad.point.x,
+				y = node.y - quad.point.y,
+				xSpacing = (quad.point.width + node.width) / 2,
+				ySpacing = (quad.point.height + node.height) / 2,
+				absX = Math.abs(x),
+				absY = Math.abs(y),
+				l,
+				lx,
+				ly;
+			if (absX < xSpacing && absY < ySpacing) {
+				l = Math.sqrt(x * x + y * y);
+				lx = (absX - xSpacing) / l;
+				ly = (absY - ySpacing) / l;
+				if (Math.abs(lx) > Math.abs(ly)) {
+					lx = 0;
+				} else {
+					ly = 0;
+				}
+				node.x -= x *= lx;
+				node.y -= y *= ly;
+				quad.point.x += x;
+				quad.point.y += y;
+				}
+		}
+      return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+		});
+	};	
+};
+};
+//Fin fonction de dessin
+
+
+ //Appel à la Google sheet par 2 fonctions
+ function renderSpreadsheetData() {
+    Tabletop.init( { key: public_spreadsheet_url,
+                     callback: draw,
+                     simpleSheet: true } )
+}
+function draw(data, tabletop) {
+  // draw chart
+  drawChart(data);
+	}
+	
+//Appel à la fonction de rendu	
+renderSpreadsheetData();
+
+//Mise en place du tiptool
+svg.call(tip);
+
+
+//Légende
+//Array pour les couleurs
+var leg = [{v:0,c:'#045a8d'},{v:30,c:'#2b8cbe'},{v:40,c:'#74a9cf'},{v:45,c:'#999999'},{v:55,c:'#66c2a4'},{v:60,c:'#2ca25f'},{v:70,c:'#006d2c'},{v:100,c:'#006d2c'}];
+
+// Variables d'emplacement : 
+// Légende 1 : couleurs
+var margin=550; // Décalage en x : position du point haut-gauche de la barre
+var hauteur2 = 510; //Décalage en y : position du point haut-gauche de la barre
+var facteur = 1; //Facteur de multiplication pour la taille (largeur) de la barre
+var tailleH = 25; // Taille (hauteur) de la barre
+
+// Légende 2 : tailles
+var hauteur=475; // Décalage en x : position du point milieu bas des carrées
+var decalage=600; //Décalage en y : position du point milieu bas des carrées
+
+
+//Création d'un nouveau groupe pour creer la premiere légende
+var groupp = svg.append("g");
+//Legende 1 couleurs
+//Création de la barre sous la forme de rectangle
+groupp.selectAll("rect")
+		.data(leg)
+		.enter()
+		.append("rect")
+		.attr("x",function(d) {return d.v*facteur+margin;})
+		.attr("y",hauteur2)
+		.attr("height",tailleH)
+		.attr("width",function(d,i) { 
+			if (i!=leg.length-1)
+				return (leg[i+1].v-d.v)*facteur;
+			else return 0;})
+		.style("fill", function(d){return d.c;});
+//Création des deux noms des candidats	
+groupp.append('text')
+		.text("Sanders")
+		.attr("class","legende")
+		.attr("x",function(d) {return 85*facteur+margin+10;})
+		.attr("y",hauteur2+tailleH+17)
+		.style("fill","#4c4c4c")
+		.attr("text-anchor", "middle");		
+groupp.append('text')
+		.text("Clinton")
+		.attr("class","legende")
+		.attr("x",function(d) {return 15*facteur+margin-10;})
+		.attr("y",hauteur2+tailleH+17)
+		.style("fill","#4c4c4c")
+		.attr("text-anchor", "middle");
+//Création des chiffres de la légende		
+groupp.append('text')
+		.text("100%")
+		.attr("class","legendeC")
+		.attr("x",margin)
+		.attr("y",hauteur2-5)
+		.style("fill","#4c4c4c")
+		.attr("text-anchor", "middle");	
+groupp.append('text')
+		.text("50%")
+		.attr("class","legendeC")
+		.attr("x",margin + 50*facteur)
+		.attr("y",hauteur2-5)
+		.style("fill","#4c4c4c")
+		.attr("text-anchor", "middle");
+groupp.append('text')
+		.text("100%")
+		.attr("class","legendeC")
+		.attr("x",margin + 100*facteur)
+		.attr("y",hauteur2-5)
+		.style("fill","#4c4c4c")
+		.attr("text-anchor", "middle");			
+
+//Legende 2 taille carré à afficher	
+var legC = [40,200,475];
+
+//Création d'un nouveau groupe pour creer la premiere légende
+groupp = svg.append("g");
+//Création des carrées	
+groupp.selectAll("rect")
+		.data(legC)
+		.enter()
+		.append("rect")
+		.attr("x",function(d) {return decalage - radRange(d)})
+		.attr("y",function(d) {return hauteur - radRange(d)*2})
+		.attr("height",function(d) { return radRange(d)*2})
+		.attr("width",function(d) { return radRange(d)*2})
+		.style("fill","none")
+		.style("stroke","#4c4c4c")
+		.style("stroke-width", 0.3);;
+//Création du texte des tailles			
+groupp.selectAll("text")
+		.data(legC)
+		.enter()
+		.append("text")
+		.attr("class","legendeC")
+		.attr("x",function(d) {return decalage+2 - radRange(d)})
+		.attr("y",function(d) {return hauteur+10 - radRange(d)*2})
+		.style("fill","#4c4c4c")
+		.attr("text-anchor", "start")
+		.text(function(d) {if (d==40) return "<40"; else return d});
+//Création du texte pour la légende 2		
+groupp.append("text")
+		.attr("x",decalage)
+		.attr("y",hauteur-75)
+		.attr("class","legende")
+		.style("fill","#4c4c4c")
+		.attr("text-anchor", "middle")
+		.text("Délégués par Etat");
+
+		
+//Titre du graphique     
+groupp.append("text")
+        .attr("x",0)
+        .attr("y",30)
+        .attr("class","titreCarte")
+        .style("fill","#000000")
+        .attr("text-anchor", "start")
+        .text("Où les candidats ont-ils remporté leurs délégués ?");
+		
+		
+</script>
+
+</body>
