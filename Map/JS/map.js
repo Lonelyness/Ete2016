@@ -447,6 +447,58 @@ function httpGet(theUrl)
 
 
 function valider() {
+	/*
+	var container = document.getElementsByClassName('leaflet-tile-container');
+	container = container[container.length-1];
+        
+	var images = container.getElementsByTagName('img');
+	for (var i = 0; i < images.length; i++) {
+		images[i].setAttribute('crossOrigin', 'anonymous');
+		images[i].src = images[i].src;
+	}
+			
+	var canvas  = document.getElementById('dumb');
+	var context = canvas.getContext('2d');
+	
+	var container2 = document.getElementsByClassName('leaflet-map-pane');
+	container2 = container2[0];
+	var transp = container2.style.transform;
+		console.log(trans);
+		transp = transp.split("px");
+	var xp = transp[0].split("(");
+			xp = xp[xp.length-1];
+	var yp = transp[1].slice(2,transp[1].length);
+	console.log(xp);
+	console.log(yp);
+	
+			
+	canvas.width  = map.getSize().x;
+	canvas.height = map.getSize().y;
+			
+	for (i = 0; i < images.length; i++) {
+		if (typeof images[i] != 'undefined') {
+			var trans = images[i].style.transform;
+			console.log(trans);
+			trans = trans.split("px");
+			var x = trans[0].split("(");
+			x = x[x.length-1];
+			var y = trans[1].slice(2,trans[1].length);
+			console.log(x);
+			console.log(y);
+			context.drawImage(images[i],
+				xp+x, 
+				yp+y,
+				images[i].clientWidth,
+				images[i].clientHeight
+			);
+		}
+	}
+	 
+	//window.open(canvas.toDataURL());
+	*/	
+	
+	
+	
 	document.getElementById('val').style.display="block";
 	document.getElementById('map').style.display='none';
 	
