@@ -36,9 +36,9 @@ series = data;
         element: document.getElementById('container'),
 		responsive : true,
         geographyConfig: {
-            dataUrl: './JS/afghan.json'
+            dataUrl: './JS/CFCAFR.json'
         },
-        scope: 'afghan',
+        scope: 'CF_CA_2_1_FR',
         setProjection: function(element, options) {
 			var projection = d3.geo.mercator()
 				.center([66.166667, 34.4444])
