@@ -15,8 +15,10 @@ var yRange = function(y) {
 	return (y+1)*(3/2)*r;
 }
 //Echelle des couleurs
+//à coté des x== mettre les valeurs des données et en dessous les couleurs
+//la derniere couleur est celle par default
+/*
 var color = function(x) {
-console.log(x);
 	if (x==3)
 		return '#A2A090';
 	else if (x==2)
@@ -26,6 +28,22 @@ console.log(x);
 	else
 		return '#c3c3c3';		
 }
+*/
+
+//Si gradient
+// min sera la valeur inférieur de l'echelle et max la plus grande
+var min = 0;
+var max = 1;
+// color1 et color2 sont les bornes de l'echelle
+var color1 = "red";
+var color2 = "green";
+
+
+var color = d3.scale.linear()
+    .domain([min, max])
+    .range([color1, color2]);	
+
+
 
 
 //Ouverture du csv des données dans une fonction
